@@ -1,0 +1,58 @@
+plugins {
+    id 'java-gradle-plugin'
+    id 'groovy'
+    id 'maven-publish'
+}
+
+gradlePlugin {
+    plugins {
+        // 声明插件信息，这里的 hello 名字随意
+        hello {
+            // 插件ID
+            id = 'test.asm.track.id'
+            // 插件的实现类
+            implementationClass = 'com.example.asmtrack.HelloPlugin'
+        }
+    }
+}
+
+
+dependencies {
+    implementation gradleApi() //必须
+    implementation localGroovy() //必须
+    //如果要使用 android 的 API，需要引用这个，实现 Transform 的时候会用到
+    implementation 'com.android.tools.build:gradle:4.1.3'
+    // 如果使用 kotlin
+    // implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+}
+
+repositories {
+    mavenCentral() //必须
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+publishing {
+    publications {
+        // 这里的 hello 可以任意命名
+        helloAsm(MavenPublication) {
+            // 插件的组ID，建议设置为插件的包名
+            groupId = 'plugin.asm.track'
+            // 翻译过来是 工件ID，我的理解是插件的名字
+            artifactId = 'asmtrack'
+            version = '0.0.10'
+            // 组件类型，我们的插件其实就是Java组件
+            from components.java
+        }
+    }
+
+    repositories {
+        maven {
+            // $rootDir 表示你项目的根目录
+            url = "$rootDir/repo"
+        }
+    }
+}

@@ -1,0 +1,50 @@
+apply plugin: 'com.android.application'
+apply plugin: 'test.asm.track.id' // 名称就是 properties 文件的名称
+
+
+android {
+    compileSdkVersion 30
+
+    defaultConfig {
+        applicationId "com.example.testandroid51"
+        minSdkVersion 19
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    aaptOptions {
+        additionalParameters '--allow-reserved-package-id','--package-id','0x10'
+    }
+
+
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+//    implementation group: 'com.android.support', name: 'recyclerview-v7', version: '27.1.1'
+    
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    //leakcanary
+//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.2'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.2'
+
+    debugImplementation 'com.facebook.stetho:stetho:1.5.0'
+    debugImplementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+
+    implementation 'me.weishu:epic:0.6.0'
+
+
+}
