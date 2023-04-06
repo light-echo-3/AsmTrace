@@ -8,10 +8,6 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.opengl.GLES20;
-import android.opengl.GLUtils;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -22,14 +18,12 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 
 import com.example.testandroid51.aidl.Book;
 import com.example.testandroid51.aidl.BookManagerService;
 import com.example.testandroid51.aidl.IBookManager;
 import com.example.testandroid51.aidl.IOnNewBookArrivedListener;
 import com.example.testandroid51.dynamic.DLPlugin;
-import com.example.testandroid51.test.TestEpic;
 
 import java.io.File;
 import java.util.List;
@@ -110,8 +104,6 @@ public class MainActivity extends Activity implements DLPlugin {
             e.printStackTrace();
         }
         Trace.endSection();
-
-        TestEpic.hookConstructor();
 
         new Thread(){
             @Override

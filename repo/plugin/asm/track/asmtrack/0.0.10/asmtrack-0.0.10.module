@@ -1,0 +1,70 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "plugin.asm.track",
+    "module": "asmtrack",
+    "version": "0.0.10",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "6.5",
+      "buildId": "zfmmowe3arc5hobihvyfaute7q"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 8,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "files": [
+        {
+          "name": "asmtrack-0.0.10.jar",
+          "url": "asmtrack-0.0.10.jar",
+          "size": 14729,
+          "sha512": "9f171e7db3b5acb5c6222dd192ba1f1d4c4463b7519714fabb1c965c5fb94a149d9cdbaf0ad693f05e754c9b378778280aeaf505ed6973a3b9b98e49d287eb92",
+          "sha256": "0c7ef11ed37ca8ed320f9f0577d74205623e05b0682bb0a98c02f2de441135b0",
+          "sha1": "01a090e0650cf42b4e7ef9f3b85e53362ff91c9d",
+          "md5": "2ed8411350b38e0892ad3cac7b6f5010"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 8,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "com.android.tools.build",
+          "module": "gradle",
+          "version": {
+            "requires": "4.1.3"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "asmtrack-0.0.10.jar",
+          "url": "asmtrack-0.0.10.jar",
+          "size": 14729,
+          "sha512": "9f171e7db3b5acb5c6222dd192ba1f1d4c4463b7519714fabb1c965c5fb94a149d9cdbaf0ad693f05e754c9b378778280aeaf505ed6973a3b9b98e49d287eb92",
+          "sha256": "0c7ef11ed37ca8ed320f9f0577d74205623e05b0682bb0a98c02f2de441135b0",
+          "sha1": "01a090e0650cf42b4e7ef9f3b85e53362ff91c9d",
+          "md5": "2ed8411350b38e0892ad3cac7b6f5010"
+        }
+      ]
+    }
+  ]
+}
