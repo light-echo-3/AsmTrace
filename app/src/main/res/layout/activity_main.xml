@@ -28,12 +28,12 @@
         android:layout_height="wrap_content"
         android:text="addBook" />
 
-    <com.example.testandroid51.views.MyCanvasView
+    <com.wuzhu.testandroid51.views.MyCanvasView
         android:id="@+id/MyCanvasView"
         android:layout_marginTop="100dp"
         android:layout_width="100dp"
         android:layout_height="100dp"/>
-    <com.example.testandroid51.views.MyCanvasView2
+    <com.wuzhu.testandroid51.views.MyCanvasView2
         android:id="@+id/MyCanvasView2"
         android:layout_marginTop="200dp"
         android:layout_width="match_parent"

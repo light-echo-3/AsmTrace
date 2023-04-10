@@ -3,26 +3,26 @@
     package="com.example.testandroid51">
 
     <application
-        android:name=".MyApplication"
+        android:name="com.wuzhu.testandroid51.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         >
-        <activity android:name=".MainActivity">
+        <activity android:name="com.wuzhu.testandroid51.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SecondActivity"/>
-        <service android:name=".aidl.TestAidlService"
+        <activity android:name="com.wuzhu.testandroid51.SecondActivity"/>
+        <service android:name="com.wuzhu.testandroid51.aidl.TestAidlService"
             android:process=":remote"
             />
         <service
-            android:name=".aidl.BookManagerService"
+            android:name="com.wuzhu.testandroid51.aidl.BookManagerService"
             android:process=":remote" />
     </application>
 

@@ -11,7 +11,7 @@ gradlePlugin {
             // 插件ID
             id = 'test.asm.track.id'
             // 插件的实现类
-            implementationClass = 'com.example.asmtrack.HelloPlugin'
+            implementationClass = 'com.wuzhu.asmtrack.AsmTrackPlugin'
         }
     }
 }
