@@ -10,7 +10,7 @@ import org.gradle.api.Project
  */
 class HelloPlugin implements Plugin<Project> {
     void apply(Project project) {
-        println("-----======asm HelloPlugin")
+        println("-----======asm HelloPlugin2")
 
         def isApp = project.plugins.hasPlugin(AppPlugin)
         //only application module needs this plugin to generate register code

@@ -11,7 +11,7 @@
   "createdBy": {
     "gradle": {
       "version": "6.5",
-      "buildId": "n44lz2aabffo3ipdzta74mdsxi"
+      "buildId": "hpgdl5eoz5a6dpmainolwo23l4"
     }
   },
   "variants": [
@@ -28,11 +28,11 @@
         {
           "name": "asmtrack-0.0.11.jar",
           "url": "asmtrack-0.0.11.jar",
-          "size": 14729,
-          "sha512": "9f171e7db3b5acb5c6222dd192ba1f1d4c4463b7519714fabb1c965c5fb94a149d9cdbaf0ad693f05e754c9b378778280aeaf505ed6973a3b9b98e49d287eb92",
-          "sha256": "0c7ef11ed37ca8ed320f9f0577d74205623e05b0682bb0a98c02f2de441135b0",
-          "sha1": "01a090e0650cf42b4e7ef9f3b85e53362ff91c9d",
-          "md5": "2ed8411350b38e0892ad3cac7b6f5010"
+          "size": 14731,
+          "sha512": "df093b02bc77de53d1e36a36a1f4d43559e5eeb88ec24e1ffc9738a50a3cb7917f3db907e8bce8c7f92cbb2f1bd5944b721a6059b75da648118121fa52af1616",
+          "sha256": "148c33be25e8581d21cc38378f9a548a08f10445fabfba3d21b95026146e9be9",
+          "sha1": "7abfe01ef2f5de2a3b25dc5f3ac755a950a1332c",
+          "md5": "25d519f4367d265332f86f96a76b97f3"
         }
       ]
     },
@@ -58,11 +58,11 @@
         {
           "name": "asmtrack-0.0.11.jar",
           "url": "asmtrack-0.0.11.jar",
-          "size": 14729,
-          "sha512": "9f171e7db3b5acb5c6222dd192ba1f1d4c4463b7519714fabb1c965c5fb94a149d9cdbaf0ad693f05e754c9b378778280aeaf505ed6973a3b9b98e49d287eb92",
-          "sha256": "0c7ef11ed37ca8ed320f9f0577d74205623e05b0682bb0a98c02f2de441135b0",
-          "sha1": "01a090e0650cf42b4e7ef9f3b85e53362ff91c9d",
-          "md5": "2ed8411350b38e0892ad3cac7b6f5010"
+          "size": 14731,
+          "sha512": "df093b02bc77de53d1e36a36a1f4d43559e5eeb88ec24e1ffc9738a50a3cb7917f3db907e8bce8c7f92cbb2f1bd5944b721a6059b75da648118121fa52af1616",
+          "sha256": "148c33be25e8581d21cc38378f9a548a08f10445fabfba3d21b95026146e9be9",
+          "sha1": "7abfe01ef2f5de2a3b25dc5f3ac755a950a1332c",
+          "md5": "25d519f4367d265332f86f96a76b97f3"
         }
       ]
     }
