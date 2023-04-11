@@ -157,8 +157,7 @@ public class ASMTransform extends Transform {
 
     /**
      * 用注解 com.wuzhu.libasmtrack.NotTrack 注释的类，不插桩
-     * @param reader
-     * @return
+     * @return true:不插桩
      */
     private boolean isNotTrack(ClassReader reader) {
         ClassNode classNode = new ClassNode();//创建ClassNode,读取的信息会封装到这个类里面
