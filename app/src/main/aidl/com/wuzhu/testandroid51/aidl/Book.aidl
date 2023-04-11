@@ -1,4 +1,4 @@
 // Book.aidl
-package com.example.testandroid51.aidl;
+package com.wuzhu.testandroid51.aidl;
 
 parcelable Book;

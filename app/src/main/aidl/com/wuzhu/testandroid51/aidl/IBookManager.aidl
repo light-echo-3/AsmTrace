@@ -1,7 +1,7 @@
 // IBookManager.aidl
-package com.example.testandroid51.aidl;
-import com.example.testandroid51.aidl.IOnNewBookArrivedListener;
-import com.example.testandroid51.aidl.Book;
+package com.wuzhu.testandroid51.aidl;
+import com.wuzhu.testandroid51.aidl.IOnNewBookArrivedListener;
+import com.wuzhu.testandroid51.aidl.Book;
 // Declare any non-default types here with import statements
 
 interface IBookManager {

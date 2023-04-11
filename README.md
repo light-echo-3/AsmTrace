@@ -7,7 +7,7 @@ github地址：https://github.com/hardy666666/AsmTrackDemo
 ![img_1.png](readme_imgs/img_1.png)
 
 ## 1.2 编译并发布到repo仓库  
-./gradlew :AsmTrack:publishHelloAsmPublicationToMavenRepository<br> 
+./gradlew :AsmTrack:publishHelloAsmPublicationToMavenRepository
 or<br>
 ![img.png](readme_imgs/img.png)
 
@@ -32,7 +32,7 @@ or<br>
 taskName是我们调试的task，比如assembleDebug、assembleRelease等  
 例如：  
 ```
-./gradlew --no-daemon -Dorg.gradle.debug=true clean :app:assembleDebug
+./gradlew --no-daemon -Dorg.gradle.debug=true :app:clean :app:assembleDebug
 ```
 输入命令后调试进程处于阻塞状态：
 ![img.png](readme_imgs/img_6.png)

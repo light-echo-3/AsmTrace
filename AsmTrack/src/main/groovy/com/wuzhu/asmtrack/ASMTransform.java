@@ -1,7 +1,6 @@
 package com.wuzhu.asmtrack;
 
 
-
 import com.android.build.api.transform.DirectoryInput;
 import com.android.build.api.transform.Format;
 import com.android.build.api.transform.JarInput;
@@ -26,7 +25,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Consumer;
 
 /**
  * @author Hdq on 2022/12/6.
@@ -70,15 +68,12 @@ public class ASMTransform extends Transform {
         Collection<TransformInput> inputs = transformInvocation.getInputs();
         inputs.forEach(transformInput -> {
             Collection<DirectoryInput> directoryInputs = transformInput.getDirectoryInputs();
-            directoryInputs.forEach(new Consumer<DirectoryInput>() {
-                @Override
-                public void accept(DirectoryInput directoryInput) {
-                    try {
-                        // 处理输入源
-                        handleDirectoryInput(directoryInput);
-                    } catch (IOException e) {
-                        System.out.println("handleDirectoryInput error:" + e.toString());
-                    }
+            directoryInputs.forEach(directoryInput -> {
+                try {
+                    // 处理输入源
+                    handleDirectoryInput(directoryInput);
+                } catch (IOException e) {
+                    System.out.println("handleDirectoryInput error:" + e);
                 }
             });
 
@@ -93,7 +88,7 @@ public class ASMTransform extends Transform {
                 try {
                     FileUtils.copyDirectory(directoryInput.getFile(), dest);
                 } catch (IOException e) {
-                    System.out.println("output copy error:" + e.toString());
+                    System.out.println("output copy error:" + e);
                 }
             }
 
@@ -110,7 +105,7 @@ public class ASMTransform extends Transform {
                 try {
                     FileUtils.copyFile(jarInput.getFile(), dest);
                 } catch (IOException e) {
-                    System.out.println("output copy error:" + e.toString());
+                    System.out.println("output copy error:" + e);
                 }
             }
         });
@@ -124,7 +119,7 @@ public class ASMTransform extends Transform {
         List<File> files = new ArrayList<>();
         //列出目录所有文件（包含子文件夹，子文件夹内文件）
         listFiles(files, directoryInput.getFile());
-        for (File file: files) {
+        for (File file : files) {
             scanClass(file);
             // 方法节流
 //            methodThrottleASM(file);
@@ -134,10 +129,9 @@ public class ASMTransform extends Transform {
         }
     }
 
-    private void scanClass(File file) {
-
+    private void scanClass(File inFile) {
         try {
-            InputStream inputStream = new FileInputStream(file);
+            InputStream inputStream = new FileInputStream(inFile);
             ClassReader classReader = new ClassReader(inputStream);
             ClassWriter classWriter = new ClassWriter(classReader, 0);
             ScanClassVisitor classVisitor = new ScanClassVisitor(Opcodes.ASM5, classWriter);
@@ -145,7 +139,8 @@ public class ASMTransform extends Transform {
 
             //覆盖原来的class文件
             byte[] code = classWriter.toByteArray();
-            FileOutputStream fos = new FileOutputStream(file.getParentFile().getAbsolutePath() + File.separator + file.getName());
+            FileOutputStream fos = new FileOutputStream(inFile.getParentFile()
+                    .getAbsolutePath() + File.separator + inFile.getName());
             fos.write(code);
 
             fos.close();
@@ -162,8 +157,10 @@ public class ASMTransform extends Transform {
             return;
         }
         File[] subFiles = file.listFiles();
-        for (int i = 0; i < subFiles.length; i++) {
-            listFiles(files,subFiles[i]);
+        if (subFiles != null) {
+            for (File subFile : subFiles) {
+                listFiles(files, subFile);
+            }
         }
     }
 

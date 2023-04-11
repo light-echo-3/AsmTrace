@@ -6,12 +6,15 @@ import org.objectweb.asm.Opcodes;
 /**
  * @author Hdq on 2022/12/6.
  */
-public class MethodEnterAndExitAdapter  extends MethodVisitor {
+public class MethodEnterAndExitAdapter extends MethodVisitor {
 
-    private String className;
-    private String methodName;
+    private final String className;
+    private final String methodName;
 
-    public MethodEnterAndExitAdapter(int api, MethodVisitor methodVisitor, String className,String methodName) {
+    public MethodEnterAndExitAdapter(int api,
+                                     MethodVisitor methodVisitor,
+                                     String className,
+                                     String methodName) {
         super(api, methodVisitor);
         this.className = className;
         this.methodName = methodName;
@@ -44,12 +47,13 @@ public class MethodEnterAndExitAdapter  extends MethodVisitor {
         );
     }
 
-    private static final int  maxSectionNameLength = 127;
+    private static final int maxSectionNameLength = 127;
+
     private String generatorName() {
         String sectionName = "-" + className + "#" + methodName;
         int length = sectionName.length();
         if (length > maxSectionNameLength) {
-            sectionName = sectionName.substring(0,maxSectionNameLength);
+            sectionName = sectionName.substring(0, maxSectionNameLength);
         }
         return sectionName;
     }

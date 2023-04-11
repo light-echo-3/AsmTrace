@@ -19,7 +19,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.testandroid51.R;
 import com.wuzhu.testandroid51.aidl.Book;
 import com.wuzhu.testandroid51.aidl.BookManagerService;
 import com.wuzhu.testandroid51.aidl.IBookManager;

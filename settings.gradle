@@ -1,2 +1,3 @@
 include ':app'
 include ':AsmTrack'
+include ':lib_asmtrack'

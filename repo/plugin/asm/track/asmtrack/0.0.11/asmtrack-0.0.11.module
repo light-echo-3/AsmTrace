@@ -1,17 +1,16 @@
 {
   "formatVersion": "1.1",
   "component": {
-    "group": "plugin.asm.track",
-    "module": "asmtrack",
-    "version": "0.0.11",
+    "group": "AsmTrackDemo",
+    "module": "AsmTrack",
+    "version": "unspecified",
     "attributes": {
       "org.gradle.status": "release"
     }
   },
   "createdBy": {
     "gradle": {
-      "version": "6.5",
-      "buildId": "ylg32ls3zjhxhml5fsxpn2zuqi"
+      "version": "7.2"
     }
   },
   "variants": [
@@ -20,7 +19,7 @@
       "attributes": {
         "org.gradle.category": "library",
         "org.gradle.dependency.bundling": "external",
-        "org.gradle.jvm.version": 8,
+        "org.gradle.jvm.version": 11,
         "org.gradle.libraryelements": "jar",
         "org.gradle.usage": "java-api"
       },
@@ -28,11 +27,11 @@
         {
           "name": "asmtrack-0.0.11.jar",
           "url": "asmtrack-0.0.11.jar",
-          "size": 14703,
-          "sha512": "837d141a1d1bdd2984f99d3fc177c8c2c5a9746fd76bfaa8e5ac717c47a7fcba87df9c5682124476daaef80b419280e9012da611f69325a90dae5ec460641763",
-          "sha256": "8b7abe51509bf9d70b2795bc627df3940c765cca34715bed0d67b37eda8477ab",
-          "sha1": "3bdb0326814845c1f24eb6b03d31a5fe4360e0a7",
-          "md5": "88bc35c61c515e4894d8fb671daf8544"
+          "size": 13701,
+          "sha512": "99d059bdd41bb4cc591d2425320c99a90023233b6586206d86a894455fdd44068cdd9b40f1215be02795b133ab164c2b996c7cf17aa705d4ae1dcbb5bd2c6ea6",
+          "sha256": "e2e206b7be1ec1b269f5c5db361f0d3ac7cfd58a7404fc99b90470321542099b",
+          "sha1": "611899ec818dc6719b5ce0d937878c75da3cbd55",
+          "md5": "f59cb66c6d6ae0075c0eed305b453a0b"
         }
       ]
     },
@@ -41,7 +40,7 @@
       "attributes": {
         "org.gradle.category": "library",
         "org.gradle.dependency.bundling": "external",
-        "org.gradle.jvm.version": 8,
+        "org.gradle.jvm.version": 11,
         "org.gradle.libraryelements": "jar",
         "org.gradle.usage": "java-runtime"
       },
@@ -58,11 +57,11 @@
         {
           "name": "asmtrack-0.0.11.jar",
           "url": "asmtrack-0.0.11.jar",
-          "size": 14703,
-          "sha512": "837d141a1d1bdd2984f99d3fc177c8c2c5a9746fd76bfaa8e5ac717c47a7fcba87df9c5682124476daaef80b419280e9012da611f69325a90dae5ec460641763",
-          "sha256": "8b7abe51509bf9d70b2795bc627df3940c765cca34715bed0d67b37eda8477ab",
-          "sha1": "3bdb0326814845c1f24eb6b03d31a5fe4360e0a7",
-          "md5": "88bc35c61c515e4894d8fb671daf8544"
+          "size": 13701,
+          "sha512": "99d059bdd41bb4cc591d2425320c99a90023233b6586206d86a894455fdd44068cdd9b40f1215be02795b133ab164c2b996c7cf17aa705d4ae1dcbb5bd2c6ea6",
+          "sha256": "e2e206b7be1ec1b269f5c5db361f0d3ac7cfd58a7404fc99b90470321542099b",
+          "sha1": "611899ec818dc6719b5ce0d937878c75da3cbd55",
+          "md5": "f59cb66c6d6ae0075c0eed305b453a0b"
         }
       ]
     }

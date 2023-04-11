@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Trace;
 import android.util.Log;
 
-import com.example.testandroid51.R;
 
 /**
  * @author Hdq on 2022/8/1.

@@ -6,7 +6,7 @@ android {
     compileSdkVersion 33
 
     defaultConfig {
-        applicationId "com.example.testandroid51"
+        applicationId "com.wuzhu.testandroid51"
         minSdkVersion 19
         targetSdkVersion 33
         versionCode 1

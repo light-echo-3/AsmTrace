@@ -7,12 +7,12 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
-import com.example.testandroid51.R;
+import com.wuzhu.testandroid51.R;
+
 
 /**
  * @author Hdq on 2022/11/17.
