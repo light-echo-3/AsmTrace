@@ -15,6 +15,8 @@ import com.android.utils.FileUtils;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
+import org.objectweb.asm.tree.AnnotationNode;
+import org.objectweb.asm.tree.ClassNode;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -133,6 +135,9 @@ public class ASMTransform extends Transform {
         try {
             InputStream inputStream = new FileInputStream(inFile);
             ClassReader classReader = new ClassReader(inputStream);
+            if (isNotTrack(classReader)) {
+                return;
+            }
             ClassWriter classWriter = new ClassWriter(classReader, 0);
             ScanClassVisitor classVisitor = new ScanClassVisitor(Opcodes.ASM5, classWriter);
             classReader.accept(classVisitor, ClassReader.EXPAND_FRAMES);
@@ -148,6 +153,26 @@ public class ASMTransform extends Transform {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 用注解 com.wuzhu.libasmtrack.NotTrack 注释的类，不插桩
+     * @param reader
+     * @return
+     */
+    private boolean isNotTrack(ClassReader reader) {
+        ClassNode classNode = new ClassNode();//创建ClassNode,读取的信息会封装到这个类里面
+        reader.accept(classNode, 0);//开始读取
+        List<AnnotationNode> annotations = classNode.invisibleAnnotations;//获取声明的所有注解
+        if (annotations != null) {//遍历注解
+            for (AnnotationNode annotationNode : annotations) {
+                //获取注解的描述信息
+                if ("Lcom/wuzhu/libasmtrack/NotTrack;".equals(annotationNode.desc)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private static void listFiles(List<File> files, File file) {

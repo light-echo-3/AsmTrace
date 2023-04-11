@@ -32,7 +32,7 @@ or<br>
 taskName是我们调试的task，比如assembleDebug、assembleRelease等  
 例如：  
 ```
-./gradlew --no-daemon -Dorg.gradle.debug=true :app:clean :app:assembleDebug
+./gradlew --no-daemon -Dorg.gradle.debug=true clean :app:assembleDebug
 ```
 输入命令后调试进程处于阻塞状态：
 ![img.png](readme_imgs/img_6.png)

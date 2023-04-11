@@ -26,10 +26,15 @@ android {
         additionalParameters '--allow-reserved-package-id','--package-id','0x10'
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
 }
 
 dependencies {
+    implementation project(":lib_asmtrack")
     implementation fileTree(dir: "libs", include: ["*.jar"])
 //    implementation group: 'com.android.support', name: 'recyclerview-v7', version: '27.1.1'
     
