@@ -2,7 +2,6 @@ plugins {
     id 'org.jetbrains.kotlin.jvm'
     id 'java'
     id 'groovy'
-    id 'kotlin'
     id 'java-gradle-plugin'
     id 'maven-publish'
 }
@@ -25,8 +24,6 @@ dependencies {
     implementation localGroovy() //必须
     //如果要使用 android 的 API，需要引用这个，实现 Transform 的时候会用到
     implementation 'com.android.tools.build:gradle:4.1.3'
-    // 如果使用 kotlin
-    // implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }
 
 //需要添加这个，否则groovy找不到kotlin代码
