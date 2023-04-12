@@ -1,6 +1,9 @@
 plugins {
-    id 'java-gradle-plugin'
+    id 'org.jetbrains.kotlin.jvm'
+    id 'java'
     id 'groovy'
+    id 'kotlin'
+    id 'java-gradle-plugin'
     id 'maven-publish'
 }
 
@@ -26,13 +29,19 @@ dependencies {
     // implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }
 
+//需要添加这个，否则groovy找不到kotlin代码
+compileGroovy {
+    dependsOn tasks.getByPath('compileKotlin')
+    classpath += files(compileKotlin.destinationDirectory.get())
+}
+
 repositories {
     mavenCentral() //必须
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 publishing {

@@ -79,6 +79,13 @@ public class ASMTransform extends Transform {
                 }
             });
 
+            transformInput.getJarInputs().forEach(jarInput -> {
+                ASMTransformBusiness.traceJarFiles(jarInput,
+                        transformInvocation.getOutputProvider(),
+                        new Config());
+            });
+
+
             for (DirectoryInput directoryInput : directoryInputs) {
                 // 获取output目录
                 File dest = transformInvocation.getOutputProvider().getContentLocation(
@@ -157,6 +164,7 @@ public class ASMTransform extends Transform {
 
     /**
      * 用注解 com.wuzhu.libasmtrack.NotTrack 注释的类，不插桩
+     *
      * @return true:不插桩
      */
     private boolean isNotTrack(ClassReader reader) {
