@@ -40,3 +40,10 @@ taskName是我们调试的task，比如assembleDebug、assembleRelease等
 ## 2.5.最后在你想要调试的地方加上断点，点击调试按钮，这样就可以愉快的开始调试了。
 ![img.png](readme_imgs/img_7.png)
 ![img.png](readme_imgs/img_8.png)
+
+## 2.6 测试插件是否发布成功
+1. 修改log:com/wuzhu/asmtrack/AsmTrackPlugin.groovy:28
+2. 发布插件
+3. 执行命令：  
+./gradlew testPluginPublishSuccess  
+查看日志是否是最新的。
