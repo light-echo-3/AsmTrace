@@ -1,7 +1,7 @@
 package com.wuzhu.asmtrack
 
 import com.android.build.gradle.AppExtension
-import com.android.build.gradle.AppPlugin;
+import com.android.build.gradle.AppPlugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -10,7 +10,7 @@ import org.gradle.api.Project
  */
 class AsmTrackPlugin implements Plugin<Project> {
     void apply(Project project) {
-        println("-----======asm AsmTrackPlugin")
+        println("-----======asm AsmTrackPlugin 1")
 
         def isApp = project.plugins.hasPlugin(AppPlugin)
         //only application module needs this plugin to generate register code
