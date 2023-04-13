@@ -8,6 +8,7 @@ import org.gradle.api.Project
 /**
  * A simple 'hello world' plugin.
  */
+@SuppressWarnings("unused")
 class AsmTrackPlugin implements Plugin<Project> {
     void apply(Project project) {
         println("-----======asm AsmTrackPlugin 12")
