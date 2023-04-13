@@ -14,19 +14,20 @@ class Logger {
 
     static void i(String info) {
         if (null != info && null != logger) {
-            logger.info("ARouter::Register >>> " + info)
-        }
-    }
-
-    static void e(String error) {
-        if (null != error && null != logger) {
-            logger.error("ARouter::Register >>> " + error)
+            logger.info("AsmTrackPlugin:: i >>> --- " + info)
         }
     }
 
     static void w(String warning) {
         if (null != warning && null != logger) {
-            logger.warn("ARouter::Register >>> " + warning)
+            logger.warn("AsmTrackPlugin:: w >>> ------ " + warning)
         }
     }
+
+    static void e(String error) {
+        if (null != error && null != logger) {
+            logger.error("AsmTrackPlugin:: e >>> ---------"  + error)
+        }
+    }
+
 }

@@ -11,27 +11,21 @@ import org.gradle.api.Project
 @SuppressWarnings("unused")
 class AsmTrackPlugin implements Plugin<Project> {
     void apply(Project project) {
-        println("-----======asm AsmTrackPlugin 12")
-
+        Logger.make(project)
+        Logger.w("apply begin 12")
         def isApp = project.plugins.hasPlugin(AppPlugin)
         //only application module needs this plugin to generate register code
         if (isApp) {
-            Logger.make(project)
-
-            Logger.i('Project enable AsmTrackPlugin')
-
             def android = project.extensions.getByType(AppExtension)
             def transformImpl = new ASMTransform()
-
             //register this plugin
             android.registerTransform(transformImpl)
+            Logger.w('registerTransform')
         }
-
-
         // Register a task
-        project.tasks.register("greeting") {
+        project.tasks.register("testPluginPublishSuccess") {
             doLast {
-                println("Hello from plugin 'test.plugin.asm.greeting'")
+                Logger.w("AsmTrackPlugin publish success 7")
             }
         }
     }
