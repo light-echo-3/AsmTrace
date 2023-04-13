@@ -1,9 +1,11 @@
-package com.wuzhu.asmtrack
+package com.wuzhu.asmtrack.business
 
 import com.android.build.api.transform.Format
 import com.android.build.api.transform.JarInput
 import com.android.build.api.transform.TransformOutputProvider
 import com.android.utils.FileUtils
+import com.wuzhu.asmtrack.Config
+import com.wuzhu.asmtrack.ScanClassVisitor
 import org.apache.commons.codec.digest.DigestUtils
 import org.apache.commons.compress.utils.IOUtils
 import org.objectweb.asm.ClassReader
@@ -12,6 +14,7 @@ import org.objectweb.asm.ClassWriter
 import org.objectweb.asm.Opcodes
 import java.io.File
 import java.io.FileOutputStream
+import java.io.IOException
 import java.io.InputStream
 
 import java.util.jar.JarEntry
@@ -19,10 +22,11 @@ import java.util.jar.JarFile
 import java.util.jar.JarOutputStream
 import java.util.zip.ZipEntry
 
-object ASMTransformBusiness {
+object HandleJarInputBusiness {
 
 
     @JvmStatic
+    @Throws(IOException::class)
     fun traceJarFiles(jarInput: JarInput, outputProvider: TransformOutputProvider, traceConfig: Config) {
         if (jarInput.file.absolutePath.endsWith(".jar")) {
             val jarFile = JarFile(jarInput.file)
