@@ -48,7 +48,7 @@ publishing {
             groupId = 'plugin.asm.track'
             // 翻译过来是 工件ID，我的理解是插件的名字
             artifactId = 'asmtrack'
-            version = '0.0.11'
+            version = '0.0.12'
             // 组件类型，我们的插件其实就是Java组件
             from components.java
         }

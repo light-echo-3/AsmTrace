@@ -10,7 +10,7 @@ import org.gradle.api.Project
  */
 class AsmTrackPlugin implements Plugin<Project> {
     void apply(Project project) {
-        println("-----======asm AsmTrackPlugin 1")
+        println("-----======asm AsmTrackPlugin 12")
 
         def isApp = project.plugins.hasPlugin(AppPlugin)
         //only application module needs this plugin to generate register code

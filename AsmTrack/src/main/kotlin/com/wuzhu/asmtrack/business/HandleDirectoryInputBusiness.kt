@@ -17,7 +17,7 @@ object HandleDirectoryInputBusiness {
 
     @JvmStatic
     @Throws(IOException::class)
-    fun traceDirectory(directoryInput: DirectoryInput, outputProvider: TransformOutputProvider, traceConfig: Config) {
+    fun traceDirectory(directoryInput: DirectoryInput, outputProvider: TransformOutputProvider, @Suppress("UNUSED_PARAMETER") traceConfig: Config) {
         handleDirectoryInput(directoryInput)
 
         // 获取output目录
@@ -51,7 +51,7 @@ object HandleDirectoryInputBusiness {
                 return
             }
             val classWriter = ClassWriter(classReader, 0)
-            val classVisitor = ScanClassVisitor(Opcodes.ASM5, classWriter)
+            val classVisitor = ScanClassVisitor(Opcodes.ASM7, classWriter)
             classReader.accept(classVisitor, ClassReader.EXPAND_FRAMES)
 
             //覆盖原来的class文件

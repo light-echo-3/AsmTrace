@@ -49,7 +49,7 @@ object HandleJarInputBusiness {
                     jarOutputStream.putNextEntry(zipEntry)
                     val classReader = ClassReader(IOUtils.toByteArray(inputStream))
                     val classWriter = ClassWriter(classReader, ClassWriter.COMPUTE_MAXS)
-                    val cv: ClassVisitor = ScanClassVisitor(Opcodes.ASM5, classWriter)
+                    val cv: ClassVisitor = ScanClassVisitor(Opcodes.ASM7, classWriter)
                     try {
                         classReader.accept(cv, ClassReader.EXPAND_FRAMES)
                     } catch (e: Exception) {
