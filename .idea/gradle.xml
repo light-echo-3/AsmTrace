@@ -11,7 +11,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/AsmTrack" />
+            <option value="$PROJECT_DIR$/AsmTrackPlugin" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/lib_asmtrack" />
             <option value="$PROJECT_DIR$/testPlugin" />

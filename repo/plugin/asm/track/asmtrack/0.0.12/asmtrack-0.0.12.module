@@ -2,7 +2,7 @@
   "formatVersion": "1.1",
   "component": {
     "group": "AsmTrackDemo",
-    "module": "AsmTrack",
+    "module": "AsmTrackPlugin",
     "version": "unspecified",
     "attributes": {
       "org.gradle.status": "release"
@@ -38,11 +38,11 @@
         {
           "name": "asmtrack-0.0.12.jar",
           "url": "asmtrack-0.0.12.jar",
-          "size": 19604,
-          "sha512": "94a1611612955da6f837969d05f3ab2c9ad5b8840225f792ff444f35eb58395923ed78dca0dc8f411c9377e6fb9efb0df9073f745d2344d241bfd8eea1cfefc9",
-          "sha256": "eefcda02691ebcc73eefae38a8755592a86b6ed1aab332ee144bcdacacfe1c84",
-          "sha1": "4e44de97778e1ea78da89bc6c709e02d9a001bb3",
-          "md5": "2c909958be49c21d61e3f1c0315bcc58"
+          "size": 19634,
+          "sha512": "86f0ee5697d1e34ae7e578e055af4b6db4425fe16e1032d90675c9240244dca0c0ee0254a7e7412bbe8f3e8565c07d25546aa0924129bcb4559ad2459a8e1fcc",
+          "sha256": "f4e6c02692bdc0fa98607a3756bf40b874d31a5ee76a40e57cc1133dbf8d434c",
+          "sha1": "d4d74884df117645136572adab43aa37e0aab210",
+          "md5": "f89b84cc5105abb010cc5e5d5ed9ed37"
         }
       ]
     },
@@ -77,11 +77,11 @@
         {
           "name": "asmtrack-0.0.12.jar",
           "url": "asmtrack-0.0.12.jar",
-          "size": 19604,
-          "sha512": "94a1611612955da6f837969d05f3ab2c9ad5b8840225f792ff444f35eb58395923ed78dca0dc8f411c9377e6fb9efb0df9073f745d2344d241bfd8eea1cfefc9",
-          "sha256": "eefcda02691ebcc73eefae38a8755592a86b6ed1aab332ee144bcdacacfe1c84",
-          "sha1": "4e44de97778e1ea78da89bc6c709e02d9a001bb3",
-          "md5": "2c909958be49c21d61e3f1c0315bcc58"
+          "size": 19634,
+          "sha512": "86f0ee5697d1e34ae7e578e055af4b6db4425fe16e1032d90675c9240244dca0c0ee0254a7e7412bbe8f3e8565c07d25546aa0924129bcb4559ad2459a8e1fcc",
+          "sha256": "f4e6c02692bdc0fa98607a3756bf40b874d31a5ee76a40e57cc1133dbf8d434c",
+          "sha1": "d4d74884df117645136572adab43aa37e0aab210",
+          "md5": "f89b84cc5105abb010cc5e5d5ed9ed37"
         }
       ]
     }

@@ -3,9 +3,11 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.7">
       <module name="AsmTrackDemo.app" target="11" />
-      <module name="AsmTrackDemo.AsmTrack" target="1.8" />
       <module name="AsmTrackDemo.AsmTrack.main" target="1.8" />
       <module name="AsmTrackDemo.AsmTrack.test" target="1.8" />
+      <module name="AsmTrackDemo.AsmTrackPlugin" target="1.8" />
+      <module name="AsmTrackDemo.AsmTrackPlugin.main" target="1.8" />
+      <module name="AsmTrackDemo.AsmTrackPlugin.test" target="1.8" />
       <module name="AsmTrackDemo.lib_asmtrack" target="11" />
       <module name="TestAndroid5.1.app" target="11" />
     </bytecodeTargetLevel>
