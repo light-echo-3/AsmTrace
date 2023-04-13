@@ -3,7 +3,6 @@ package com.wuzhu.asmtrack;
 
 import com.android.build.api.transform.DirectoryInput;
 import com.android.build.api.transform.Format;
-import com.android.build.api.transform.JarInput;
 import com.android.build.api.transform.QualifiedContent;
 import com.android.build.api.transform.Transform;
 import com.android.build.api.transform.TransformException;
@@ -69,13 +68,22 @@ public class ASMTransform extends Transform {
         // 获取输入源
         Collection<TransformInput> inputs = transformInvocation.getInputs();
         inputs.forEach(transformInput -> {
-            Collection<DirectoryInput> directoryInputs = transformInput.getDirectoryInputs();
-            directoryInputs.forEach(directoryInput -> {
+            transformInput.getDirectoryInputs().forEach(directoryInput -> {
                 try {
+                    System.out.println("------directoryInput = " + directoryInput);
                     // 处理输入源
                     handleDirectoryInput(directoryInput);
+                    // 获取output目录
+                    File dest = transformInvocation.getOutputProvider().getContentLocation(
+                            directoryInput.getName(),
+                            directoryInput.getContentTypes(),
+                            directoryInput.getScopes(),
+                            Format.DIRECTORY);
+                    //这里执行字节码的注入，不操作字节码的话也要将输入路径拷贝到输出路径
+                    FileUtils.copyDirectory(directoryInput.getFile(), dest);
                 } catch (IOException e) {
                     System.out.println("handleDirectoryInput error:" + e);
+                    e.printStackTrace();
                 }
             });
 
@@ -86,38 +94,6 @@ public class ASMTransform extends Transform {
                         new Config());
             });
 
-
-            for (DirectoryInput directoryInput : directoryInputs) {
-                // 获取output目录
-                File dest = transformInvocation.getOutputProvider().getContentLocation(
-                        directoryInput.getName(),
-                        directoryInput.getContentTypes(),
-                        directoryInput.getScopes(),
-                        Format.DIRECTORY);
-                //这里执行字节码的注入，不操作字节码的话也要将输入路径拷贝到输出路径
-                try {
-                    FileUtils.copyDirectory(directoryInput.getFile(), dest);
-                } catch (IOException e) {
-                    System.out.println("output copy error:" + e);
-                }
-            }
-
-//            // scan all jars
-//            Collection<JarInput> jarInputs = transformInput.getJarInputs();
-//            for (JarInput jarInput : jarInputs) {
-//                // 获取output目录
-//                File dest = transformInvocation.getOutputProvider().getContentLocation(
-//                        jarInput.getName(),
-//                        jarInput.getContentTypes(),
-//                        jarInput.getScopes(),
-//                        Format.JAR);
-//                //这里执行字节码的注入，不操作字节码的话也要将输入路径拷贝到输出路径
-//                try {
-//                    FileUtils.copyFile(jarInput.getFile(), dest);
-//                } catch (IOException e) {
-//                    System.out.println("output copy error:" + e);
-//                }
-//            }
         });
     }
 

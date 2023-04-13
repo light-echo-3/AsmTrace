@@ -25,12 +25,6 @@ object ASMTransformBusiness {
     @JvmStatic
     fun traceJarFiles(jarInput: JarInput, outputProvider: TransformOutputProvider, traceConfig: Config) {
         if (jarInput.file.absolutePath.endsWith(".jar")) {
-            //重命名输出文件,因为可能同名,会覆盖
-            var jarName = jarInput.name
-            val md5Name = DigestUtils.md5Hex(jarInput.file.absolutePath)
-            if (jarName.endsWith(".jar")) {
-                jarName = jarName.substring(0, jarName.length - 4)
-            }
             val jarFile = JarFile(jarInput.file)
             val enumeration = jarFile.entries()
 
@@ -69,6 +63,12 @@ object ASMTransformBusiness {
             jarOutputStream.close()
             jarFile.close()
 
+
+            var jarName = jarInput.name
+            if (jarName.endsWith(".jar")) {
+                jarName = jarName.substring(0, jarName.length - 4)
+            }
+            val md5Name = DigestUtils.md5Hex(jarInput.file.absolutePath)
             //处理完输出给下一任务作为输入
             val dest = outputProvider.getContentLocation(
                 jarName + md5Name, jarInput.contentTypes, jarInput.scopes, Format.JAR
