@@ -17,7 +17,7 @@ class AsmTrackPlugin implements Plugin<Project> {
         if (isApp) {
             Logger.make(project)
 
-            Logger.i('Project enable arouter-register plugin')
+            Logger.i('Project enable AsmTrackPlugin')
 
             def android = project.extensions.getByType(AppExtension)
             def transformImpl = new ASMTransform()

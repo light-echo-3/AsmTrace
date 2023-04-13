@@ -80,6 +80,7 @@ public class ASMTransform extends Transform {
             });
 
             transformInput.getJarInputs().forEach(jarInput -> {
+                System.out.println("------jarInput = " + jarInput);
                 ASMTransformBusiness.traceJarFiles(jarInput,
                         transformInvocation.getOutputProvider(),
                         new Config());
@@ -101,22 +102,22 @@ public class ASMTransform extends Transform {
                 }
             }
 
-            // scan all jars
-            Collection<JarInput> jarInputs = transformInput.getJarInputs();
-            for (JarInput jarInput : jarInputs) {
-                // 获取output目录
-                File dest = transformInvocation.getOutputProvider().getContentLocation(
-                        jarInput.getName(),
-                        jarInput.getContentTypes(),
-                        jarInput.getScopes(),
-                        Format.JAR);
-                //这里执行字节码的注入，不操作字节码的话也要将输入路径拷贝到输出路径
-                try {
-                    FileUtils.copyFile(jarInput.getFile(), dest);
-                } catch (IOException e) {
-                    System.out.println("output copy error:" + e);
-                }
-            }
+//            // scan all jars
+//            Collection<JarInput> jarInputs = transformInput.getJarInputs();
+//            for (JarInput jarInput : jarInputs) {
+//                // 获取output目录
+//                File dest = transformInvocation.getOutputProvider().getContentLocation(
+//                        jarInput.getName(),
+//                        jarInput.getContentTypes(),
+//                        jarInput.getScopes(),
+//                        Format.JAR);
+//                //这里执行字节码的注入，不操作字节码的话也要将输入路径拷贝到输出路径
+//                try {
+//                    FileUtils.copyFile(jarInput.getFile(), dest);
+//                } catch (IOException e) {
+//                    System.out.println("output copy error:" + e);
+//                }
+//            }
         });
     }
 
