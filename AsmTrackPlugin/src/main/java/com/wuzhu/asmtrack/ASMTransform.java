@@ -10,6 +10,8 @@ import com.android.build.gradle.internal.pipeline.TransformManager;
 import com.wuzhu.asmtrack.business.HandleDirectoryInputBusiness;
 import com.wuzhu.asmtrack.business.HandleJarInputBusiness;
 
+import org.gradle.api.Project;
+
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Set;
@@ -18,6 +20,12 @@ import java.util.Set;
  * @author Hdq on 2022/12/6.
  */
 public class ASMTransform extends Transform {
+
+    Project project;
+
+    public ASMTransform(Project project) {
+        this.project = project;
+    }
 
     // transfrom名称
     @Override
@@ -47,7 +55,7 @@ public class ASMTransform extends Transform {
     @Override
     public void transform(TransformInvocation transformInvocation) throws TransformException, InterruptedException, IOException {
         super.transform(transformInvocation);
-        System.out.println("-----transform");
+        Logger.w("pluginConfig = " + project);
         if (!transformInvocation.isIncremental()) {
             //不是增量编译删除所有的outputProvider
             transformInvocation.getOutputProvider().deleteAll();

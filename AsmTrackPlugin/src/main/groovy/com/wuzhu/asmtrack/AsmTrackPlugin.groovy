@@ -12,12 +12,15 @@ import org.gradle.api.Project
 class AsmTrackPlugin implements Plugin<Project> {
     void apply(Project project) {
         Logger.make(project)
+        project.extensions.create("asmTrackPluginConfig", AsmTrackPluginConfig)
         Logger.w("apply begin 12")
         def isApp = project.plugins.hasPlugin(AppPlugin)
         //only application module needs this plugin to generate register code
         if (isApp) {
             def android = project.extensions.getByType(AppExtension)
-            def transformImpl = new ASMTransform()
+            def asmTrackPluginConfig = project.asmTrackPluginConfig
+            Logger.w("asmTrackPluginConfig.toPluginConfig() = " + asmTrackPluginConfig.toPluginConfig())
+            def transformImpl = new ASMTransform(project)
             //register this plugin
             android.registerTransform(transformImpl)
             Logger.w('registerTransform')
@@ -26,6 +29,7 @@ class AsmTrackPlugin implements Plugin<Project> {
         project.tasks.register("testPluginPublishSuccess") {
             doLast {
                 Logger.w("AsmTrackPlugin publish success 1")
+                Logger.w("project.asmTrackPluginConfig.isTraceJar = " + project.asmTrackPluginConfig.isTraceJar)
             }
         }
     }
