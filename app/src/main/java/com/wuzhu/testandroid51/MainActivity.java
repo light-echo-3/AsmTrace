@@ -24,6 +24,8 @@ import com.wuzhu.testandroid51.aidl.BookManagerService;
 import com.wuzhu.testandroid51.aidl.IBookManager;
 import com.wuzhu.testandroid51.aidl.IOnNewBookArrivedListener;
 import com.wuzhu.testandroid51.dynamic.DLPlugin;
+import com.wuzhu.testandroid51.kotlin.TestKClass;
+import com.wuzhu.testandroid51.kotlin.TestObject;
 
 import java.io.File;
 import java.util.List;
@@ -63,7 +65,11 @@ public class MainActivity extends Activity implements DLPlugin {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Trace.beginSection("MainActivity.onCreate");
+        Trace.beginSection("xxx MainActivity.onCreate");
+
+        TestObject.test();
+        new TestKClass().test();
+
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate" + ",process = " + Process.myPid());
         setContentView(R.layout.activity_main);

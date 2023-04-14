@@ -88,7 +88,7 @@ object HandleDirectoryInputBusiness {
     }
 
     private fun listFiles(files: MutableList<File>, file: File) {
-        if (file.isFile) {
+        if (file.isFile && file.name.endsWith(".class")) {
             println("------file = $file")
             files.add(file)
             return

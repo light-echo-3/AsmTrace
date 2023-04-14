@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-kapt"
 apply plugin: 'test.asm.track.id' // 名称就是 properties 文件的名称
 
 
