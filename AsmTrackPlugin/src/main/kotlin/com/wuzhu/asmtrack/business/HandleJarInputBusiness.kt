@@ -29,56 +29,64 @@ object HandleJarInputBusiness {
     @Throws(IOException::class)
     fun traceJarFiles(jarInput: JarInput, outputProvider: TransformOutputProvider, traceConfig: Config) {
         if (jarInput.file.absolutePath.endsWith(".jar")) {
-            val jarFile = JarFile(jarInput.file)
-            val enumeration = jarFile.entries()
+            handleJarInput(jarInput, outputProvider, traceConfig)
+        }
+    }
 
-            val tmpFile = File(jarInput.file.parent + File.separator + "classes_temp.jar")
-            if (tmpFile.exists()) {
-                tmpFile.delete()
-            }
+    private fun handleJarInput(jarInput: JarInput, outputProvider: TransformOutputProvider, traceConfig: Config) {
+        val jarFile = JarFile(jarInput.file)
+        val enumeration = jarFile.entries()
 
-            val jarOutputStream = JarOutputStream(FileOutputStream(tmpFile))
-
-            //循环jar包里的文件
-            while (enumeration.hasMoreElements()) {
-                val jarEntry: JarEntry = enumeration.nextElement()
-                val entryName: String = jarEntry.name
-                val zipEntry = ZipEntry(entryName)
-                val inputStream: InputStream = jarFile.getInputStream(jarEntry)
-                if (traceConfig.isNeedTraceClass(entryName)) {
-                    jarOutputStream.putNextEntry(zipEntry)
-                    val classReader = ClassReader(IOUtils.toByteArray(inputStream))
-                    val classWriter = ClassWriter(classReader, ClassWriter.COMPUTE_MAXS)
-                    val cv: ClassVisitor = ScanClassVisitor(Opcodes.ASM7, classWriter)
-                    try {
-                        classReader.accept(cv, ClassReader.EXPAND_FRAMES)
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
-                    val code = classWriter.toByteArray()
-                    jarOutputStream.write(code)
-                } else {
-                    jarOutputStream.putNextEntry(zipEntry)
-                    jarOutputStream.write(IOUtils.toByteArray(inputStream))
-                }
-                jarOutputStream.closeEntry()
-            }
-
-            jarOutputStream.close()
-            jarFile.close()
-
-
-            var jarName = jarInput.name
-            if (jarName.endsWith(".jar")) {
-                jarName = jarName.substring(0, jarName.length - 4)
-            }
-            val md5Name = DigestUtils.md5Hex(jarInput.file.absolutePath)
-            //处理完输出给下一任务作为输入
-            val dest = outputProvider.getContentLocation(
-                jarName + md5Name, jarInput.contentTypes, jarInput.scopes, Format.JAR
-            )
-            FileUtils.copyFile(tmpFile, dest)
+        val tmpFile = File(jarInput.file.parent + File.separator + "classes_temp.jar")
+        if (tmpFile.exists()) {
             tmpFile.delete()
         }
+
+        val jarOutputStream = JarOutputStream(FileOutputStream(tmpFile))
+
+        //循环jar包里的文件
+        while (enumeration.hasMoreElements()) {
+            val jarEntry: JarEntry = enumeration.nextElement()
+            val entryName: String = jarEntry.name
+            val zipEntry = ZipEntry(entryName)
+            val inputStream: InputStream = jarFile.getInputStream(jarEntry)
+            if (traceConfig.isNeedTraceClass(entryName)) {
+                jarOutputStream.putNextEntry(zipEntry)
+                val classReader = ClassReader(IOUtils.toByteArray(inputStream))
+                val classWriter = ClassWriter(classReader, ClassWriter.COMPUTE_MAXS)
+                val cv: ClassVisitor = ScanClassVisitor(Opcodes.ASM7, classWriter)
+                try {
+                    classReader.accept(cv, ClassReader.EXPAND_FRAMES)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+                val code = classWriter.toByteArray()
+                jarOutputStream.write(code)
+            } else {
+                jarOutputStream.putNextEntry(zipEntry)
+                jarOutputStream.write(IOUtils.toByteArray(inputStream))
+            }
+            jarOutputStream.closeEntry()
+        }
+
+        jarOutputStream.close()
+        jarFile.close()
+
+        FileUtils.copyFile(tmpFile, getDestFile(jarInput, outputProvider))
+        tmpFile.delete()
+
+    }
+
+    private fun getDestFile(jarInput: JarInput, outputProvider: TransformOutputProvider): File? {
+        var jarName = jarInput.name
+        if (jarName.endsWith(".jar")) {
+            jarName = jarName.substring(0, jarName.length - 4)
+        }
+        val md5Name = DigestUtils.md5Hex(jarInput.file.absolutePath)
+        //处理完输出给下一任务作为输入
+        val dest = outputProvider.getContentLocation(
+            jarName + md5Name, jarInput.contentTypes, jarInput.scopes, Format.JAR
+        )
+        return dest
     }
 }
