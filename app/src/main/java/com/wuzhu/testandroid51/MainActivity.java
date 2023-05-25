@@ -127,12 +127,14 @@ public class MainActivity extends Activity implements DLPlugin {
 
     private boolean test;
     private int testThrow() throws Exception {
+        System.out.println("testThrow1");
         if (test) {
+            System.out.println("testThrow2");
             throw new Exception();
         } else {
-            System.out.println("testThrow1");
+            System.out.println("testThrow3");
         }
-        System.out.println("testThrow2");
+        System.out.println("testThrow4");
         return 666;
     }
 
