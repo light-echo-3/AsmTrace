@@ -50,3 +50,4 @@ taskName是我们调试的task，比如assembleDebug、assembleRelease等
 
 ## 2.7 发布到github
 [发布包到 GitHub Packages](https://docs.github.com/zh/actions/publishing-packages/publishing-java-packages-with-gradle#%E5%8F%91%E5%B8%83%E5%8C%85%E5%88%B0-github-packages)
+[gradle发布jar到GitHub Packages & 使用](https://juejin.cn/post/7007289428158709797)

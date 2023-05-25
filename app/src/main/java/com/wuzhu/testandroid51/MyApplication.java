@@ -3,9 +3,7 @@ package com.wuzhu.testandroid51;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Trace;
-
-import com.wuzhu.testandroid51.utils.StethoUtils;
-import com.squareup.leakcanary.LeakCanary;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,15 +13,14 @@ import java.util.List;
  */
 public class MyApplication extends Application {
     public static List<Activity> activities = new ArrayList<>();
+
     @Override
     public void onCreate() {
         Trace.beginSection("MyApplication.onCreate");
         super.onCreate();
-        // LeakCanary内存泄露监测
-        LeakCanary.install(this);
 
         if (isDebugBuild()) {
-            StethoUtils.init(this);
+            Log.d("TAG", "onCreate: ");
         }
         Trace.endSection();
     }
