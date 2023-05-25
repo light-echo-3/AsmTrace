@@ -14,7 +14,6 @@
             <option value="$PROJECT_DIR$/AsmTrackPlugin" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/lib_asmtrack" />
-            <option value="$PROJECT_DIR$/testPlugin" />
           </set>
         </option>
       </GradleProjectSettings>

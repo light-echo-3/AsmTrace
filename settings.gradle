@@ -1,4 +1,3 @@
 include ':app'
 include ':AsmTrackPlugin'
 include ':lib_asmtrack'
-include ':testPlugin'
