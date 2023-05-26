@@ -5,7 +5,7 @@ import com.android.build.api.transform.Format
 import com.android.build.api.transform.TransformOutputProvider
 import com.android.utils.FileUtils
 import com.wuzhu.asmtrack.Config
-import com.wuzhu.asmtrack.ScanClassVisitor
+import com.wuzhu.asmtrack.ScanClassVisitor2
 import org.objectweb.asm.ClassReader
 import org.objectweb.asm.ClassWriter
 import org.objectweb.asm.Opcodes
@@ -51,7 +51,8 @@ object HandleDirectoryInputBusiness {
                 return
             }
             val classWriter = ClassWriter(classReader, 0)
-            val classVisitor = ScanClassVisitor(Opcodes.ASM7, classWriter)
+//            val classVisitor = ScanClassVisitor(Opcodes.ASM7, classWriter)
+            val classVisitor = ScanClassVisitor2(Opcodes.ASM7, classWriter)
             classReader.accept(classVisitor, ClassReader.EXPAND_FRAMES)
 
             //覆盖原来的class文件

@@ -104,11 +104,6 @@ public class MainActivity extends Activity implements DLPlugin {
             }
         });
 
-        try {
-            testThrow();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         Trace.endSection();
 
         new Thread(){
@@ -125,18 +120,7 @@ public class MainActivity extends Activity implements DLPlugin {
         }.start();
     }
 
-    private boolean test;
-    private int testThrow() throws Exception {
-        System.out.println("testThrow1");
-        if (test) {
-            System.out.println("testThrow2");
-            throw new Exception();
-        } else {
-            System.out.println("testThrow3");
-        }
-        System.out.println("testThrow4");
-        return 666;
-    }
+
 
     private void testBarrier(final Button button) {
         handler.post(new Runnable() {
