@@ -53,7 +53,7 @@ object HandleDirectoryInputBusiness {
 //            val classWriter = TraceClassWriter(classReader, ClassWriter.COMPUTE_FRAMES,null)
             val classWriter = ClassWriter(classReader, ClassWriter.COMPUTE_MAXS)
 //            val classVisitor = ScanClassVisitor(Opcodes.ASM7, classWriter)
-            val classVisitor = ScanClassVisitor2(Opcodes.ASM6, classWriter)
+            val classVisitor = ScanClassVisitor2(Opcodes.ASM7, classWriter)
             try {
                 classReader.accept(classVisitor, ClassReader.EXPAND_FRAMES)
             } catch (e: Exception) {

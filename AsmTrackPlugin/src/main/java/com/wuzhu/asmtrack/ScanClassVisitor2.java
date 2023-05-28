@@ -33,7 +33,7 @@ public class ScanClassVisitor2 extends ClassVisitor {
                                      String descriptor,
                                      String signature,
                                      String[] exceptions) {
-        boolean isConstructor = name.contains("<init>");
+        boolean isConstructor = name.contains("<init>") || name.contains("<clinit>");
          if (isInterface || isConstructor) {
              return super.visitMethod(access, name, descriptor, signature, exceptions);
         } else {
