@@ -8,39 +8,22 @@ import android.os.Trace;
 public class AsmTrackQueue {
 
     private static final ThreadLocal<Stack<String>> threadLocalStack = new ThreadLocal<>();
-    private static final ThreadLocal<Integer> threadLocalNum = new ThreadLocal<>();
 
-    public static String beginSection(String name) {
+    public static void beginSection(String name) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            return null;
+            return;
         }
         if (name == null || name.trim().isEmpty()) {
-            return null;
+            return;
         }
         Stack<String> stack = threadLocalStack.get();
         if (stack == null) {
             stack = new Stack<>();
             threadLocalStack.set(stack);
         }
-        Integer i = threadLocalNum.get();
-        if (i == null) {
-            i = 0;
-            threadLocalNum.set(i);
-        }
-        name += generateNum(i);
         stack.push(name);
         Trace.beginSection(name);
-        return name;
     }
-
-    private static int generateNum(Integer i) {
-        i++;
-        if (i >= 999999) {
-            i = 1;
-        }
-        return i;
-    }
-
 
     public static void endSection(String name) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
