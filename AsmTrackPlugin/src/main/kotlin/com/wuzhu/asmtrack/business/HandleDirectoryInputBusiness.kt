@@ -50,10 +50,15 @@ object HandleDirectoryInputBusiness {
             if (isNotTrack(classReader)) {
                 return
             }
-            val classWriter = ClassWriter(classReader, ClassWriter.COMPUTE_MAXS)
+//            val classWriter = TraceClassWriter(classReader, ClassWriter.COMPUTE_FRAMES,null)
+            val classWriter = ClassWriter(classReader, ClassWriter.COMPUTE_FRAMES)
 //            val classVisitor = ScanClassVisitor(Opcodes.ASM7, classWriter)
-            val classVisitor = ScanClassVisitor2(Opcodes.ASM7, classWriter)
-            classReader.accept(classVisitor, ClassReader.EXPAND_FRAMES)
+            val classVisitor = ScanClassVisitor2(Opcodes.ASM6, classWriter)
+            try {
+                classReader.accept(classVisitor, ClassReader.EXPAND_FRAMES)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
 
             //覆盖原来的class文件
             val code = classWriter.toByteArray()

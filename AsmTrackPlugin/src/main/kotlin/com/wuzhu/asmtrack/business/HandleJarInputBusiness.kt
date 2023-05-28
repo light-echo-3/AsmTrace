@@ -53,9 +53,10 @@ object HandleJarInputBusiness {
             if (traceConfig.isNeedTraceClass(entryName)) {
                 jarOutputStream.putNextEntry(zipEntry)
                 val classReader = ClassReader(IOUtils.toByteArray(inputStream))
-                val classWriter = ClassWriter(classReader, ClassWriter.COMPUTE_MAXS)
+//                val classWriter = TraceClassWriter(classReader, ClassWriter.COMPUTE_FRAMES,null)
+                val classWriter = ClassWriter(classReader, ClassWriter.COMPUTE_FRAMES)
 //                val cv: ClassVisitor = ScanClassVisitor(Opcodes.ASM7, classWriter)
-                val cv: ClassVisitor = ScanClassVisitor2(Opcodes.ASM7, classWriter)
+                val cv: ClassVisitor = ScanClassVisitor2(Opcodes.ASM6, classWriter)
                 try {
                     classReader.accept(cv, ClassReader.EXPAND_FRAMES)
                 } catch (e: Exception) {
