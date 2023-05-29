@@ -9,10 +9,10 @@ public class TestAsmTrackQueue {
 
     public void testBegin(){
         String name = "testName333";
-        AsmTrackQueue.beginSection(name);
+        AsmTrackQueue.beginTrace(name);
         int i = 123;
         int j = i + 1;
-        AsmTrackQueue.endSection(name);
+        AsmTrackQueue.endTrace(name);
     }
 
     public void testEnd(){

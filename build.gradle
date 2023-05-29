@@ -4,7 +4,7 @@ buildscript {
         maven { url('./repo')}
 
         //github-release仓库
-        maven { url 'https://jitpack.io' }
+//        maven { url 'https://jitpack.io' }
 
         //github-packages仓库
 //        maven {

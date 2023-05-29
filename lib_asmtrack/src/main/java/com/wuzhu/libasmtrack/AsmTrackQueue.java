@@ -3,13 +3,15 @@ package com.wuzhu.libasmtrack;
 
 import android.os.Build;
 import android.os.Trace;
+import android.util.Log;
 
 @NotTrack
 public class AsmTrackQueue {
 
+    private static final String TAG = "AsmTrackQueue";
     private static final ThreadLocal<Stack<String>> threadLocalStack = new ThreadLocal<>();
 
-    public static void beginSection(String name) {
+    public static void beginTrace(String name) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
             return;
         }
@@ -22,10 +24,11 @@ public class AsmTrackQueue {
             threadLocalStack.set(stack);
         }
         stack.push(name);
+        Log.e(TAG, "beginSection: " + name);
         Trace.beginSection(name);
     }
 
-    public static void endSection(String name) {
+    public static void endTrace(String name) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
             return;
         }
@@ -33,9 +36,12 @@ public class AsmTrackQueue {
         if (stack == null || name == null || name.trim().isEmpty()) {
             return;
         }
-        while (!name.equals(stack.pop())) {
+        String popName;
+        while (!name.equals(popName = stack.pop())) {
+            Log.e(TAG, "endSection: 1 = " + popName);
             Trace.endSection();
         }
+        Log.e(TAG, "endSection: 2 = " + popName);
         Trace.endSection();
     }
 
