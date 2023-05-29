@@ -23,7 +23,7 @@ public class ScanClassVisitor2 extends ClassVisitor {
     public void visit(int version, int access, String name, String signature,
                       String superName, String[] interfaces) {
         super.visit(version, access, name, signature, superName, interfaces);
-        isInterface = (access & Opcodes.ACC_INTERFACE) > 0 || (access & Opcodes.ACC_ABSTRACT) > 0;
+        isInterface = (access & Opcodes.ACC_INTERFACE) != 0;
         className = name.substring(name.lastIndexOf(File.separator) + 1);//name = com/example/testandroid51/MainActivity
     }
 
@@ -33,12 +33,14 @@ public class ScanClassVisitor2 extends ClassVisitor {
                                      String descriptor,
                                      String signature,
                                      String[] exceptions) {
-        boolean isConstructor = name.contains("<init>") || name.contains("<clinit>");
-         if (isInterface || isConstructor) {
-             return super.visitMethod(access, name, descriptor, signature, exceptions);
+        boolean isConstructor = "<init>".equals(name) || "<clinit>".equals(name);
+        boolean isAbstractMethod = (access & Opcodes.ACC_ABSTRACT) != 0;
+        boolean isNativeMethod = (access & Opcodes.ACC_NATIVE) != 0;
+        if (isInterface || isAbstractMethod || isNativeMethod || isConstructor) {
+            return super.visitMethod(access, name, descriptor, signature, exceptions);
         } else {
             MethodVisitor mv = cv.visitMethod(access, name, descriptor, signature, exceptions);
-             return new MethodEnterAndExitAdapter2(api, mv,access,  name,descriptor,className);
+            return new MethodEnterAndExitAdapter2(api, mv, access, name, descriptor, className);
         }
 
     }
