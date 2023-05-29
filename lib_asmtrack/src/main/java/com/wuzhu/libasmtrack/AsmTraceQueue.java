@@ -18,7 +18,7 @@ public class AsmTraceQueue {
     public static boolean isSupportMultiThread = false;
 
     public static void beginTrace(String name) {
-        if (!isMainThread()) {
+        if (!isTrace()) {
             return;
         }
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
