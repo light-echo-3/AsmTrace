@@ -18,6 +18,23 @@ public class TestAsm {
         return 666;
     }
 
+    /***
+     * throw异常，又自己捕获了，这种case会调用两次 end
+     * @return
+     * @throws Exception
+     */
+    private int testThrow2() throws Exception {
+        System.out.println("testThrow2-1");
+        try {
+            System.out.println("testThrow2-2");
+            throw new NullPointerException();
+        } catch (Exception e) {
+            System.out.println("testThrow2-3");
+            e.printStackTrace();
+        }
+        return 666;
+    }
+
 
     private void testException1() {
         try {
