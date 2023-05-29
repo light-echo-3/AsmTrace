@@ -6,10 +6,10 @@ import com.android.build.api.transform.TransformOutputProvider
 import com.android.utils.FileUtils
 import com.wuzhu.asmtrack.Config
 import com.wuzhu.asmtrack.ScanClassVisitor2
+import com.wuzhu.asmtrack.utils.NotTrackUtils
 import org.objectweb.asm.ClassReader
 import org.objectweb.asm.ClassWriter
 import org.objectweb.asm.Opcodes
-import org.objectweb.asm.tree.ClassNode
 import java.io.*
 
 object HandleDirectoryInputBusiness {
@@ -47,7 +47,7 @@ object HandleDirectoryInputBusiness {
         try {
             val inputStream: InputStream = FileInputStream(inFile)
             val classReader = ClassReader(inputStream)
-            if (isNotTrack(classReader)) {
+            if (NotTrackUtils.isNotTrack(classReader)) {
                 return
             }
 //            val classWriter = TraceClassWriter(classReader, ClassWriter.COMPUTE_FRAMES,null)
@@ -71,26 +71,6 @@ object HandleDirectoryInputBusiness {
         } catch (e: IOException) {
             e.printStackTrace()
         }
-    }
-
-    /**
-     * 用注解 com.wuzhu.libasmtrack.NotTrack 注释的类，不插桩
-     *
-     * @return true:不插桩
-     */
-    private fun isNotTrack(reader: ClassReader): Boolean {
-        val classNode = ClassNode() //创建ClassNode,读取的信息会封装到这个类里面
-        reader.accept(classNode, 0) //开始读取
-        val annotations = classNode.invisibleAnnotations //获取声明的所有注解
-        if (annotations != null) { //遍历注解
-            for (annotationNode in annotations) {
-                //获取注解的描述信息
-                if ("Lcom/wuzhu/libasmtrack/NotTrack;" == annotationNode.desc) {
-                    return true
-                }
-            }
-        }
-        return false
     }
 
     private fun listFiles(files: MutableList<File>, file: File) {
