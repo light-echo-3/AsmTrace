@@ -71,7 +71,7 @@ public class AsmTraceQueue {
     }
 
     private static boolean isTrace(){
-        if (isTrace()) {
+        if (isMainThread()) {
             return true;
         }
         return isSupportMultiThread;
