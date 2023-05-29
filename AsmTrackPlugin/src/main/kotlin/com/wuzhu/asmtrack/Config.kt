@@ -8,12 +8,21 @@ class Config {
     //一些默认无需插桩的类
     private val UNNEED_TRACE_CLASS = arrayOf("R.class", "R$", "Manifest", "BuildConfig")
 
+    //不需要插桩的包
+    private val UNNEED_TRACE_PACKAGE = arrayOf("kotlin/")
+
 
     fun isNeedTraceClass(fileName: String): Boolean {
         var isNeed = true
         if (fileName.endsWith(".class")) {
             for (unTraceCls in UNNEED_TRACE_CLASS) {
                 if (fileName.contains(unTraceCls)) {
+                    isNeed = false
+                    break
+                }
+            }
+            for (packageName in UNNEED_TRACE_PACKAGE) {
+                if (fileName.startsWith(packageName)) {
                     isNeed = false
                     break
                 }
