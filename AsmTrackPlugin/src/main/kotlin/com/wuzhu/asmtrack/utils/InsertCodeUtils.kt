@@ -33,7 +33,7 @@ object InsertCodeUtils {
         methodVisitor.visitLdcInsn(traceName)
         methodVisitor.visitMethodInsn(
             Opcodes.INVOKESTATIC,
-            "com/wuzhu/libasmtrack/AsmTrackQueue",
+            "com/wuzhu/libasmtrack/AsmTraceQueue",
             "beginTrace",
             "(Ljava/lang/String;)V",
             false
@@ -45,7 +45,7 @@ object InsertCodeUtils {
         methodVisitor.visitLdcInsn(traceName)
         methodVisitor.visitMethodInsn(
             Opcodes.INVOKESTATIC,
-            "com/wuzhu/libasmtrack/AsmTrackQueue",
+            "com/wuzhu/libasmtrack/AsmTraceQueue",
             "endTrace",
             "(Ljava/lang/String;)V",
             false

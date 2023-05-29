@@ -1,18 +1,18 @@
 package com.wuzhu.testandroid51.test;
 
 
-import com.wuzhu.libasmtrack.AsmTrackQueue;
+import com.wuzhu.libasmtrack.AsmTraceQueue;
 import com.wuzhu.libasmtrack.NotTrack;
 
 @NotTrack
-public class TestAsmTrackQueue {
+public class TestAsmTraceQueue {
 
     public void testBegin(){
         String name = "testName333";
-        AsmTrackQueue.beginTrace(name);
+        AsmTraceQueue.beginTrace(name);
         int i = 123;
         int j = i + 1;
-        AsmTrackQueue.endTrace(name);
+        AsmTraceQueue.endTrace(name);
     }
 
     public void testEnd(){

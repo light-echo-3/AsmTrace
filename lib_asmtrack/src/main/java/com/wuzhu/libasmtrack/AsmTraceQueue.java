@@ -7,10 +7,15 @@ import android.os.Trace;
 import android.util.Log;
 
 @NotTrack
-public class AsmTrackQueue {
+public class AsmTraceQueue {
 
-    private static final String TAG = "AsmTrackQueue";
+    private static final String TAG = "AsmTraceQueue";
     private static final ThreadLocal<Stack<String>> threadLocalStack = new ThreadLocal<>();
+
+    /**
+     * 是否支持多线程，默认只支持主线程
+     */
+    public static boolean isSupportMultiThread = false;
 
     public static void beginTrace(String name) {
         if (!isMainThread()) {
@@ -30,12 +35,14 @@ public class AsmTrackQueue {
             threadLocalStack.set(stack);
         }
         stack.push(name);
-//        Log.e(TAG, "beginTrace: " + name);
+        if (name.contains("testSlowMethod")) {
+            Log.e(TAG, "!!!!!!beginTrace: " + name);
+        }
         Trace.beginSection(name);
     }
 
     public static void endTrace(String name) {
-        if (!isMainThread()) {
+        if (!isTrace()) {
             return;
         }
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
@@ -53,7 +60,9 @@ public class AsmTrackQueue {
                 Log.e(TAG, "endTrace: 1 = " + popName);
                 Trace.endSection();
             }
-//        Log.e(TAG, "endTrace: 2 = " + popName);
+            if (name.contains("testSlowMethod")) {
+                Log.e(TAG, "!!!!!!endTrace: " + name);
+            }
             Trace.endSection();
         } catch (Exception e) {
             Log.e(TAG, "endTrace: 栈已经空了: thread=" + Thread.currentThread());
@@ -61,10 +70,16 @@ public class AsmTrackQueue {
         }
     }
 
+    private static boolean isTrace(){
+        if (isTrace()) {
+            return true;
+        }
+        return isSupportMultiThread;
+    }
+
     private static boolean isMainThread() {
         return Looper.getMainLooper() == Looper.myLooper();
     }
-
 
 
 }
