@@ -13,9 +13,11 @@ public class AsmTrackQueue {
 
     public static void beginTrace(String name) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            Log.e(TAG, "beginTrace: sdk版本太低：" + name);
             return;
         }
         if (name == null || name.trim().isEmpty()) {
+            Log.e(TAG, "beginTrace: name是空：" + name);
             return;
         }
         Stack<String> stack = threadLocalStack.get();
@@ -24,25 +26,32 @@ public class AsmTrackQueue {
             threadLocalStack.set(stack);
         }
         stack.push(name);
-        Log.e(TAG, "beginSection: " + name);
+//        Log.e(TAG, "beginTrace: " + name);
         Trace.beginSection(name);
     }
 
     public static void endTrace(String name) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            Log.e(TAG, "endTrace: sdk版本太低：" + name);
             return;
         }
         Stack<String> stack = threadLocalStack.get();
         if (stack == null || name == null || name.trim().isEmpty()) {
+            Log.e(TAG, "endTrace:stack是空 或 name是空：" + name);
             return;
         }
-        String popName;
-        while (!name.equals(popName = stack.pop())) {
-            Log.e(TAG, "endSection: 1 = " + popName);
+        try {
+            String popName;
+            while (!name.equals(popName = stack.pop())) {
+                Log.e(TAG, "endTrace: 1 = " + popName);
+                Trace.endSection();
+            }
+//        Log.e(TAG, "endTrace: 2 = " + popName);
             Trace.endSection();
+        } catch (Exception e) {
+            Log.e(TAG, "endTrace: 栈已经空了: thread=" + Thread.currentThread());
+            e.printStackTrace();
         }
-        Log.e(TAG, "endSection: 2 = " + popName);
-        Trace.endSection();
     }
 
 
