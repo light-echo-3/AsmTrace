@@ -14,6 +14,8 @@ public class MethodEnterAndExitAdapter2 extends AdviceAdapter {
     private final String className;
     private final String methodName;
 
+    private String traceName;
+
     public MethodEnterAndExitAdapter2(final int api, final MethodVisitor mv,
                                       final int access, final String methodName, final String desc,
                                       final String className) {
@@ -30,9 +32,9 @@ public class MethodEnterAndExitAdapter2 extends AdviceAdapter {
 
     private void insertBeginSection() {
         generateNum();
-        String name = generatorName();
-        System.out.println("------=== name = " + name);
-        mv.visitLdcInsn(name);
+        traceName = generatorName();
+        System.out.println("------=== name = " + traceName);
+        mv.visitLdcInsn(traceName);
         mv.visitMethodInsn(
                 INVOKESTATIC,
                 "com/wuzhu/libasmtrack/AsmTrackQueue",
@@ -68,8 +70,7 @@ public class MethodEnterAndExitAdapter2 extends AdviceAdapter {
     }
 
     private void insertEndSection() {
-        String name = generatorName();
-        mv.visitLdcInsn(name);
+        mv.visitLdcInsn(traceName);
         mv.visitMethodInsn(
                 INVOKESTATIC,
                 "com/wuzhu/libasmtrack/AsmTrackQueue",
