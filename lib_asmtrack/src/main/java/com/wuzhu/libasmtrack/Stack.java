@@ -11,27 +11,27 @@ public class Stack<T> {
      * 入栈
      */
     public void push(T v) {
-        storage.addFirst(v);
+        storage.push(v);
     }
 
     /**
      * 出栈，但不删除
      */
     public T peek() {
-        return storage.peekFirst();
+        return storage.peek();
     }
 
     /**
      * 出栈
      */
     public T pop() {
-        return storage.removeFirst();
+        return storage.pop();
     }
 
     /**
      * 栈是否为空
      */
-    public boolean empty() {
+    public boolean isEmpty() {
         return storage.isEmpty();
     }
 
