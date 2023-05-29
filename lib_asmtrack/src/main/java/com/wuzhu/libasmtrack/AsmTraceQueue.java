@@ -6,11 +6,17 @@ import android.os.Looper;
 import android.os.Trace;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @NotTrack
 public class AsmTraceQueue {
 
     private static final String TAG = "AsmTraceQueue";
     private static final ThreadLocal<Stack<String>> threadLocalStack = new ThreadLocal<>();
+    private static final List<String> logTags = new ArrayList<String>() {{
+        add("Application#onCreate");
+    }};
 
     /**
      * 是否支持多线程，默认只支持主线程
@@ -35,9 +41,7 @@ public class AsmTraceQueue {
             threadLocalStack.set(stack);
         }
         stack.push(name);
-        if (name.contains("testSlowMethod")) {
-            Log.e(TAG, "!!!!!!beginTrace: " + name);
-        }
+        printLogByTags("beginTrace", name);
         Trace.beginSection(name);
     }
 
@@ -60,9 +64,7 @@ public class AsmTraceQueue {
                 Log.e(TAG, "endTrace: 1 = " + popName);
                 Trace.endSection();
             }
-            if (name.contains("testSlowMethod")) {
-                Log.e(TAG, "!!!!!!endTrace: " + name);
-            }
+            printLogByTags("endTrace", name);
             Trace.endSection();
         } catch (Exception e) {
             Log.e(TAG, "endTrace: 栈已经空了: thread=" + Thread.currentThread());
@@ -70,7 +72,7 @@ public class AsmTraceQueue {
         }
     }
 
-    private static boolean isTrace(){
+    private static boolean isTrace() {
         if (isMainThread()) {
             return true;
         }
@@ -81,5 +83,13 @@ public class AsmTraceQueue {
         return Looper.getMainLooper() == Looper.myLooper();
     }
 
+    private static void printLogByTags(String prefix, String name) {
+        if (logTags.isEmpty()) return;
+        for (String tag : logTags) {
+            if (tag != null && !tag.trim().isEmpty() && name.contains(tag)) {
+                Log.e(TAG, "!!!!!!" + prefix + ":" + name);
+            }
+        }
+    }
 
 }
