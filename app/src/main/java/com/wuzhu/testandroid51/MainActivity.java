@@ -26,6 +26,7 @@ import com.wuzhu.testandroid51.aidl.IOnNewBookArrivedListener;
 import com.wuzhu.testandroid51.dynamic.DLPlugin;
 import com.wuzhu.testandroid51.kotlin.TestKClass;
 import com.wuzhu.testandroid51.kotlin.TestObject;
+import com.wuzhu.testandroid51.test.TestAsm;
 
 import java.io.File;
 import java.util.List;
@@ -186,7 +187,10 @@ public class MainActivity extends Activity implements DLPlugin {
         });
 
         testBarrier(button);
+
+        TestAsm.testSlowMethod();
     }
+
 
 
     @Override

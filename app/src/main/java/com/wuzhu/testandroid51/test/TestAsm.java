@@ -6,6 +6,14 @@ public class TestAsm {
     private static final String TAG = "TestAsm";
     private boolean test;
 
+
+    public static void testSlowMethod() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
     private int testThrow() throws Exception {
         System.out.println("testThrow1");
         if (test) {
