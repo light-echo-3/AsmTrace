@@ -46,7 +46,7 @@ public class MethodEnterAndExitAdapter extends MethodVisitor {
     @Override
     public void visitInsn(int opcode) {
         // 1.首先处理自己的代码逻辑
-        if (opcode == Opcodes.ATHROW || (opcode >= Opcodes.IRETURN && opcode <= Opcodes.RETURN)) {
+        if ((opcode >= Opcodes.IRETURN && opcode <= Opcodes.RETURN)) {//opcode == Opcodes.ATHROW || //throw 不插桩
             // MethodExit...
             insertEndSection();
         }
