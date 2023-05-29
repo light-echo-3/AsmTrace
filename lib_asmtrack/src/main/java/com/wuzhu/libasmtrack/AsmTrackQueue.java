@@ -2,6 +2,7 @@ package com.wuzhu.libasmtrack;
 
 
 import android.os.Build;
+import android.os.Looper;
 import android.os.Trace;
 import android.util.Log;
 
@@ -12,6 +13,9 @@ public class AsmTrackQueue {
     private static final ThreadLocal<Stack<String>> threadLocalStack = new ThreadLocal<>();
 
     public static void beginTrace(String name) {
+        if (!isMainThread()) {
+            return;
+        }
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
             Log.e(TAG, "beginTrace: sdk版本太低：" + name);
             return;
@@ -31,6 +35,9 @@ public class AsmTrackQueue {
     }
 
     public static void endTrace(String name) {
+        if (!isMainThread()) {
+            return;
+        }
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
             Log.e(TAG, "endTrace: sdk版本太低：" + name);
             return;
@@ -53,6 +60,11 @@ public class AsmTrackQueue {
             e.printStackTrace();
         }
     }
+
+    private static boolean isMainThread() {
+        return Looper.getMainLooper() == Looper.myLooper();
+    }
+
 
 
 }
