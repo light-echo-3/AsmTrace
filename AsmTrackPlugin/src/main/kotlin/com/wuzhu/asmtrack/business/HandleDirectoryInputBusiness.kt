@@ -5,7 +5,7 @@ import com.android.build.api.transform.Format
 import com.android.build.api.transform.TransformOutputProvider
 import com.android.utils.FileUtils
 import com.wuzhu.asmtrack.Config
-import com.wuzhu.asmtrack.ScanClassVisitor2
+import com.wuzhu.asmtrack.ScanClassVisitor
 import com.wuzhu.asmtrack.utils.NotTrackUtils
 import org.objectweb.asm.ClassReader
 import org.objectweb.asm.ClassWriter
@@ -52,8 +52,7 @@ object HandleDirectoryInputBusiness {
             }
 //            val classWriter = TraceClassWriter(classReader, ClassWriter.COMPUTE_FRAMES,null)
             val classWriter = ClassWriter(classReader, ClassWriter.COMPUTE_MAXS)
-//            val classVisitor = ScanClassVisitor(Opcodes.ASM7, classWriter)
-            val classVisitor = ScanClassVisitor2(Opcodes.ASM7, classWriter)
+            val classVisitor = ScanClassVisitor(Opcodes.ASM7, classWriter)
             try {
                 classReader.accept(classVisitor, ClassReader.EXPAND_FRAMES)
             } catch (e: Exception) {

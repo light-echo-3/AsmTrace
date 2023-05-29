@@ -33,16 +33,16 @@ public class ScanClassVisitor extends ClassVisitor {
                                      String descriptor,
                                      String signature,
                                      String[] exceptions) {
+        boolean isConstructor = "<init>".equals(name) || "<clinit>".equals(name);
+        boolean isAbstractMethod = (access & Opcodes.ACC_ABSTRACT) != 0;
+        boolean isNativeMethod = (access & Opcodes.ACC_NATIVE) != 0;
         MethodVisitor mv = super.visitMethod(access, name, descriptor, signature, exceptions);
-        if (!isInterface && mv != null && !"<init>".equals(name) && !"<clinit>".equals(name)) {
-            boolean isAbstractMethod = (access & Opcodes.ACC_ABSTRACT) != 0;
-            boolean isNativeMethod = (access & Opcodes.ACC_NATIVE) != 0;
-            if (!isAbstractMethod && !isNativeMethod) {
-                mv = new MethodEnterAndExitAdapter(api, mv, className, name);
-            }
+        if (isInterface || isAbstractMethod || isNativeMethod || isConstructor) {
+            return mv;
+        } else {
+            return new MethodEnterAndExitAdapter(api, mv, className, name);
+//            return new MethodEnterAndExitAdapter2(api, mv, access, name, descriptor, className);
         }
-        return mv;
-
     }
 
 

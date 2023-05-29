@@ -5,7 +5,7 @@ import com.android.build.api.transform.JarInput
 import com.android.build.api.transform.TransformOutputProvider
 import com.android.utils.FileUtils
 import com.wuzhu.asmtrack.Config
-import com.wuzhu.asmtrack.ScanClassVisitor2
+import com.wuzhu.asmtrack.ScanClassVisitor
 import com.wuzhu.asmtrack.utils.NotTrackUtils
 import org.apache.commons.codec.digest.DigestUtils
 import org.apache.commons.compress.utils.IOUtils
@@ -60,8 +60,7 @@ object HandleJarInputBusiness {
                 }
 //                val classWriter = TraceClassWriter(classReader, ClassWriter.COMPUTE_FRAMES,null)
                 val classWriter = ClassWriter(classReader, ClassWriter.COMPUTE_MAXS)
-//                val cv: ClassVisitor = ScanClassVisitor(Opcodes.ASM7, classWriter)
-                val cv: ClassVisitor = ScanClassVisitor2(Opcodes.ASM7, classWriter)
+                val cv: ClassVisitor = ScanClassVisitor(Opcodes.ASM7, classWriter)
                 try {
                     classReader.accept(cv, ClassReader.EXPAND_FRAMES)
                 } catch (e: Exception) {
