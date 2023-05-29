@@ -1,5 +1,7 @@
 package com.wuzhu.asmtrack;
 
+import com.wuzhu.asmtrack.utils.InsertCodeUtils;
+
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
@@ -10,6 +12,8 @@ public class MethodEnterAndExitAdapter extends MethodVisitor {
 
     private final String className;
     private final String methodName;
+
+    private String traceName;
 
     public MethodEnterAndExitAdapter(int api,
                                      MethodVisitor methodVisitor,
@@ -35,29 +39,9 @@ public class MethodEnterAndExitAdapter extends MethodVisitor {
     }
 
     private void insertBeginSection() {
-        String name = generatorName();
-        System.out.println("------=== name = " + name);
-        mv.visitLdcInsn(name);
-        mv.visitMethodInsn(
-                Opcodes.INVOKESTATIC,
-                "android/os/Trace",
-                "beginSection",
-                "(Ljava/lang/String;)V",
-                false
-        );
+        traceName = InsertCodeUtils.generatorName(className, methodName);
+        InsertCodeUtils.insertBegin(traceName, mv);
     }
-
-    private static final int maxSectionNameLength = 127;
-
-    private String generatorName() {
-        String sectionName = "-" + className + "#" + methodName;
-        int length = sectionName.length();
-        if (length > maxSectionNameLength) {
-            sectionName = sectionName.substring(0, maxSectionNameLength);
-        }
-        return sectionName;
-    }
-
 
     @Override
     public void visitInsn(int opcode) {
@@ -71,14 +55,8 @@ public class MethodEnterAndExitAdapter extends MethodVisitor {
     }
 
     private void insertEndSection() {
-        //invokestatic: 调用静态方法System.currentTimeMillis()，返回值为基础类型long
-        //第二个参数代表类的全限定名，第三个参数代表方法名，第四个参数代表函数签名，()J的意思是不接受参数，返回值为J (J在字节码里代表基础类型long)
-        mv.visitMethodInsn(
-                Opcodes.INVOKESTATIC,
-                "android/os/Trace",
-                "endSection",
-                "()V",
-                false);
+        InsertCodeUtils.insertEnd(traceName, mv);
     }
+
 
 }
