@@ -25,16 +25,19 @@ import java.util.zip.ZipEntry
 
 object HandleJarInputBusiness {
 
-
     @JvmStatic
     @Throws(IOException::class)
-    fun traceJarFiles(jarInput: JarInput, outputProvider: TransformOutputProvider, traceConfig: Config) {
+    fun traceJarFiles(
+        classLoader: ClassLoader, jarInput: JarInput, outputProvider: TransformOutputProvider, traceConfig: Config
+    ) {
         if (jarInput.file.absolutePath.endsWith(".jar")) {
-            handleJarInput(jarInput, outputProvider, traceConfig)
+            handleJarInput(classLoader, jarInput, outputProvider, traceConfig)
         }
     }
 
-    private fun handleJarInput(jarInput: JarInput, outputProvider: TransformOutputProvider, traceConfig: Config) {
+    private fun handleJarInput(
+        classLoader: ClassLoader, jarInput: JarInput, outputProvider: TransformOutputProvider, traceConfig: Config
+    ) {
         val jarFile = JarFile(jarInput.file)
         val enumeration = jarFile.entries()
 
@@ -59,7 +62,11 @@ object HandleJarInputBusiness {
                     continue
                 }
 //                val classWriter = TraceClassWriter(classReader, ClassWriter.COMPUTE_FRAMES,null)
-                val classWriter = ClassWriter(classReader, ClassWriter.COMPUTE_MAXS)
+                val classWriter = object : ClassWriter(classReader, COMPUTE_FRAMES or COMPUTE_MAXS) {
+                    override fun getClassLoader(): ClassLoader {
+                        return classLoader
+                    }
+                }
                 val cv: ClassVisitor = ScanClassVisitor(Opcodes.ASM7, classWriter)
                 try {
                     classReader.accept(cv, ClassReader.EXPAND_FRAMES)

@@ -9,7 +9,8 @@ import com.android.build.api.transform.TransformInvocation
 import com.android.build.gradle.internal.pipeline.TransformManager
 import com.wuzhu.asmtrack.business.HandleDirectoryInputBusiness
 import com.wuzhu.asmtrack.business.HandleJarInputBusiness
-
+import com.wuzhu.asmtrack.business.TraceClassLoader
+import java.lang.ClassLoader
 import org.gradle.api.Project
 
 
@@ -60,12 +61,15 @@ class ASMTransform extends Transform {
         }
         // 获取输入源
         Collection<TransformInput> inputs = transformInvocation.getInputs()
+
+        ClassLoader classLoader = createClassLoader(project, inputs)
+
         inputs.forEach(transformInput -> {
             transformInput.getDirectoryInputs().forEach(directoryInput -> {
                 try {
                     System.out.println("------directoryInput = " + directoryInput)
                     // 处理输入源
-                    HandleDirectoryInputBusiness.traceDirectory(directoryInput,
+                    HandleDirectoryInputBusiness.traceDirectory(classLoader, directoryInput,
                             transformInvocation.getOutputProvider(),
                             new Config())
                 } catch (IOException e) {
@@ -77,7 +81,7 @@ class ASMTransform extends Transform {
             transformInput.getJarInputs().forEach(jarInput -> {
                 try {
                     System.out.println("------jarInput = " + jarInput)
-                    HandleJarInputBusiness.traceJarFiles(jarInput,
+                    HandleJarInputBusiness.traceJarFiles(classLoader, jarInput,
                             transformInvocation.getOutputProvider(),
                             new Config())
                 } catch (IOException e) {
@@ -87,6 +91,23 @@ class ASMTransform extends Transform {
             })
 
         })
+    }
+
+
+    private ClassLoader createClassLoader(Project project, Collection<TransformInput> inputs) {
+        Collection<File> inputFiles = new ArrayList<>()
+        inputs.forEach(transformInput -> {
+            transformInput.getDirectoryInputs().forEach(directoryInput -> {
+                inputFiles.add(directoryInput.file)
+            })
+
+            transformInput.getJarInputs().forEach(jarInput -> {
+                inputFiles.add(jarInput.file)
+            })
+
+        })
+
+        return TraceClassLoader.getClassLoader(project, inputFiles)
     }
 
 

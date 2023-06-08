@@ -17,8 +17,13 @@ object HandleDirectoryInputBusiness {
 
     @JvmStatic
     @Throws(IOException::class)
-    fun traceDirectory(directoryInput: DirectoryInput, outputProvider: TransformOutputProvider, @Suppress("UNUSED_PARAMETER") traceConfig: Config) {
-        handleDirectoryInput(directoryInput)
+    fun traceDirectory(
+        classLoader: ClassLoader,
+        directoryInput: DirectoryInput,
+        outputProvider: TransformOutputProvider,
+        @Suppress("UNUSED_PARAMETER") traceConfig: Config
+    ) {
+        handleDirectoryInput(classLoader, directoryInput)
 
         // 获取output目录
         val dest: File = outputProvider.getContentLocation(
@@ -33,17 +38,17 @@ object HandleDirectoryInputBusiness {
      * 处理文件目录下的class文件
      */
     @Throws(IOException::class)
-    private fun handleDirectoryInput(directoryInput: DirectoryInput) {
+    private fun handleDirectoryInput(classLoader: ClassLoader, directoryInput: DirectoryInput) {
         println("------" + directoryInput.file)
         val files: MutableList<File> = ArrayList()
         //列出目录所有文件（包含子文件夹，子文件夹内文件）
         listFiles(files, directoryInput.file)
         for (file in files) {
-            scanClass(file)
+            scanClass(classLoader, file)
         }
     }
 
-    private fun scanClass(inFile: File) {
+    private fun scanClass(classLoader: ClassLoader, inFile: File) {
         try {
             val inputStream: InputStream = FileInputStream(inFile)
             val classReader = ClassReader(inputStream)
@@ -51,7 +56,11 @@ object HandleDirectoryInputBusiness {
                 return
             }
 //            val classWriter = TraceClassWriter(classReader, ClassWriter.COMPUTE_FRAMES,null)
-            val classWriter = ClassWriter(classReader, ClassWriter.COMPUTE_MAXS)
+            val classWriter = object : ClassWriter(classReader, COMPUTE_FRAMES or COMPUTE_MAXS) {
+                override fun getClassLoader(): ClassLoader {
+                    return classLoader
+                }
+            }
             val classVisitor = ScanClassVisitor(Opcodes.ASM7, classWriter)
             try {
                 classReader.accept(classVisitor, ClassReader.EXPAND_FRAMES)
