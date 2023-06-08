@@ -188,7 +188,6 @@ public class MainActivity extends Activity implements DLPlugin {
 
         testBarrier(button);
 
-        TestAsm.testSlowMethod();
     }
 
 
