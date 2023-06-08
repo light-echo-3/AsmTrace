@@ -38,11 +38,11 @@
         {
           "name": "AsmTrackPlugin-unspecified.jar",
           "url": "AsmTrackPlugin-unspecified.jar",
-          "size": 46658,
-          "sha512": "8c0c76528ed916cc6f8c4bb32805af398cc0948795f223a818114dcd59893b9a95091ab903d7497e27451afcd6ff6bd80da4e3d7fe06f725e9a8f628ce89ef1e",
-          "sha256": "a078e517a0e4474df70f2e176972154096f0d4a23c5b99f8f289e7f4e4f7cf7b",
-          "sha1": "803628177770d38ec67bcb2707bf2995c6bb31a5",
-          "md5": "f3aeb1a1ff5f2526cb3c7d6deefc7df7"
+          "size": 46632,
+          "sha512": "f799cfe6069c9401dc66be2720d1eb907954e913ae0724e96a63f80abeefa3c0fdf160c8ef1163dab2a4d61b552fdbad1a7f6bd509c922780ad4c6c512fc072d",
+          "sha256": "c2f0edc590296bfa368d943daf65d87414fe9d550762b08fed8ab9f6722a66e4",
+          "sha1": "7a059a148b2124e027affb39ece4bcced3c1201d",
+          "md5": "1e52ad18f71bd5360fc4bd9341e12d3b"
         }
       ]
     },
@@ -77,11 +77,11 @@
         {
           "name": "AsmTrackPlugin-unspecified.jar",
           "url": "AsmTrackPlugin-unspecified.jar",
-          "size": 46658,
-          "sha512": "8c0c76528ed916cc6f8c4bb32805af398cc0948795f223a818114dcd59893b9a95091ab903d7497e27451afcd6ff6bd80da4e3d7fe06f725e9a8f628ce89ef1e",
-          "sha256": "a078e517a0e4474df70f2e176972154096f0d4a23c5b99f8f289e7f4e4f7cf7b",
-          "sha1": "803628177770d38ec67bcb2707bf2995c6bb31a5",
-          "md5": "f3aeb1a1ff5f2526cb3c7d6deefc7df7"
+          "size": 46632,
+          "sha512": "f799cfe6069c9401dc66be2720d1eb907954e913ae0724e96a63f80abeefa3c0fdf160c8ef1163dab2a4d61b552fdbad1a7f6bd509c922780ad4c6c512fc072d",
+          "sha256": "c2f0edc590296bfa368d943daf65d87414fe9d550762b08fed8ab9f6722a66e4",
+          "sha1": "7a059a148b2124e027affb39ece4bcced3c1201d",
+          "md5": "1e52ad18f71bd5360fc4bd9341e12d3b"
         }
       ]
     }
