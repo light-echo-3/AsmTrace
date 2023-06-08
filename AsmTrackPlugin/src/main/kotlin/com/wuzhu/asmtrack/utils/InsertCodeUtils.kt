@@ -1,7 +1,9 @@
 package com.wuzhu.asmtrack.utils
 
 import org.objectweb.asm.MethodVisitor
-import org.objectweb.asm.Opcodes
+import org.objectweb.asm.Opcodes.ALOAD
+import org.objectweb.asm.Opcodes.ASTORE
+import org.objectweb.asm.Opcodes.INVOKESTATIC
 
 object InsertCodeUtils {
 
@@ -28,28 +30,30 @@ object InsertCodeUtils {
     }
 
     @JvmStatic
-    fun insertBegin(traceName: String, methodVisitor: MethodVisitor) {
+    fun insertBegin(traceName: String, methodVisitor: MethodVisitor, maxLocals: Int) {
         println("------=== name = $traceName")
         methodVisitor.visitLdcInsn(traceName)
         methodVisitor.visitMethodInsn(
-            Opcodes.INVOKESTATIC,
+            INVOKESTATIC,
             "com/wuzhu/libasmtrack/AsmTraceQueue",
             "beginTrace",
-            "(Ljava/lang/String;)V",
+            "(Ljava/lang/String;)Ljava/lang/String;",
             false
         )
+        //插入到本地变量表最后面，这样可以保证重新计算栈帧（重新计算本地变量表和操作数栈）的正确性
+        methodVisitor.visitVarInsn(ASTORE, maxLocals)
+
     }
 
     @JvmStatic
-    fun insertEnd(traceName: String, methodVisitor: MethodVisitor) {
-        methodVisitor.visitLdcInsn(traceName)
+    fun insertEnd(traceName: String, methodVisitor: MethodVisitor, maxLocals: Int) {
+        methodVisitor.visitVarInsn(ALOAD, maxLocals);
         methodVisitor.visitMethodInsn(
-            Opcodes.INVOKESTATIC,
-            "com/wuzhu/libasmtrack/AsmTraceQueue",
-            "endTrace",
-            "(Ljava/lang/String;)V",
-            false
+            INVOKESTATIC, "com/wuzhu/libasmtrack/AsmTraceQueue", "endTrace", "(Ljava/lang/String;)V", false
         )
+//        methodVisitor.visitInsn(RETURN)
+//        methodVisitor.visitMaxs(1, 1)
+//        methodVisitor.visitEnd()
     }
 
 

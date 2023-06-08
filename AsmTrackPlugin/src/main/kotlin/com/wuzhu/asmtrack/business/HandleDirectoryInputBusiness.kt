@@ -10,6 +10,7 @@ import com.wuzhu.asmtrack.utils.NotTrackUtils
 import org.objectweb.asm.ClassReader
 import org.objectweb.asm.ClassWriter
 import org.objectweb.asm.Opcodes
+import org.objectweb.asm.tree.ClassNode
 import java.io.*
 
 object HandleDirectoryInputBusiness {
@@ -56,13 +57,15 @@ object HandleDirectoryInputBusiness {
                 return
             }
 //            val classWriter = TraceClassWriter(classReader, ClassWriter.COMPUTE_FRAMES,null)
-            val classWriter = object : ClassWriter(classReader, COMPUTE_FRAMES or COMPUTE_MAXS) {
+            val classWriter = object : ClassWriter(classReader, COMPUTE_FRAMES) {
                 override fun getClassLoader(): ClassLoader {
                     return classLoader
                 }
             }
-            val classVisitor = ScanClassVisitor(Opcodes.ASM7, classWriter)
             try {
+                val classNode = ClassNode()
+                classReader.accept(classNode, 0)
+                val classVisitor = ScanClassVisitor(classNode,Opcodes.ASM7, classWriter)
                 classReader.accept(classVisitor, ClassReader.EXPAND_FRAMES)
             } catch (e: Exception) {
                 e.printStackTrace()

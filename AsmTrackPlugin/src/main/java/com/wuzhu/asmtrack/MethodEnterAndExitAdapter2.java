@@ -33,7 +33,7 @@ public class MethodEnterAndExitAdapter2 extends AdviceAdapter {
 
     private void insertBeginSection() {
         traceName = InsertCodeUtils.generatorName(className, methodName);
-        InsertCodeUtils.insertBegin(traceName, mv);
+//        InsertCodeUtils.insertBegin(traceName, mv);
     }
 
 
@@ -44,7 +44,7 @@ public class MethodEnterAndExitAdapter2 extends AdviceAdapter {
     }
 
     private void insertEndSection() {
-        InsertCodeUtils.insertEnd(traceName, mv);
+//        InsertCodeUtils.insertEnd(traceName, mv);
     }
 
 }

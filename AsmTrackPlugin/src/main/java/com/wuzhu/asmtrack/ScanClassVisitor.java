@@ -4,6 +4,7 @@ package com.wuzhu.asmtrack;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
+import org.objectweb.asm.tree.ClassNode;
 
 import java.io.File;
 
@@ -11,12 +12,14 @@ import java.io.File;
  * @author Hdq on 2022/12/6.
  */
 public class ScanClassVisitor extends ClassVisitor {
+    private final ClassNode classNode;
     private boolean isInterface;
     private String className;
 
 
-    public ScanClassVisitor(int api, ClassVisitor cv) {
+    public ScanClassVisitor(ClassNode classNode, int api, ClassVisitor cv) {
         super(api, cv);
+        this.classNode = classNode;
     }
 
     @Override
@@ -40,7 +43,7 @@ public class ScanClassVisitor extends ClassVisitor {
         if (isInterface || isAbstractMethod || isNativeMethod || isConstructor) {
             return mv;
         } else {
-            return new MethodEnterAndExitAdapter(api, mv, className, name);
+            return new MethodEnterAndExitAdapter(api, mv, className, name, descriptor, classNode);
 //            return new MethodEnterAndExitAdapter2(api, mv, access, name, descriptor, className);
         }
     }

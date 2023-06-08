@@ -11,32 +11,36 @@ object AsmTraceQueue {
     private val threadLocalStack = ThreadLocal<Stack<String>>()
     private val logTags: List<String> = mutableListOf("Application#onCreate")
 
+    private var count = 0
+
     /**
      * 是否支持多线程，默认只支持主线程
      */
     var isSupportMultiThread = false
 
     @JvmStatic
-    fun beginTrace(name: String?) {
+    fun beginTrace(name: String?):String? {
         if (!isTrace) {
-            return
+            return null
         }
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
             Log.e(TAG, "beginTrace: sdk版本太低：$name")
-            return
+            return null
         }
         if (name == null || name.trim().isEmpty()) {
             Log.e(TAG, "beginTrace: name是空：$name")
-            return
+            return null
         }
         var stack = threadLocalStack.get()
         if (stack == null) {
             stack = Stack()
             threadLocalStack.set(stack)
         }
-        stack.push(name)
-        printLogByTags("beginTrace", name)
-        Trace.beginSection(name)
+        val newName = "${name}_${genCount()}"
+        stack.push(newName)
+        printLogByTags("beginTrace", newName)
+        Trace.beginSection(newName)
+        return newName
     }
 
     @JvmStatic
@@ -81,5 +85,13 @@ object AsmTraceQueue {
                 Log.e(TAG, "!!!!!!$prefix:$name")
             }
         }
+    }
+
+    private fun genCount():Int {
+        count ++
+        if (count > 999_999) {
+            count = 1//重新计数
+        }
+        return count
     }
 }

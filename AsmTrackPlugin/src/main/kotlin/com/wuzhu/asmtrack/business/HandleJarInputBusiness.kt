@@ -13,6 +13,7 @@ import org.objectweb.asm.ClassReader
 import org.objectweb.asm.ClassVisitor
 import org.objectweb.asm.ClassWriter
 import org.objectweb.asm.Opcodes
+import org.objectweb.asm.tree.ClassNode
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -62,13 +63,15 @@ object HandleJarInputBusiness {
                     continue
                 }
 //                val classWriter = TraceClassWriter(classReader, ClassWriter.COMPUTE_FRAMES,null)
-                val classWriter = object : ClassWriter(classReader, COMPUTE_FRAMES or COMPUTE_MAXS) {
+                val classWriter = object : ClassWriter(classReader, COMPUTE_FRAMES) {
                     override fun getClassLoader(): ClassLoader {
                         return classLoader
                     }
                 }
-                val cv: ClassVisitor = ScanClassVisitor(Opcodes.ASM7, classWriter)
                 try {
+                    val classNode = ClassNode()
+                    classReader.accept(classNode, 0)
+                    val cv: ClassVisitor = ScanClassVisitor(classNode, Opcodes.ASM7, classWriter)
                     classReader.accept(cv, ClassReader.EXPAND_FRAMES)
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -97,9 +100,8 @@ object HandleJarInputBusiness {
         }
         val md5Name = DigestUtils.md5Hex(jarInput.file.absolutePath)
         //处理完输出给下一任务作为输入
-        val dest = outputProvider.getContentLocation(
+        return outputProvider.getContentLocation(
             jarName + md5Name, jarInput.contentTypes, jarInput.scopes, Format.JAR
         )
-        return dest
     }
 }
