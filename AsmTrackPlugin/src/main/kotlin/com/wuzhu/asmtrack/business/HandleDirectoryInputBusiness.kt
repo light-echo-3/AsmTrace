@@ -52,39 +52,35 @@ object HandleDirectoryInputBusiness {
     }
 
     private fun scanClass(classLoader: ClassLoader, inFile: File, traceConfig: Config) {
+        val inputStream: InputStream = FileInputStream(inFile)
+        val classReader = ClassReader(inputStream)
+        val classNode = ClassNode()
+        classReader.accept(classNode, 0)
+        if (NotTrackUtils.isNotTrackByAnnotation(classNode) || NotTrackUtils.isNotTrackByConfig(
+                classNode, traceConfig
+            )
+        ) {
+            inputStream.close()
+            return
+        }
+        val classWriter = object : ClassWriter(classReader, COMPUTE_FRAMES) {
+            override fun getClassLoader(): ClassLoader {
+                return classLoader
+            }
+        }
         try {
-            val inputStream: InputStream = FileInputStream(inFile)
-            val classReader = ClassReader(inputStream)
-            val classNode = ClassNode()
-            classReader.accept(classNode, 0)
-            if (NotTrackUtils.isNotTrackByAnnotation(classNode) || NotTrackUtils.isNotTrackByConfig(
-                    classNode, traceConfig
-                )
-            ) {
-                inputStream.close()
-                return
-            }
-            val classWriter = object : ClassWriter(classReader, COMPUTE_FRAMES) {
-                override fun getClassLoader(): ClassLoader {
-                    return classLoader
-                }
-            }
-            try {
-                val classVisitor = ScanClassVisitor(classNode, Opcodes.ASM7, classWriter)
-                classReader.accept(classVisitor, ClassReader.EXPAND_FRAMES)
-            } catch (e: Throwable) {
-                e.printStackTrace()
-            }
+            val classVisitor = ScanClassVisitor(classNode, Opcodes.ASM7, classWriter)
+            classReader.accept(classVisitor, ClassReader.EXPAND_FRAMES)
             //覆盖原来的class文件
             val code = classWriter.toByteArray()
-            val fos = FileOutputStream(
-                inFile.parentFile.absolutePath + File.separator + inFile.name
-            )
+            val fos = FileOutputStream(inFile.parentFile.absolutePath + File.separator + inFile.name)
             fos.write(code)
             fos.close()
-            inputStream.close()
-        } catch (e: IOException) {
+        } catch (e: Throwable) {
+            println("---error---插桩失败：inFile = $inFile")
             e.printStackTrace()
+        } finally {
+            inputStream.close()
         }
     }
 

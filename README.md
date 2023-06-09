@@ -55,3 +55,5 @@ taskName是我们调试的task，比如assembleDebug、assembleRelease等
 # 3 性能分析
 [Perfetto入门](https://www.jianshu.com/p/f4cf101cc64f)
 [Perfetto官网](https://ui.perfetto.dev/)
+Perfetto trace 数据保存位置 /data/local/traces
+adb pull /data/local/traces

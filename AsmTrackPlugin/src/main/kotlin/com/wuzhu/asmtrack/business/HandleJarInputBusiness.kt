@@ -64,7 +64,6 @@ object HandleJarInputBusiness {
                     jarOutputStream.write(classReader.b)
                     continue
                 }
-//                val classWriter = TraceClassWriter(classReader, ClassWriter.COMPUTE_FRAMES,null)
                 val classWriter = object : ClassWriter(classReader, COMPUTE_FRAMES) {
                     override fun getClassLoader(): ClassLoader {
                         return classLoader
@@ -73,16 +72,19 @@ object HandleJarInputBusiness {
                 try {
                     val cv: ClassVisitor = ScanClassVisitor(classNode, Opcodes.ASM7, classWriter)
                     classReader.accept(cv, ClassReader.EXPAND_FRAMES)
+                    val code = classWriter.toByteArray()
+                    jarOutputStream.write(code)
                 } catch (e: Throwable) {
+                    println("---error---插桩失败：entryName = $entryName")
                     e.printStackTrace()
+                    jarOutputStream.write(classReader.b)
                 }
-                val code = classWriter.toByteArray()
-                jarOutputStream.write(code)
             } else {
-                jarOutputStream.putNextEntry(zipEntry)
-                jarOutputStream.write(IOUtils.toByteArray(inputStream))
+                jarOutputStream.putNextEntry(zipEntry)//1.put节点
+                jarOutputStream.write(IOUtils.toByteArray(inputStream))//2.写入数据
             }
             jarOutputStream.closeEntry()
+            inputStream.close()
         }
 
         jarOutputStream.close()
