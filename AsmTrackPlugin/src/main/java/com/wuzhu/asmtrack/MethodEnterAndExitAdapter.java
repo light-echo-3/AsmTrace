@@ -16,8 +16,6 @@ public class MethodEnterAndExitAdapter extends MethodVisitor {
     private final String className;
     private final String methodName;
 
-    private String traceName;
-
     public MethodEnterAndExitAdapter(int api,
                                      MethodVisitor methodVisitor,
                                      String className,
@@ -60,7 +58,7 @@ public class MethodEnterAndExitAdapter extends MethodVisitor {
     }
 
     private void insertBeginSection() {
-        traceName = InsertCodeUtils.generatorName(className, methodName);
+        String traceName = InsertCodeUtils.generatorName(className, methodName);
         InsertCodeUtils.insertBegin(traceName, mv, maxLocals);
     }
 
@@ -76,7 +74,7 @@ public class MethodEnterAndExitAdapter extends MethodVisitor {
     }
 
     private void insertEndSection() {
-        InsertCodeUtils.insertEnd(traceName, mv, maxLocals);
+        InsertCodeUtils.insertEnd(mv, maxLocals);
     }
 
 

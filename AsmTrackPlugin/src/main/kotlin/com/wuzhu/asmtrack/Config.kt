@@ -8,10 +8,17 @@ class Config {
     //一些默认无需插桩的类
     private val UNNEED_TRACE_CLASS = arrayOf("R.class", "R$", "Manifest", "BuildConfig")
 
-    //不需要插桩的包
+    /**
+     * 不需要插桩的包
+     * 配置格式：例：package = kotlin/jvm/internal/
+     */
     private val UNNEED_TRACE_PACKAGE = arrayOf("kotlin/")
 
 
+    /**
+     * @param fileName 格式：
+     * 例：fileName = kotlin/jvm/internal/Intrinsics.class
+     */
     fun isNeedTraceClass(fileName: String): Boolean {
         var isNeed = true
         if (fileName.endsWith(".class")) {

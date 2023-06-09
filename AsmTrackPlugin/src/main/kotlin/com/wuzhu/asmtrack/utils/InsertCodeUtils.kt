@@ -46,8 +46,8 @@ object InsertCodeUtils {
     }
 
     @JvmStatic
-    fun insertEnd(traceName: String, methodVisitor: MethodVisitor, maxLocals: Int) {
-        methodVisitor.visitVarInsn(ALOAD, maxLocals);
+    fun insertEnd(methodVisitor: MethodVisitor, maxLocals: Int) {
+        methodVisitor.visitVarInsn(ALOAD, maxLocals)
         methodVisitor.visitMethodInsn(
             INVOKESTATIC, "com/wuzhu/libasmtrack/AsmTraceQueue", "endTrace", "(Ljava/lang/String;)V", false
         )

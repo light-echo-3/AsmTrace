@@ -55,10 +55,12 @@ object HandleJarInputBusiness {
             val entryName: String = jarEntry.name
             val zipEntry = ZipEntry(entryName)
             val inputStream: InputStream = jarFile.getInputStream(jarEntry)
-            if (traceConfig.isNeedTraceClass(entryName)) {
+            if (!NotTrackUtils.isNotTrackByConfig(entryName, traceConfig)) {
                 jarOutputStream.putNextEntry(zipEntry)
                 val classReader = ClassReader(IOUtils.toByteArray(inputStream))
-                if (NotTrackUtils.isNotTrack(classReader)) {
+                val classNode = ClassNode() //创建ClassNode,读取的信息会封装到这个类里面
+                classReader.accept(classNode, 0) //开始读取
+                if (NotTrackUtils.isNotTrackByAnnotation(classNode)) {
                     jarOutputStream.write(classReader.b)
                     continue
                 }
@@ -69,11 +71,9 @@ object HandleJarInputBusiness {
                     }
                 }
                 try {
-                    val classNode = ClassNode()
-                    classReader.accept(classNode, 0)
                     val cv: ClassVisitor = ScanClassVisitor(classNode, Opcodes.ASM7, classWriter)
                     classReader.accept(cv, ClassReader.EXPAND_FRAMES)
-                } catch (e: Exception) {
+                } catch (e: Throwable) {
                     e.printStackTrace()
                 }
                 val code = classWriter.toByteArray()

@@ -22,9 +22,9 @@ object HandleDirectoryInputBusiness {
         classLoader: ClassLoader,
         directoryInput: DirectoryInput,
         outputProvider: TransformOutputProvider,
-        @Suppress("UNUSED_PARAMETER") traceConfig: Config
+        traceConfig: Config
     ) {
-        handleDirectoryInput(classLoader, directoryInput)
+        handleDirectoryInput(classLoader, directoryInput, traceConfig)
 
         // 获取output目录
         val dest: File = outputProvider.getContentLocation(
@@ -39,38 +39,42 @@ object HandleDirectoryInputBusiness {
      * 处理文件目录下的class文件
      */
     @Throws(IOException::class)
-    private fun handleDirectoryInput(classLoader: ClassLoader, directoryInput: DirectoryInput) {
+    private fun handleDirectoryInput(
+        classLoader: ClassLoader, directoryInput: DirectoryInput, traceConfig: Config
+    ) {
         println("------" + directoryInput.file)
         val files: MutableList<File> = ArrayList()
         //列出目录所有文件（包含子文件夹，子文件夹内文件）
         listFiles(files, directoryInput.file)
         for (file in files) {
-            scanClass(classLoader, file)
+            scanClass(classLoader, file, traceConfig)
         }
     }
 
-    private fun scanClass(classLoader: ClassLoader, inFile: File) {
+    private fun scanClass(classLoader: ClassLoader, inFile: File, traceConfig: Config) {
         try {
             val inputStream: InputStream = FileInputStream(inFile)
             val classReader = ClassReader(inputStream)
-            if (NotTrackUtils.isNotTrack(classReader)) {
+            val classNode = ClassNode()
+            classReader.accept(classNode, 0)
+            if (NotTrackUtils.isNotTrackByAnnotation(classNode) || NotTrackUtils.isNotTrackByConfig(
+                    classNode, traceConfig
+                )
+            ) {
+                inputStream.close()
                 return
             }
-//            val classWriter = TraceClassWriter(classReader, ClassWriter.COMPUTE_FRAMES,null)
             val classWriter = object : ClassWriter(classReader, COMPUTE_FRAMES) {
                 override fun getClassLoader(): ClassLoader {
                     return classLoader
                 }
             }
             try {
-                val classNode = ClassNode()
-                classReader.accept(classNode, 0)
-                val classVisitor = ScanClassVisitor(classNode,Opcodes.ASM7, classWriter)
+                val classVisitor = ScanClassVisitor(classNode, Opcodes.ASM7, classWriter)
                 classReader.accept(classVisitor, ClassReader.EXPAND_FRAMES)
-            } catch (e: Exception) {
+            } catch (e: Throwable) {
                 e.printStackTrace()
             }
-
             //覆盖原来的class文件
             val code = classWriter.toByteArray()
             val fos = FileOutputStream(
