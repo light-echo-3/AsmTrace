@@ -38,11 +38,11 @@
         {
           "name": "asmtrack-1.0.12.jar",
           "url": "asmtrack-1.0.12.jar",
-          "size": 48017,
-          "sha512": "823db6837107b70f172a93bd50be88e4f838891a2c0b04e40d8fbb1084a10facbcc533b0ec6b0a14f077bd4da2d0ac238ef9996609ab621b6e14f4eeeacaa058",
-          "sha256": "b785fd4781ff516a6de75c8fbccb9d9d558d4cbb66492fb1799f42a84d57523d",
-          "sha1": "185fdff0d3897101978b0b8bbda987b1bf5cafee",
-          "md5": "6c679012a3d565fb59ca86d432f6f6b7"
+          "size": 48028,
+          "sha512": "7406610692a7b713c1106ee5a19e1cf46836e9b9c9797b1eac92bec717c76531e8adf9bc45aa81fa2169c2e05d570819f3301f75bd115f5158c0b1188f92d3ee",
+          "sha256": "0d545d74394b679d9e8db3b13ce5f148723a49d582e78c4c17d2d873b4745e19",
+          "sha1": "9f52558c0dd327ebe10b7a07f2ca9fe68afc96ef",
+          "md5": "d2b5b97192f61bf72b264c5a0fcd5f3d"
         }
       ]
     },
@@ -77,11 +77,11 @@
         {
           "name": "asmtrack-1.0.12.jar",
           "url": "asmtrack-1.0.12.jar",
-          "size": 48017,
-          "sha512": "823db6837107b70f172a93bd50be88e4f838891a2c0b04e40d8fbb1084a10facbcc533b0ec6b0a14f077bd4da2d0ac238ef9996609ab621b6e14f4eeeacaa058",
-          "sha256": "b785fd4781ff516a6de75c8fbccb9d9d558d4cbb66492fb1799f42a84d57523d",
-          "sha1": "185fdff0d3897101978b0b8bbda987b1bf5cafee",
-          "md5": "6c679012a3d565fb59ca86d432f6f6b7"
+          "size": 48028,
+          "sha512": "7406610692a7b713c1106ee5a19e1cf46836e9b9c9797b1eac92bec717c76531e8adf9bc45aa81fa2169c2e05d570819f3301f75bd115f5158c0b1188f92d3ee",
+          "sha256": "0d545d74394b679d9e8db3b13ce5f148723a49d582e78c4c17d2d873b4745e19",
+          "sha1": "9f52558c0dd327ebe10b7a07f2ca9fe68afc96ef",
+          "md5": "d2b5b97192f61bf72b264c5a0fcd5f3d"
         }
       ]
     }
