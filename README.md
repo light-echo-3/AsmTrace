@@ -57,3 +57,7 @@ taskName是我们调试的task，比如assembleDebug、assembleRelease等
 [Perfetto官网](https://ui.perfetto.dev/)
 Perfetto trace 数据保存位置 /data/local/traces
 adb pull /data/local/traces
+
+
+# TODO 
+UncaughtExceptionHandler 处理异常时，清空AsmTraceQueue

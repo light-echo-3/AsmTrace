@@ -94,4 +94,20 @@ object AsmTraceQueue {
         }
         return count
     }
+
+    fun clear(){
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            Log.e(TAG, "endTrace: sdk版本太低")
+            return
+        }
+        try {
+            val stack = threadLocalStack.get() ?: return
+            while (!stack.isEmpty) {
+                stack.pop()
+                Trace.endSection()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
 }
