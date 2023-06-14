@@ -23,10 +23,6 @@ object AsmTraceQueue {
         if (!isTrace) {
             return null
         }
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            Log.e(TAG, "beginTrace: sdk版本太低：$name")
-            return null
-        }
         if (name == null || name.trim().isEmpty()) {
             Log.e(TAG, "beginTrace: name是空：$name")
             return null
@@ -39,17 +35,29 @@ object AsmTraceQueue {
         val newName = "${name}_${genCount()}"
         stack.push(newName)
         printLogByTags("beginTrace", newName)
-        Trace.beginSection(newName)
+        traceBeginSection(newName)
         return newName
+    }
+
+    private fun traceBeginSection(name: String){
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            Log.e(TAG, "beginTrace: sdk版本太低：$name")
+        } else {
+            Trace.beginSection(name)
+        }
+    }
+
+    private fun traceEndSection(){
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            Log.e(TAG, "beginTrace: sdk版本太低：")
+        } else {
+            Trace.endSection()
+        }
     }
 
     @JvmStatic
     fun endTrace(name: String?) {
         if (!isTrace) {
-            return
-        }
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            Log.e(TAG, "endTrace: sdk版本太低：$name")
             return
         }
         val stack = threadLocalStack.get()
@@ -61,10 +69,10 @@ object AsmTraceQueue {
             var popName: String
             while (name != stack.pop().also { popName = it }) {
                 Log.e(TAG, "endTrace: 1 = $popName")
-                Trace.endSection()
+                traceEndSection()
             }
             printLogByTags("endTrace", name)
-            Trace.endSection()
+            traceEndSection()
         } catch (e: Exception) {
             Log.e(TAG, "endTrace: 栈已经空了: thread=" + Thread.currentThread())
             e.printStackTrace()
@@ -96,15 +104,11 @@ object AsmTraceQueue {
     }
 
     fun clear(){
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            Log.e(TAG, "endTrace: sdk版本太低")
-            return
-        }
         try {
             val stack = threadLocalStack.get() ?: return
             while (!stack.isEmpty) {
                 stack.pop()
-                Trace.endSection()
+                traceEndSection()
             }
         } catch (e: Exception) {
             e.printStackTrace()
