@@ -5,6 +5,8 @@ import android.app.Application;
 import android.os.Trace;
 import android.util.Log;
 
+import com.wuzhu.libasmtrack.AsmTraceInitializer;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,12 +18,13 @@ public class MyApplication extends Application {
 
     @Override
     public void onCreate() {
-        Trace.beginSection("MyApplication.onCreate");
+        Trace.beginSection("手动加的---MyApplication.onCreate");
         super.onCreate();
 
         if (isDebugBuild()) {
             Log.d("TAG", "onCreate: ");
         }
+        AsmTraceInitializer.init();
         Trace.endSection();
     }
 

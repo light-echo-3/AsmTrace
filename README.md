@@ -52,7 +52,12 @@ taskName是我们调试的task，比如assembleDebug、assembleRelease等
 [发布包到 GitHub Packages](https://docs.github.com/zh/actions/publishing-packages/publishing-java-packages-with-gradle#%E5%8F%91%E5%B8%83%E5%8C%85%E5%88%B0-github-packages)
 [gradle发布jar到GitHub Packages & 使用](https://juejin.cn/post/7007289428158709797)
 
-# 3 性能分析
+# 3 插件使用
+## 3.1 初始化
+在application中调用 com.wuzhu.libasmtrack.AsmTraceInitializer.init 
+
+
+# 4 性能分析
 [Perfetto入门](https://www.jianshu.com/p/f4cf101cc64f)
 [Perfetto官网](https://ui.perfetto.dev/)
 Perfetto trace 数据保存位置 /data/local/traces
@@ -60,4 +65,3 @@ adb pull /data/local/traces
 
 
 # TODO 
-UncaughtExceptionHandler 处理异常时，清空AsmTraceQueue
