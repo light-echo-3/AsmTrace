@@ -5,7 +5,7 @@ import android.os.Looper
 import android.os.Trace
 import android.util.Log
 
-@NotTrack
+@NotTrace
 object AsmTraceQueue {
     private const val TAG = "AsmTraceQueue"
     private val threadLocalStack = ThreadLocal<Stack<String>>()

@@ -1,6 +1,6 @@
 package com.wuzhu.libasmtrack
 
-@NotTrack
+@NotTrace
 object AsmTraceInitializer {
 
     @JvmStatic

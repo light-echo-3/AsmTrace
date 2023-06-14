@@ -2,13 +2,13 @@ package com.wuzhu.testandroid51.utils;
 
 import android.os.Trace;
 
-import com.wuzhu.libasmtrack.NotTrack;
+import com.wuzhu.libasmtrack.NotTrace;
 
 /**
  * @author Hdq on 2022/12/6.
  *
  */
-@NotTrack
+@NotTrace
 public class MyAsmTraceDemo {
 
     public static void begin(){

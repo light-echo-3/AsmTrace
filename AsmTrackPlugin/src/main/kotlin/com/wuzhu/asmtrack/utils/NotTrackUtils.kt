@@ -37,7 +37,7 @@ object NotTrackUtils {
         if (annotations != null) { //遍历注解
             for (annotationNode in annotations) {
                 //获取注解的描述信息
-                if ("Lcom/wuzhu/libasmtrack/NotTrack;" == annotationNode.desc) {
+                if ("Lcom/wuzhu/libasmtrack/NotTrace;" == annotationNode.desc) {
                     return true
                 }
             }

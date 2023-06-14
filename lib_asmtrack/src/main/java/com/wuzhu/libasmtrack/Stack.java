@@ -1,11 +1,13 @@
 package com.wuzhu.libasmtrack;
 
+import androidx.annotation.NonNull;
+
 import java.util.LinkedList;
 
-@NotTrack
+@NotTrace
 public class Stack<T> {
 
-    private LinkedList<T> storage = new LinkedList<T>();
+    private final LinkedList<T> storage = new LinkedList<>();
 
     /**
      * 入栈
@@ -38,6 +40,7 @@ public class Stack<T> {
     /**
      * 打印栈元素
      */
+    @NonNull
     public String toString() {
         return storage.toString();
     }

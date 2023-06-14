@@ -1,11 +1,9 @@
 package com.wuzhu.testandroid51.test;
 
-import android.util.Log;
-
 import com.wuzhu.libasmtrack.AsmTraceQueue;
-import com.wuzhu.libasmtrack.NotTrack;
+import com.wuzhu.libasmtrack.NotTrace;
 
-@NotTrack
+@NotTrace
 public class TestAsmNotTrack {
 
     /**

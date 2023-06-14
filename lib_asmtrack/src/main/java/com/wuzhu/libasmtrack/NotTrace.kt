@@ -6,4 +6,4 @@ package com.wuzhu.libasmtrack
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.BINARY)
 @MustBeDocumented
-annotation class NotTrack()
+annotation class NotTrace()
