@@ -63,5 +63,6 @@ taskName是我们调试的task，比如assembleDebug、assembleRelease等
 Perfetto trace 数据保存位置 /data/local/traces
 adb pull /data/local/traces
 
+![效果图](readme_imgs/img_9.png)
 
 # TODO 
