@@ -5,14 +5,24 @@ package com.wuzhu.asmtrack
  */
 class Config {
 
-    //一些默认无需插桩的类
-    private val UNNEED_TRACE_CLASS = arrayOf("R.class", "R$", "Manifest", "BuildConfig")
+    companion object {
+        //一些默认无需插桩的类
+        private val UN_NEED_TRACE_CLASS = arrayOf(
+            "/R.class",
+            "/R$",
+            "/Manifest.class",
+            "/BuildConfig.class",
+            "androidx/core/os/TraceCompat.class",
+            "androidx/tracing/Trace.class"
+        )
 
-    /**
-     * 不需要插桩的包
-     * 配置格式：例：package = kotlin/jvm/internal/
-     */
-    private val UNNEED_TRACE_PACKAGE = arrayOf("kotlin/")
+        /**
+         * 不需要插桩的包
+         * 配置格式：例：package = kotlin/jvm/internal/
+         */
+        private val UN_NEED_TRACE_PACKAGE = arrayOf("kotlin/")
+    }
+
 
 
     /**
@@ -22,13 +32,13 @@ class Config {
     fun isNeedTraceClass(fileName: String): Boolean {
         var isNeed = true
         if (fileName.endsWith(".class")) {
-            for (unTraceCls in UNNEED_TRACE_CLASS) {
+            for (unTraceCls in UN_NEED_TRACE_CLASS) {
                 if (fileName.contains(unTraceCls)) {
                     isNeed = false
                     break
                 }
             }
-            for (packageName in UNNEED_TRACE_PACKAGE) {
+            for (packageName in UN_NEED_TRACE_PACKAGE) {
                 if (fileName.startsWith(packageName)) {
                     isNeed = false
                     break
