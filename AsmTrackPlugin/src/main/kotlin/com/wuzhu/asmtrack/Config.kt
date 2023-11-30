@@ -13,7 +13,11 @@ class Config {
             "/Manifest.class",
             "/BuildConfig.class",
             "androidx/core/os/TraceCompat.class",
-            "androidx/tracing/Trace.class"
+            "androidx/core.os/TraceCompat\$Api18Impl.class",
+            "androidx/core.os/TraceCompat\$Api29Impl.class",
+            "androidx/tracing/Trace.class",
+            "androidx/tracing/TraceApi18Impl.class",
+            "androidx/tracing/TraceApi29Impl.class",
         )
 
         /**
