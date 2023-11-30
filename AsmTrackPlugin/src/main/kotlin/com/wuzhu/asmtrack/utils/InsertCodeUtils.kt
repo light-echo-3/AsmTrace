@@ -7,7 +7,14 @@ import org.objectweb.asm.Opcodes.INVOKESTATIC
 
 object InsertCodeUtils {
 
-    private const val maxSectionNameLength = 120
+    /***
+     * Trace限制名称最大长度127，
+     * 保留7位，插桩时生成编号
+     * 再保留7位，运行时生成编号
+     * see android.os.Trace#MAX_SECTION_NAME_LEN
+     * 保留7位生成数字编号
+     */
+    private const val maxSectionNameLength = 127 - 7 - 7
     private var num = 0
 
     @JvmStatic

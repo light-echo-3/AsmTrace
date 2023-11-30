@@ -43,7 +43,16 @@ object AsmTraceQueue {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
             Log.e(TAG, "beginTrace: sdk版本太低：$name")
         } else {
-            Trace.beginSection(name)
+            try {
+                val newName = if (name.length > 127) {
+                    Log.e(TAG, "name length超长,name=$name")
+                    val length = name.length
+                    name.substring(length - 127,length)
+                } else name
+                Trace.beginSection(newName)
+            } catch (e: Throwable) {
+                Log.e(TAG, "Trace.beginSection异常", e)
+            }
         }
     }
 
