@@ -63,7 +63,7 @@ publishing {
         //github 仓库
         maven {
             name = "GitHubPackages"
-            url = "https://maven.pkg.github.com/light-echo-3/AsmTrackDemo"
+            url = "https://maven.pkg.github.com/light-echo-3/AsmTraceDemo"
             credentials {
                 username = project.findProperty("gpr.user")
                 password = project.findProperty("gpr.key")
