@@ -72,5 +72,9 @@ adb pull /data/local/traces<br>
    ps:Debug.startMethodTracingSampling 会 suspend all thread。
 
 本插件虽然会整体拖慢执行速度，但不会像Debug.startMethodTracing那样直接卡到无法使用，且没有兼容性问题，没有采样精度问题。
+![profile截图](readme_imgs/img_10.png)
+插件是对“System Trace”的扩展。
+Debug.startMethodTracing 对应的是 “Java/Kotlin Methode Trace”
+Debug.startMethodTracingSampling 对应的是 “Java/Kotlin Methode Sample”
 
 # TODO 
