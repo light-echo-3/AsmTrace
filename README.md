@@ -65,4 +65,12 @@ adb pull /data/local/traces<br>
 
 ![效果图](readme_imgs/img_9.png)
 
+# 5 相比与Debug.startMethodTracing，Debug.startMethodTracingSampling优势。
+1. Debug.startMethodTracing有兼容性问题，有些手机录制的Trace文件，profile打不开。
+2. 对于性能一般的手机，检测功能复杂的界面时，直接卡到无法使用。
+   使用Debug.startMethodTracingSampling，增大采样间隔卡顿问题能缓解一些，但是又会丢失精度，测试了一个性能差的手机，间隔要1s卡顿才能缓解。
+   ps:Debug.startMethodTracingSampling 会 suspend all thread。
+
+本插件虽然会整体拖慢执行速度，但不会像Debug.startMethodTracing那样直接卡到无法使用，且没有兼容性问题，没有采样精度问题。
+
 # TODO 
