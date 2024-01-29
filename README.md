@@ -71,10 +71,10 @@ adb pull /data/local/traces<br>
    使用Debug.startMethodTracingSampling，增大采样间隔卡顿问题能缓解一些，但是又会丢失精度，测试了一个性能差的手机，间隔要1s卡顿才能缓解。
    ps:Debug.startMethodTracingSampling 会 suspend all thread。
 
-本插件虽然会整体拖慢执行速度，但不会像Debug.startMethodTracing那样直接卡到无法使用，且没有兼容性问题，没有采样精度问题。
+本插件虽然会整体拖慢执行速度，但不会像Debug.startMethodTracing那样直接卡到无法使用，且没有兼容性问题，没有采样精度问题。  
 ![profile截图](readme_imgs/img_10.png)
-插件是对“System Trace”的扩展。
-Debug.startMethodTracing 对应的是 “Java/Kotlin Methode Trace”
-Debug.startMethodTracingSampling 对应的是 “Java/Kotlin Methode Sample”
+插件是对“System Trace”的扩展。  
+Debug.startMethodTracing 对应的是 “Java/Kotlin Methode Trace”。  
+Debug.startMethodTracingSampling 对应的是 “Java/Kotlin Methode Sample”。  
 
 # TODO 
