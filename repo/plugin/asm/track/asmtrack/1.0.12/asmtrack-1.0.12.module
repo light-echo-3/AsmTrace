@@ -1,7 +1,7 @@
 {
   "formatVersion": "1.1",
   "component": {
-    "group": "AsmTraceDemo",
+    "group": "AsmTrace",
     "module": "AsmTrackPlugin",
     "version": "unspecified",
     "attributes": {
@@ -38,11 +38,11 @@
         {
           "name": "asmtrack-1.0.12.jar",
           "url": "asmtrack-1.0.12.jar",
-          "size": 49016,
-          "sha512": "2f0b9e4d1843ab23d98876fd7242a55d191e02a99109d058844925a9a7bebbc921c2a53526eff51a11d799fb687ad8170f98a624405c8bb4cc713d403b263c6e",
-          "sha256": "3ebb380e0ffea2c84f0daa5470832d8a204377bb62e8a9791e4d51fbc6ddaef4",
-          "sha1": "ba2f19f36232f4b4689bf3bbb79cdf8ecfdc6df7",
-          "md5": "e37b2fb7f3dab5e9c6278974778625b3"
+          "size": 49079,
+          "sha512": "10342cef7b804fc232685c5aefaf479a49a3b0d254a277a67150423566cb3bd09fcbe5ef8ab681a3a44fb2cc0356bd1dbe82456ec33856366a402de5c867ef87",
+          "sha256": "b2d80763dc29518e988fa427d898ef4b96186ef3593a64621d4049c53b4dc985",
+          "sha1": "47826008e4de12a2cc4595f76ce100012257df4e",
+          "md5": "746465b201dc4f5bdc6b833c3500fdc4"
         }
       ]
     },
@@ -77,11 +77,11 @@
         {
           "name": "asmtrack-1.0.12.jar",
           "url": "asmtrack-1.0.12.jar",
-          "size": 49016,
-          "sha512": "2f0b9e4d1843ab23d98876fd7242a55d191e02a99109d058844925a9a7bebbc921c2a53526eff51a11d799fb687ad8170f98a624405c8bb4cc713d403b263c6e",
-          "sha256": "3ebb380e0ffea2c84f0daa5470832d8a204377bb62e8a9791e4d51fbc6ddaef4",
-          "sha1": "ba2f19f36232f4b4689bf3bbb79cdf8ecfdc6df7",
-          "md5": "e37b2fb7f3dab5e9c6278974778625b3"
+          "size": 49079,
+          "sha512": "10342cef7b804fc232685c5aefaf479a49a3b0d254a277a67150423566cb3bd09fcbe5ef8ab681a3a44fb2cc0356bd1dbe82456ec33856366a402de5c867ef87",
+          "sha256": "b2d80763dc29518e988fa427d898ef4b96186ef3593a64621d4049c53b4dc985",
+          "sha1": "47826008e4de12a2cc4595f76ce100012257df4e",
+          "md5": "746465b201dc4f5bdc6b833c3500fdc4"
         }
       ]
     }
