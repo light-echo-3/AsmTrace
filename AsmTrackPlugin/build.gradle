@@ -5,6 +5,12 @@ plugins {
     id 'maven-publish'
 }
 
+def localPropertiesFile = rootProject.file("local.properties")
+def localProperties = new Properties()
+if (localPropertiesFile.exists()) {
+    localProperties.load(new FileInputStream(localPropertiesFile))
+}
+
 gradlePlugin {
     plugins {
         // 声明插件信息，这里的 hello 名字随意
@@ -65,8 +71,10 @@ publishing {
             name = "GitHubPackages"
             url = "https://maven.pkg.github.com/light-echo-3/AsmTrace"
             credentials {
-                username = project.findProperty("gpr.user")
-                password = project.findProperty("gpr.key")
+                username = localProperties.getProperty("gpr.user")
+                password = localProperties.getProperty("gpr.key")
+                println("xxx---username = " + username)
+                println("xxx---password = " + password)
             }
         }
 
