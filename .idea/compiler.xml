@@ -2,6 +2,8 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.8">
+      <module name="AsmTrace.app" target="17" />
+      <module name="AsmTrace.lib_asmtrack" target="17" />
       <module name="AsmTraceDemo.app" target="11" />
       <module name="AsmTraceDemo.lib_asmtrack" target="11" />
       <module name="AsmTrackDemo.app" target="11" />
