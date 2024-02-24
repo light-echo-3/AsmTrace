@@ -29,6 +29,7 @@ public class MethodEnterAndExitAdapter extends MethodVisitor {
     }
 
     /**
+     * 获取局部变量表大小
      * 查找指定方法的MethodNode,获取maxLocals
      */
     private int getMaxLocals(ClassNode classNode, String methodName, String descriptor) {
@@ -76,6 +77,5 @@ public class MethodEnterAndExitAdapter extends MethodVisitor {
     private void insertEndSection() {
         InsertCodeUtils.insertEnd(mv, maxLocals);
     }
-
 
 }

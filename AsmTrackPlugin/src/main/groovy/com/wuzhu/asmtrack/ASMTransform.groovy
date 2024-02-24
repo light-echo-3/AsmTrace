@@ -65,6 +65,7 @@ class ASMTransform extends Transform {
         ClassLoader classLoader = createClassLoader(project, inputs)
 
         inputs.forEach(transformInput -> {
+            //处理所有文件夹中的类
             transformInput.getDirectoryInputs().forEach(directoryInput -> {
                 try {
                     System.out.println("------directoryInput = " + directoryInput)
@@ -78,6 +79,7 @@ class ASMTransform extends Transform {
                 }
             })
 
+            //处理所有jar包中的类
             transformInput.getJarInputs().forEach(jarInput -> {
                 try {
                     System.out.println("------jarInput = " + jarInput)

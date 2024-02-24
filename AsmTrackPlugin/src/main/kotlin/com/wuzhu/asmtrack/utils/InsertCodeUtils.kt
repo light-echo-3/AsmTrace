@@ -31,7 +31,7 @@ object InsertCodeUtils {
 
     private fun generateNum() {
         num++
-        if (num >= 999999) {
+        if (num >= 999_999) {
             num = 1
         }
     }
@@ -47,9 +47,8 @@ object InsertCodeUtils {
             "(Ljava/lang/String;)Ljava/lang/String;",
             false
         )
-        //插入到本地变量表最后面，这样可以保证重新计算栈帧（重新计算本地变量表和操作数栈）的正确性
+        //插入到局部变量表最后面，这样可以保证重新计算栈帧（重新计算局部变量表和操作数栈）的正确性
         methodVisitor.visitVarInsn(ASTORE, maxLocals)
-
     }
 
     @JvmStatic
