@@ -160,13 +160,13 @@ public class MethodEnterAndExitAdapter extends MethodVisitor {
 <img src="readme/imgs_principle/image2.png"  width="60%" ><br>
 =FragmentActivity#onStart-118256_41103
 
-1."=":用于区分是自己插入的trace还是android系统trace
-2.类名，不包含包名
-3.方法名
-4.遍历每个方法时，生成的num，可用于区分重载的函数。
-5.运行时，进入函数时，生成的num，用于区分递归调用。  
-正常的递归调用，没有这一部分也能正常work；  
-但是出现异常时，这部分能保证trace的正确性。
+1."=":用于区分是自己插入的trace还是android系统trace。<br>
+2.类名，不包含包名。<br>
+3.方法名。<br>
+4.遍历每个方法时，生成的num，可用于区分重载的函数。<br>
+5.运行时，进入函数时，生成的num，用于区分递归调用。<br>
+正常的递归调用，没有这一部分也能正常work；<br> 
+但是出现异常时，这部分能保证trace的正确性。<br>
 
 
 #### 2.3.2.插桩实现
