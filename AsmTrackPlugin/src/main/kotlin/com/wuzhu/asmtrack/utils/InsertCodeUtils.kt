@@ -42,7 +42,7 @@ object InsertCodeUtils {
         methodVisitor.visitLdcInsn(traceName)
         methodVisitor.visitMethodInsn(
             INVOKESTATIC,
-            "com/wuzhu/libasmtrack/AsmTraceQueue",
+            "com/wuzhu/libasmtrack/AsmTraceStack",
             "beginTrace",
             "(Ljava/lang/String;)Ljava/lang/String;",
             false
@@ -56,7 +56,7 @@ object InsertCodeUtils {
     fun insertEnd(methodVisitor: MethodVisitor, maxLocals: Int) {
         methodVisitor.visitVarInsn(ALOAD, maxLocals)
         methodVisitor.visitMethodInsn(
-            INVOKESTATIC, "com/wuzhu/libasmtrack/AsmTraceQueue", "endTrace", "(Ljava/lang/String;)V", false
+            INVOKESTATIC, "com/wuzhu/libasmtrack/AsmTraceStack", "endTrace", "(Ljava/lang/String;)V", false
         )
 //        methodVisitor.visitInsn(RETURN)
 //        methodVisitor.visitMaxs(1, 1)

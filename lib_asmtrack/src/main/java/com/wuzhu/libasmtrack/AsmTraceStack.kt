@@ -6,8 +6,8 @@ import android.os.Trace
 import android.util.Log
 
 @NotTrace
-object AsmTraceQueue {
-    private const val TAG = "AsmTraceQueue"
+object AsmTraceStack {
+    private const val TAG = "AsmTraceStack"
     private val threadLocalStack = ThreadLocal<Stack<String>>()
     private val logTags: List<String> = mutableListOf("Application#onCreate")
 

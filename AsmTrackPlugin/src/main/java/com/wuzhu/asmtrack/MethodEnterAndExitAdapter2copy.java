@@ -32,7 +32,7 @@ public class MethodEnterAndExitAdapter2copy extends AdviceAdapter {
         mv.visitLdcInsn(name);
         mv.visitMethodInsn(
                 INVOKESTATIC,
-                "com/wuzhu/libasmtrack/AsmTraceQueue",
+                "com/wuzhu/libasmtrack/AsmTraceStack",
                 "beginSection",
                 "(Ljava/lang/String;)Ljava/lang/String;",
                 false);
@@ -65,7 +65,7 @@ public class MethodEnterAndExitAdapter2copy extends AdviceAdapter {
 
         mv.visitMethodInsn(
                 INVOKESTATIC,
-                "com/wuzhu/libasmtrack/AsmTraceQueue",
+                "com/wuzhu/libasmtrack/AsmTraceStack",
                 "endSection",
                 "(Ljava/lang/String;)V",
                 false);

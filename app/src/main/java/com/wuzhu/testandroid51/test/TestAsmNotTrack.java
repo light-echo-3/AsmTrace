@@ -1,6 +1,6 @@
 package com.wuzhu.testandroid51.test;
 
-import com.wuzhu.libasmtrack.AsmTraceQueue;
+import com.wuzhu.libasmtrack.AsmTraceStack;
 import com.wuzhu.libasmtrack.NotTrace;
 
 @NotTrace
@@ -22,10 +22,10 @@ public class TestAsmNotTrack {
      *     MAXLOCALS = 3
      */
     private void test2() {
-        String newName = AsmTraceQueue.beginTrace("test2__");
+        String newName = AsmTraceStack.beginTrace("test2__");
         int a = 111;
         System.out.println(a);
-        AsmTraceQueue.endTrace(newName);
+        AsmTraceStack.endTrace(newName);
     }
 
 }
