@@ -11,7 +11,7 @@ android studio查看字节码插件：ASM Bytecode Viewer<br>
 
 ## 1.概述
 &emsp; &emsp; 实现一个gradle插件，通过Asm对所有类的方法插桩。  
-在方法的入口插入代码：Trace.beginSection("className#$methodName")
+在方法的入口插入代码：Trace.beginSection("className#$methodName")  
 在方法的出口插入代码：Trace.endSection()
 
 <img src="readme/imgs_principle/image1.png" alt="alt text" width="60%" ><br>
