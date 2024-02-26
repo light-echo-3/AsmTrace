@@ -3,7 +3,7 @@
 
 
 涉及知识点：<br>
-android gradle 插件开发。<br>
+gradle 插件开发。<br>
 asm修改字节码。了解一些字节码知识。<br>
 小工具：<br>
 android studio查看字节码插件：ASM Bytecode Viewer<br>
