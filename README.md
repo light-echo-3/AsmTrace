@@ -236,7 +236,9 @@ public class MethodEnterAndExitAdapter extends MethodVisitor {
 
 ```
 以上是插桩代码，这句代码“methodVisitor.visitVarInsn(ASTORE, maxLocals)”，会将局部变量插入到局部变量表最后面，这样可以保证asm重新计算栈帧（重新计算局部变量表和操作数栈）的正确性。  
-ps:很多文章将增加的变量插入局部变量表第0个位置，测试发现行不通，asm重新计算后的局部变量表不正确。这个我解决增加局部变量的办法，如果有更好的方式，欢迎留言讨论。
+ps:很多文章将增加的变量插入局部变量表第0个位置，测试发现行不通，asm重新计算后的局部变量表不正确。
+### TODO 更好的增加局部变量的办法：LocalVariablesSorter
+参考文章：(Java ASM系列：（039）LocalVariablesSorter介绍)[https://blog.51cto.com/lsieun/2980222]
 
 
 ## 3.方法异常trace end处理
@@ -325,3 +327,4 @@ Debug.startMethodTracingSampling 对应的是 “Java/Kotlin Methode Sample”�
 
 # TODO 
 发布到maven仓库。  
+使用LocalVariablesSorter实现增加局部变量。
