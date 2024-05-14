@@ -47,12 +47,13 @@ object InsertCodeUtils {
             "(Ljava/lang/String;)Ljava/lang/String;",
             false
         )
-        //插入到局部变量表最后面，这样可以保证重新计算栈帧（重新计算局部变量表和操作数栈）的正确性
+        //将返回值，存到新增的局部变量
         methodVisitor.visitVarInsn(ASTORE, localVarSlot)
     }
 
     @JvmStatic
     fun insertEnd(methodVisitor: MethodVisitor, localVarSlot: Int) {
+        //读取新增的局部变量
         methodVisitor.visitVarInsn(ALOAD, localVarSlot)
         methodVisitor.visitMethodInsn(
             INVOKESTATIC, "com/wuzhu/libasmtrack/AsmTraceStack", "endTrace", "(Ljava/lang/String;)V", false

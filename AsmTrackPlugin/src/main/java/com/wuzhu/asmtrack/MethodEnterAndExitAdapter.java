@@ -22,12 +22,14 @@ public class MethodEnterAndExitAdapter extends AdviceAdapter {
         super(api, mv, access, methodName, desc);
         this.className = className;
         this.methodName = methodName;
+        //增加一个本地变量槽
         localVarSlot = newLocal(Type.getType(String.class));
     }
 
     @Override
     protected void onMethodEnter() {
         super.onMethodEnter();
+        //函数入口插桩trace begin
         insertBeginSection();
     }
 
@@ -39,6 +41,7 @@ public class MethodEnterAndExitAdapter extends AdviceAdapter {
     @Override
     protected void onMethodExit(int opcode) {
         super.onMethodExit(opcode);
+        //函数出口插桩trace end
         insertEndSection();
     }
 

@@ -88,71 +88,54 @@ class ASMTransform extends Transform {
 
 ### 2.2 函数插桩
 
-通过MethodVisitor，访问函数入口和出口，分别插入相应代码。
-下面MethodEnterAndExitAdapter类中有一个函数：getMaxLocals，用于获取局部变量表大小，
-获取后，会作为参数，传递给InsertCodeUtils.insertBegin(traceName, mv, maxLocals)。
-后面会讲到，这里为什么传入局部变量表大小。
-
+通过MethodVisitor，访问函数入口和出口，分别插入相应代码。  
+实现类：com.wuzhu.asmtrack.MethodEnterAndExitAdapter
 ```java
-public class MethodEnterAndExitAdapter extends MethodVisitor {
+public class MethodEnterAndExitAdapter extends AdviceAdapter {
 
-    ...
+    private final String className;
+    private final String methodName;
+    private final int localVarSlot;
 
-    /**
-     * 获取局部变量表大小
-     * 查找指定方法的MethodNode,获取maxLocals
-     */
-    private int getMaxLocals(ClassNode classNode, String methodName, String descriptor) {
-        MethodNode methodNode = null;
-        for (MethodNode method : classNode.methods) {
-            if (method.name.equals(methodName) && method.desc.equals(descriptor)) {
-                methodNode = method;
-                break;
-            }
-        }
-        assert methodNode != null;
-        return methodNode.maxLocals;
+    public MethodEnterAndExitAdapter(final int api, final MethodVisitor mv,
+                                     final int access, final String methodName, final String desc,
+                                     final String className) {
+        super(api, mv, access, methodName, desc);
+        this.className = className;
+        this.methodName = methodName;
+        //增加一个本地变量槽
+        localVarSlot = newLocal(Type.getType(String.class));
     }
 
-    /**
-     * 方法开始访问时
-     */
     @Override
-    public void visitCode() {
-        // 1.首先处理自己的代码逻辑
-        // MethodEnter...
-
+    protected void onMethodEnter() {
+        super.onMethodEnter();
+        //函数入口插桩trace begin
         insertBeginSection();
-
-        // 2.然后调用父类的方法实现
-        super.visitCode();
     }
 
     private void insertBeginSection() {
         String traceName = InsertCodeUtils.generatorName(className, methodName);
-        InsertCodeUtils.insertBegin(traceName, mv, maxLocals);
+        InsertCodeUtils.insertBegin(traceName, mv, localVarSlot);
     }
 
     @Override
-    public void visitInsn(int opcode) {
-        // 1.首先处理自己的代码逻辑
-        if ((opcode >= Opcodes.IRETURN && opcode <= Opcodes.RETURN)) {//opcode == Opcodes.ATHROW || //throw 不要插桩（自己抛出异常又自己捕获，插桩两次，导致出错）
-            // MethodExit...
-            insertEndSection();
-        }
-        // 2.然后调用父类的方法实现
-        super.visitInsn(opcode);
+    protected void onMethodExit(int opcode) {
+        super.onMethodExit(opcode);
+        //函数出口插桩trace end
+        insertEndSection();
     }
 
     private void insertEndSection() {
-        InsertCodeUtils.insertEnd(mv, maxLocals);
+        InsertCodeUtils.insertEnd(mv, localVarSlot);
     }
 
 }
 
+
 ```
 
-### 2.3 插桩实现，以及插桩代码中增加局部变量的处理。
+### 2.3 插桩实现
 
 #### 2.3.1.trace名称生成规则。
 
@@ -205,14 +188,14 @@ public class MethodEnterAndExitAdapter extends MethodVisitor {
     }
 ```
 
-从插桩后的代码可以看出，会增加一个局部变量var3。插桩时，要将“局部变量”插入“局部变量表”正确的位置。
+从插桩后的代码可以看出，会增加一个局部变量var3。
 
  
 ```java
-
+    //com.wuzhu.asmtrack.utils.InsertCodeUtils
 
     @JvmStatic
-    fun insertBegin(traceName: String, methodVisitor: MethodVisitor, maxLocals: Int) {
+    fun insertBegin(traceName: String, methodVisitor: MethodVisitor, localVarSlot: Int) {
         println("------=== name = $traceName")
         methodVisitor.visitLdcInsn(traceName)
         methodVisitor.visitMethodInsn(
@@ -222,23 +205,23 @@ public class MethodEnterAndExitAdapter extends MethodVisitor {
             "(Ljava/lang/String;)Ljava/lang/String;",
             false
         )
-        //插入到局部变量表最后面，这样可以保证重新计算栈帧（重新计算局部变量表和操作数栈）的正确性
-        methodVisitor.visitVarInsn(ASTORE, maxLocals)
+        //将返回值，存到新增的局部变量
+        methodVisitor.visitVarInsn(ASTORE, localVarSlot)
     }
 
     @JvmStatic
-    fun insertEnd(methodVisitor: MethodVisitor, maxLocals: Int) {
-        methodVisitor.visitVarInsn(ALOAD, maxLocals)
+    fun insertEnd(methodVisitor: MethodVisitor, localVarSlot: Int) {
+        //读取新增的局部变量
+        methodVisitor.visitVarInsn(ALOAD, localVarSlot)
         methodVisitor.visitMethodInsn(
             INVOKESTATIC, "com/wuzhu/libasmtrack/AsmTraceStack", "endTrace", "(Ljava/lang/String;)V", false
         )
     }
 
+
 ```
-以上是插桩代码，这句代码“methodVisitor.visitVarInsn(ASTORE, maxLocals)”，会将局部变量插入到局部变量表最后面，这样可以保证asm重新计算栈帧（重新计算局部变量表和操作数栈）的正确性。  
-ps:很多文章将增加的变量插入局部变量表第0个位置，测试发现行不通，asm重新计算后的局部变量表不正确。
-### TODO 更好的增加局部变量的办法：LocalVariablesSorter
-参考文章：[Java ASM系列：（039）LocalVariablesSorter介绍](https://blog.51cto.com/lsieun/2980222)
+以上是插桩代码，这句代码“methodVisitor.visitVarInsn(ASTORE, localVarSlot)”，会将返回值，存到新增的局部变量，asm会重新计算栈帧（重新计算局部变量表和操作数栈）。  
+LocalVariablesSorter参考文章：[Java ASM系列：（039）LocalVariablesSorter介绍](https://blog.51cto.com/lsieun/2980222)
 
 
 ## 3.方法异常trace end处理
@@ -327,4 +310,4 @@ Debug.startMethodTracingSampling 对应的是 “Java/Kotlin Methode Sample”�
 
 # TODO 
 发布到maven仓库。  
-使用LocalVariablesSorter实现增加局部变量。
+
