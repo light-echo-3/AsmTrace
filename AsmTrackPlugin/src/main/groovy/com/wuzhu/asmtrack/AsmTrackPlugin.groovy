@@ -28,7 +28,7 @@ class AsmTrackPlugin implements Plugin<Project> {
         // Register a task
         project.tasks.register("testPluginPublishSuccess") {
             doLast {
-                Logger.w("AsmTrackPlugin publish success 1")
+                Logger.w("AsmTrackPlugin publish success 2")
                 Logger.w("project.asmTrackPluginConfig.isTraceJar = " + project.asmTrackPluginConfig.isTraceJar)
             }
         }

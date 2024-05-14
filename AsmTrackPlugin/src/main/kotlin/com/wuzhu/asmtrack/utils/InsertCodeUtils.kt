@@ -37,7 +37,7 @@ object InsertCodeUtils {
     }
 
     @JvmStatic
-    fun insertBegin(traceName: String, methodVisitor: MethodVisitor, maxLocals: Int) {
+    fun insertBegin(traceName: String, methodVisitor: MethodVisitor, localVarSlot: Int) {
         println("------=== name = $traceName")
         methodVisitor.visitLdcInsn(traceName)
         methodVisitor.visitMethodInsn(
@@ -48,18 +48,15 @@ object InsertCodeUtils {
             false
         )
         //插入到局部变量表最后面，这样可以保证重新计算栈帧（重新计算局部变量表和操作数栈）的正确性
-        methodVisitor.visitVarInsn(ASTORE, maxLocals)
+        methodVisitor.visitVarInsn(ASTORE, localVarSlot)
     }
 
     @JvmStatic
-    fun insertEnd(methodVisitor: MethodVisitor, maxLocals: Int) {
-        methodVisitor.visitVarInsn(ALOAD, maxLocals)
+    fun insertEnd(methodVisitor: MethodVisitor, localVarSlot: Int) {
+        methodVisitor.visitVarInsn(ALOAD, localVarSlot)
         methodVisitor.visitMethodInsn(
             INVOKESTATIC, "com/wuzhu/libasmtrack/AsmTraceStack", "endTrace", "(Ljava/lang/String;)V", false
         )
-//        methodVisitor.visitInsn(RETURN)
-//        methodVisitor.visitMaxs(1, 1)
-//        methodVisitor.visitEnd()
     }
 
 
