@@ -18,7 +18,7 @@ android studio查看字节码插件：ASM Bytecode Viewer<br>
 ps：AsmTraceStack.beginTrace，AsmTraceStack.endTrace中分别调用了Trace.beginSection，Trace.endSection
 
 ## 2.项目结构
-AsmTrackPlugin:gradle插件
+AsmTrackPlugin:gradle插件  
 lib_asmtrack:java module,要插桩的类，以及trace相关逻辑。
 
 ## 2.插件实现
@@ -220,7 +220,7 @@ public class MethodEnterAndExitAdapter extends AdviceAdapter {
 
 
 ```
-以上是插桩代码，这句代码“methodVisitor.visitVarInsn(ASTORE, localVarSlot)”，会将返回值，存到新增的局部变量，asm会重新计算栈帧（重新计算局部变量表和操作数栈）。  
+以上是插桩代码，这句代码“methodVisitor.visitVarInsn(ASTORE, localVarSlot)”，会将AsmTraceStack.beginTrace返回值，存到新增的局部变量，asm会重新计算栈帧（重新计算局部变量表和操作数栈）。  
 LocalVariablesSorter参考文章：[Java ASM系列：（039）LocalVariablesSorter介绍](https://blog.51cto.com/lsieun/2980222)
 
 
@@ -244,7 +244,8 @@ LocalVariablesSorter参考文章：[Java ASM系列：（039）LocalVariablesSort
 原本的方案是：  
 在入口1处，插入Trace.beginSection。  
 在入口 2 & 3 出，分别插入Trace.endSection。  
-but，对于上面那种显示定义了"throw new Exception..."，对于运行时抛出的异常，无法处理，最终会导致Trace.endSection调用次数 < Trace.beginSection,导致的结果就是：出现运行时异常时，很多函数没有正常end。
+对于上面那种显示定义了"throw new Exception..."，可以保证begin，end成对调用；  
+但是，对于运行时抛出的异常，无法处理，最终会导致Trace.endSection调用次数 < Trace.beginSection,导致的后果就是：出现运行时异常时，很多函数没有正常end。
 <br>
 
 ### 3.2 解决方案
