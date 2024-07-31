@@ -181,9 +181,9 @@ public class MethodEnterAndExitAdapter extends AdviceAdapter {
 
 插桩后：  
 ```java
-    private void test(int a, int b) {
+    private void test(int a) {
         String var3 = AsmTraceStack.beginTrace("=TestAsm#test-5025");
-        System.out.println(a + b);
+        System.out.println(a);
         AsmTraceStack.endTrace(var3);
     }
 ```
