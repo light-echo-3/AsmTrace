@@ -1,9 +1,11 @@
 plugins {
-    id 'org.jetbrains.kotlin.jvm'
+    id 'org.jetbrains.kotlin.jvm' version "1.9.22"
     id 'groovy'
     id 'java-gradle-plugin'
     id 'maven-publish'
 }
+
+group "plugin.asm.track"
 
 def localPropertiesFile = rootProject.file("local.properties")
 def localProperties = new Properties()
@@ -38,6 +40,7 @@ compileGroovy {
 }
 
 repositories {
+    google()
     mavenCentral() //必须
 }
 
