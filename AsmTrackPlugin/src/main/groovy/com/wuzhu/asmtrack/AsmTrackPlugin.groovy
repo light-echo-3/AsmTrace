@@ -20,10 +20,14 @@ class AsmTrackPlugin implements Plugin<Project> {
             def android = project.extensions.getByType(AppExtension)
             def asmTrackPluginConfig = project.asmTrackPluginConfig
             Logger.w("asmTrackPluginConfig.toPluginConfig() = " + asmTrackPluginConfig.toPluginConfig())
-            def transformImpl = new ASMTransform(project)
-            //register this plugin
-            android.registerTransform(transformImpl)
-            Logger.w('registerTransform')
+
+            /**
+             * todo
+             * registerTransform api已经弃用
+             */
+//            def transformImpl = new ASMTransform(project)
+//            android.registerTransform(transformImpl)
+//            Logger.w('registerTransform')
         }
         // Register a task
         project.tasks.register("testPluginPublishSuccess") {
