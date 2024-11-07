@@ -65,36 +65,39 @@ abstract class AsmTraceTask : DefaultTask() {
                     }
 
                     val relativePath = directory.asFile.toURI().relativize(file.toURI()).path
+                    //1.putNextEntry
                     jarOutput.putNextEntry(
                         JarEntry(relativePath.replace(File.separatorChar, '/'))
                     )
-                    file.inputStream().use { inputStream ->
-                        inputStream.copyTo(jarOutput)
-                    }
+                    //2.写入字节
+//                    file.inputStream().use { inputStream ->
+//                        inputStream.copyTo(jarOutput)
+//                    }
+                    jarOutput.write(file.inputStream().readBytes())
                     jarOutput.closeEntry()
                 }
             }
         }
 
         //遍历扫描jar
-        allJars.get().forEach { jarInputFile ->
-            val jarFile = JarFile(jarInputFile.asFile)
-            jarFile.entries().iterator().forEach { jarEntry ->
-                //过滤掉非class文件，并去除重复无效的META-INF文件
-                if (jarEntry.name.endsWith(".class") && !jarEntry.name.contains("META-INF")) {
-//                    scanAnnotationClass(jarFile.getInputStream(jarEntry))
-                    val outByteArray = ClassHandler.handleClassInJar(classLoader,jarFile,jarEntry,config)
-
-                    //1.putNextEntry
-                    jarOutput.putNextEntry(JarEntry(jarEntry.name))
-                    //2.写入字节
-                    jarOutput.write(outByteArray)
-
-                    jarOutput.closeEntry()
-                }
-            }
-            jarFile.close()
-        }
+//        allJars.get().forEach { jarInputFile ->
+//            val jarFile = JarFile(jarInputFile.asFile)
+//            jarFile.entries().iterator().forEach { jarEntry ->
+//                //过滤掉非class文件，并去除重复无效的META-INF文件
+//                if (jarEntry.name.endsWith(".class") && !jarEntry.name.contains("META-INF")) {
+////                    scanAnnotationClass(jarFile.getInputStream(jarEntry))
+//                    val outByteArray = ClassHandler.handleClassInJar(classLoader,jarFile,jarEntry,config)
+//
+//                    //1.putNextEntry
+//                    jarOutput.putNextEntry(JarEntry(jarEntry.name))
+//                    //2.写入字节
+//                    jarOutput.write(outByteArray)
+//
+//                    jarOutput.closeEntry()
+//                }
+//            }
+//            jarFile.close()
+//        }
 
         //关闭输出流
         jarOutput.close()
