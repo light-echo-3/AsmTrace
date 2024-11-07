@@ -52,5 +52,5 @@ dependencies {
 
 asmTrackPluginConfig {
     open false
-    isTraceJar false
+    traceJar false
 }
