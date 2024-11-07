@@ -24,7 +24,7 @@ class Config {
          * 不需要插桩的包
          * 配置格式：例：package = kotlin/jvm/internal/
          */
-        private val UN_NEED_TRACE_PACKAGE = arrayOf("kotlin/")
+        private val UN_NEED_TRACE_PACKAGE = arrayOf("kotlin/","kotlinx/")
     }
 
 
