@@ -13,6 +13,7 @@ import org.objectweb.asm.Opcodes
 import org.objectweb.asm.tree.ClassNode
 import java.io.*
 
+@Deprecated("use:com.wuzhu.asmtrack.business.ClassHandler")
 object HandleDirectoryInputBusiness {
 
 

@@ -24,7 +24,7 @@ import java.util.jar.JarFile
 import java.util.jar.JarOutputStream
 import java.util.zip.ZipEntry
 
-@Deprecated("")
+@Deprecated("use:com.wuzhu.asmtrack.business.ClassHandler")
 object HandleJarInputBusiness {
 
     @JvmStatic

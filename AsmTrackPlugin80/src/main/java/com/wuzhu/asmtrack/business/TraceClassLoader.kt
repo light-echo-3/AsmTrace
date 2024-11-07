@@ -24,19 +24,6 @@ object TraceClassLoader {
         for (inputFile in inputFiles) {
             urls.add(inputFile.toURI().toURL())
         }
-
-//        for (TransformInput inputs : Iterables.concat(invocation.getInputs(), invocation.getReferencedInputs())) {
-//            for (DirectoryInput directoryInput : inputs.getDirectoryInputs()) {
-//                if (directoryInput.getFile().isDirectory()) {
-//                    urls.add(directoryInput.getFile().toURI().toURL());
-//                }
-//            }
-//            for (JarInput jarInput : inputs.getJarInputs()) {
-//                if (jarInput.getFile().isFile()) {
-//                    urls.add(jarInput.getFile().toURI().toURL());
-//                }
-//            }
-//        }
         val classLoaderUrls = urls.toTypedArray()
         return URLClassLoader(classLoaderUrls)
     }
