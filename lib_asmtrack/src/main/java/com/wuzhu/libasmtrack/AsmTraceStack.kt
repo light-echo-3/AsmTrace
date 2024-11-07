@@ -77,7 +77,7 @@ object AsmTraceStack {
         try {
             var popName: String
             while (name != stack.pop().also { popName = it }) {
-                Log.e(TAG, "endTrace: 1 = $popName")
+                Log.e(TAG, "当前end函数:$name,异常end函数 = $popName")
                 traceEndSection()
             }
             printLogByTags("endTrace", name)
