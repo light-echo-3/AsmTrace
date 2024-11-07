@@ -60,44 +60,44 @@ abstract class AsmTraceTask : DefaultTask() {
             directory.asFile.walk().forEach { file ->
                 if (file.isFile) {
                     if (file.absolutePath.endsWith(".class")) {
-//                        scanAnnotationClass(file.inputStream())
                         ClassHandler.handleClassInDirectory(classLoader,file, config)
                     }
-
                     val relativePath = directory.asFile.toURI().relativize(file.toURI()).path
                     //1.putNextEntry
-                    jarOutput.putNextEntry(
-                        JarEntry(relativePath.replace(File.separatorChar, '/'))
-                    )
+                    jarOutput.putNextEntry(JarEntry(relativePath.replace(File.separatorChar, '/')))
                     //2.写入字节
-//                    file.inputStream().use { inputStream ->
-//                        inputStream.copyTo(jarOutput)
-//                    }
                     jarOutput.write(file.inputStream().readBytes())
+                    //3.关闭
                     jarOutput.closeEntry()
                 }
             }
         }
 
         //遍历扫描jar
-//        allJars.get().forEach { jarInputFile ->
-//            val jarFile = JarFile(jarInputFile.asFile)
-//            jarFile.entries().iterator().forEach { jarEntry ->
-//                //过滤掉非class文件，并去除重复无效的META-INF文件
-//                if (jarEntry.name.endsWith(".class") && !jarEntry.name.contains("META-INF")) {
-////                    scanAnnotationClass(jarFile.getInputStream(jarEntry))
-//                    val outByteArray = ClassHandler.handleClassInJar(classLoader,jarFile,jarEntry,config)
-//
+        allJars.get().forEach { jarInputFile ->
+            val jarFile = JarFile(jarInputFile.asFile)
+            jarFile.entries().iterator().forEach { jarEntry ->
+                //过滤掉非class文件，并去除重复无效的META-INF文件
+                if (jarEntry.name.endsWith(".class") && !jarEntry.name.contains("META-INF")) {
+                    val outByteArray = ClassHandler.handleClassInJar(classLoader,jarFile,jarEntry,config)
+                    //1.putNextEntry
+                    jarOutput.putNextEntry(JarEntry(jarEntry.name))
+                    //2.写入字节
+                    jarOutput.write(outByteArray)
+                    //3.关闭
+                    jarOutput.closeEntry()
+                } else {
+                    // META-INF 不用写入，否则会duplicate error
 //                    //1.putNextEntry
 //                    jarOutput.putNextEntry(JarEntry(jarEntry.name))
 //                    //2.写入字节
-//                    jarOutput.write(outByteArray)
-//
+//                    jarOutput.write(jarFile.getInputStream(jarEntry).readBytes())
+//                    //3.关闭
 //                    jarOutput.closeEntry()
-//                }
-//            }
-//            jarFile.close()
-//        }
+                }
+            }
+            jarFile.close()
+        }
 
         //关闭输出流
         jarOutput.close()

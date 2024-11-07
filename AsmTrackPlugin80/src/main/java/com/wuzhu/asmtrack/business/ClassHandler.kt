@@ -61,18 +61,20 @@ object ClassHandler {
 
         val inputStream = jarFile.getInputStream(jarEntry)
         val entryName = jarEntry.name
+        val byteArray = inputStream.readBytes()
+        inputStream.close()
 
-        val classReader = ClassReader(inputStream.readBytes())
+        val classReader = ClassReader(byteArray)
         val classNode = ClassNode() //创建ClassNode,读取的信息会封装到这个类里面
         classReader.accept(classNode, 0) //开始读取
 
         when {
             NotTrackUtils.isNotTrackByConfig(entryName, traceConfig) -> {
-                return inputStream.readBytes().also { inputStream.close() }
+                return byteArray
             }
 
             NotTrackUtils.isNotTrackByAnnotation(classNode) -> {
-                return inputStream.readBytes().also { inputStream.close() }
+                return byteArray
             }
 
             else -> {
@@ -85,13 +87,11 @@ object ClassHandler {
                     val cv: ClassVisitor = ScanClassVisitor(classNode, Opcodes.ASM7, classWriter)
                     classReader.accept(cv, ClassReader.EXPAND_FRAMES)
                     val code = classWriter.toByteArray()
-                    return code.also {
-                        inputStream.close()
-                    }
+                    return code
                 } catch (e: Throwable) {
                     println("---error---插桩失败：entryName = $entryName")
                     e.printStackTrace()
-                    return inputStream.readBytes().also { inputStream.close() }
+                    return byteArray
                 }
             }
         }
