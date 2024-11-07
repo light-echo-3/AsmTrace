@@ -23,6 +23,7 @@ import org.objectweb.asm.ClassWriter
  * at org.objectweb.asm.ClassReader.accept(ClassReader.java:721)
  *
  */
+@Deprecated("")
 class TraceClassWriter : ClassWriter {
     private var mClassLoader: ClassLoader?
 

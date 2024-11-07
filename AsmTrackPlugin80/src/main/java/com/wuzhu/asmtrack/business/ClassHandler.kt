@@ -3,13 +3,11 @@ package com.wuzhu.asmtrack.business
 import com.wuzhu.asmtrack.Config
 import com.wuzhu.asmtrack.ScanClassVisitor
 import com.wuzhu.asmtrack.utils.NotTrackUtils
-import org.gradle.internal.impldep.org.apache.commons.io.IOUtils
 import org.objectweb.asm.ClassReader
 import org.objectweb.asm.ClassVisitor
 import org.objectweb.asm.ClassWriter
 import org.objectweb.asm.Opcodes
 import org.objectweb.asm.tree.ClassNode
-import java.io.ByteArrayInputStream
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -22,7 +20,7 @@ object ClassHandler {
     /***
      * [com.wuzhu.asmtrack.business.HandleDirectoryInputBusiness.scanClass]
      */
-    fun handleClassInDirectory(inFile: File, traceConfig: Config) {
+    fun handleClassInDirectory(classLoader_:ClassLoader,inFile: File, traceConfig: Config) {
         val inputStream: InputStream = FileInputStream(inFile)
         val classReader = ClassReader(inputStream)
         val classNode = ClassNode()
@@ -35,9 +33,9 @@ object ClassHandler {
             return
         }
         val classWriter = object : ClassWriter(classReader, COMPUTE_FRAMES) {
-//            override fun getClassLoader(): ClassLoader {
-//                return classLoader
-//            }
+            override fun getClassLoader(): ClassLoader {
+                return classLoader_
+            }
         }
         try {
             val classVisitor = ScanClassVisitor(classNode, Opcodes.ASM7, classWriter)
@@ -59,26 +57,30 @@ object ClassHandler {
     /**
      * [com.wuzhu.asmtrack.business.HandleJarInputBusiness.handleJarInput]
      */
-    fun handleClassInJar(jarFile: JarFile, jarEntry: JarEntry, traceConfig: Config): ByteArray {
+    fun handleClassInJar(classLoader_:ClassLoader, jarFile: JarFile, jarEntry: JarEntry, traceConfig: Config): ByteArray {
 
         val inputStream = jarFile.getInputStream(jarEntry)
         val entryName = jarEntry.name
 
-        val classReader = ClassReader(IOUtils.toByteArray(inputStream))
+        val classReader = ClassReader(inputStream.readBytes())
         val classNode = ClassNode() //创建ClassNode,读取的信息会封装到这个类里面
         classReader.accept(classNode, 0) //开始读取
 
         when {
             NotTrackUtils.isNotTrackByConfig(entryName, traceConfig) -> {
-                return IOUtils.toByteArray(inputStream).also { inputStream.close() }
+                return inputStream.readBytes().also { inputStream.close() }
             }
 
             NotTrackUtils.isNotTrackByAnnotation(classNode) -> {
-                return IOUtils.toByteArray(inputStream).also { inputStream.close() }
+                return inputStream.readBytes().also { inputStream.close() }
             }
 
             else -> {
-                val classWriter = object : ClassWriter(classReader, COMPUTE_FRAMES) {}
+                val classWriter = object : ClassWriter(classReader, COMPUTE_FRAMES) {
+                    override fun getClassLoader(): ClassLoader {
+                        return classLoader_
+                    }
+                }
                 try {
                     val cv: ClassVisitor = ScanClassVisitor(classNode, Opcodes.ASM7, classWriter)
                     classReader.accept(cv, ClassReader.EXPAND_FRAMES)
@@ -89,7 +91,7 @@ object ClassHandler {
                 } catch (e: Throwable) {
                     println("---error---插桩失败：entryName = $entryName")
                     e.printStackTrace()
-                    return IOUtils.toByteArray(inputStream).also { inputStream.close() }
+                    return inputStream.readBytes().also { inputStream.close() }
                 }
             }
         }

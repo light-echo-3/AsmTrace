@@ -2,7 +2,9 @@ package com.wuzhu.asmtrack.task
 
 import com.wuzhu.asmtrack.Config
 import com.wuzhu.asmtrack.business.ClassHandler
+import com.wuzhu.asmtrack.business.TraceClassLoader
 import org.gradle.api.DefaultTask
+import org.gradle.api.Project
 import org.gradle.api.file.Directory
 import org.gradle.api.file.RegularFile
 import org.gradle.api.file.RegularFileProperty
@@ -45,6 +47,8 @@ abstract class AsmTraceTask : DefaultTask() {
     @TaskAction
     fun taskAction() {
 
+        val classLoader = createClassLoader(project,allDirectories,allJars)
+
         //输出到output的流
         val jarOutput = JarOutputStream(
             BufferedOutputStream(FileOutputStream(output.get().asFile))
@@ -57,7 +61,7 @@ abstract class AsmTraceTask : DefaultTask() {
                 if (file.isFile) {
                     if (file.absolutePath.endsWith(".class")) {
 //                        scanAnnotationClass(file.inputStream())
-                        ClassHandler.handleClassInDirectory(file, config)
+                        ClassHandler.handleClassInDirectory(classLoader,file, config)
                     }
 
                     val relativePath = directory.asFile.toURI().relativize(file.toURI()).path
@@ -79,7 +83,7 @@ abstract class AsmTraceTask : DefaultTask() {
                 //过滤掉非class文件，并去除重复无效的META-INF文件
                 if (jarEntry.name.endsWith(".class") && !jarEntry.name.contains("META-INF")) {
 //                    scanAnnotationClass(jarFile.getInputStream(jarEntry))
-                    val outByteArray = ClassHandler.handleClassInJar(jarFile,jarEntry,config)
+                    val outByteArray = ClassHandler.handleClassInJar(classLoader,jarFile,jarEntry,config)
 
                     //1.putNextEntry
                     jarOutput.putNextEntry(JarEntry(jarEntry.name))
@@ -95,6 +99,21 @@ abstract class AsmTraceTask : DefaultTask() {
         //关闭输出流
         jarOutput.close()
     }
+
+
+    private fun createClassLoader(project: Project, allDirectories: ListProperty<Directory>, allJars: ListProperty<RegularFile>): ClassLoader {
+        val inputFiles = mutableListOf<File>()
+        //1.所有类文件夹
+        allDirectories.get().forEach { directoryInput ->
+            inputFiles.add(directoryInput.asFile)
+        }
+        //2.所有jar
+        allJars.get().forEach { jarInput ->
+            inputFiles.add(jarInput.asFile)
+        }
+        return TraceClassLoader.getClassLoader(project, inputFiles)
+    }
+
 
 //    /**
 //     * 扫描有目标注解的类

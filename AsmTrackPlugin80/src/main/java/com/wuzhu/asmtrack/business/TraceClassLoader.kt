@@ -4,7 +4,6 @@ import com.android.build.gradle.AppExtension
 import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.Project
-import org.gradle.internal.impldep.com.google.common.collect.ImmutableList
 import java.io.File
 import java.net.MalformedURLException
 import java.net.URL
@@ -17,7 +16,7 @@ object TraceClassLoader {
     @JvmStatic
     @Throws(MalformedURLException::class)
     fun getClassLoader(project: Project, inputFiles: Collection<File>): URLClassLoader {
-        val urls = ImmutableList.Builder<URL>()
+        val urls = mutableListOf<URL>()
         val androidJar = getAndroidJar(project)
         if (androidJar != null) {
             urls.add(androidJar.toURI().toURL())
@@ -38,8 +37,7 @@ object TraceClassLoader {
 //                }
 //            }
 //        }
-        val urlImmutableList = urls.build()
-        val classLoaderUrls = urlImmutableList.toTypedArray()
+        val classLoaderUrls = urls.toTypedArray()
         return URLClassLoader(classLoaderUrls)
     }
 
