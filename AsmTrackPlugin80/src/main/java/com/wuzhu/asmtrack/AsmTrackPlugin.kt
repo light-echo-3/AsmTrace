@@ -20,6 +20,7 @@ class AsmTrackPlugin : Plugin<Project> {
         Logger.w("apply begin 12")
 
         val isApp = project.plugins.hasPlugin(AppPlugin::class.java)
+        Logger.w("isApp=$isApp")
 
         // Only application module needs this plugin to generate register code
         if (isApp) {
@@ -37,6 +38,7 @@ class AsmTrackPlugin : Plugin<Project> {
 
             val androidComponents = project.extensions.getByType(AndroidComponentsExtension::class.java)
             androidComponents.onVariants { variant ->
+                Logger.e("variant.name=${variant.name},variant.buildType=${variant.buildType},variant.productFlavors=${variant.productFlavors},variant.flavorName=${variant.flavorName},variant=$variant, ")
                 val taskProvider = project.tasks.register(//注册AsmTraceTask任务
                     "${variant.name}AsmTraceTask", AsmTraceTask::class.java
                 )
