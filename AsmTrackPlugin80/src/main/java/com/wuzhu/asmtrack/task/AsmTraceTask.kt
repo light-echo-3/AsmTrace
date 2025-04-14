@@ -1,6 +1,7 @@
 package com.wuzhu.asmtrack.task
 
 import com.wuzhu.asmtrack.Config
+import com.wuzhu.asmtrack.Logger
 import com.wuzhu.asmtrack.business.ClassHandler
 import com.wuzhu.asmtrack.business.TraceClassLoader
 import org.gradle.api.DefaultTask
@@ -46,6 +47,8 @@ abstract class AsmTraceTask : DefaultTask() {
 
     @TaskAction
     fun taskAction() {
+
+        Logger.e("AsmTraceTask-taskAction")
 
         val classLoader = createClassLoader(project,allDirectories,allJars)
 
