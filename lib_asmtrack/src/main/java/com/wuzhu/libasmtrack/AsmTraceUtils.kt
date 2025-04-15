@@ -4,10 +4,8 @@ import android.os.Build
 import android.os.Looper
 import android.os.Trace
 import android.util.Log
-import androidx.annotation.Keep
 
 @NotTrace
-@Keep
 object AsmTraceUtils {
     private const val TAG = "AsmTraceStack"
     private val logTags: List<String> = mutableListOf("Application#onCreate")

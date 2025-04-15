@@ -1,6 +1,5 @@
 package com.wuzhu.libasmtrack;
 
-import androidx.annotation.NonNull;
 
 import java.util.LinkedList;
 
@@ -41,7 +40,6 @@ public class Stack<T> {
     /**
      * 打印栈元素
      */
-    @NonNull
     public String toString() {
         return storage.toString();
     }
