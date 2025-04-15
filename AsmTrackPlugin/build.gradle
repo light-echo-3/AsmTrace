@@ -18,7 +18,7 @@ gradlePlugin {
         // 声明插件信息，这里的 hello 名字随意
         hello {
             // 插件ID
-            id = 'test.asm.track.id'
+            id = 'asm.track.id'
             // 插件的实现类
             implementationClass = 'com.wuzhu.asmtrack.AsmTrackPlugin'
         }

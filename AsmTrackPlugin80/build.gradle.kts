@@ -6,18 +6,28 @@ plugins {
 
 gradlePlugin {
     plugins {
-        create("routerPlugin") {
+        create("TracePlugin") {
             group = "plugin.asm.track"
-            version = "2.0.0"
-            id = "test.asm.track.id"
+            version = "3.0.0"
+            id = "asm.track.id"
             implementationClass = "com.wuzhu.asmtrack.AsmTrackPlugin"
         }
     }
 }
 
 publishing {
+    publications {
+        // 这里的 "helloAsm" 名字也可以随便起
+        create<MavenPublication>("helloAsm") {
+            groupId = "plugin.asm.track"
+            artifactId = "asmtrack"
+            version = "3.0.0"
+            from(components["java"])
+        }
+    }
     repositories {
         maven {
+            name = "CurrenDirRepo"
             url = uri("../repo")
         }
     }
