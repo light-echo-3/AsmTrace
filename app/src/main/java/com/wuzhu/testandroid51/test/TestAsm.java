@@ -7,6 +7,22 @@ public class TestAsm {
         System.out.println(a);
     }
 
+
+    private void testThrow(int a) {
+        System.out.println(a);
+        if (a==0) {
+            throw new RuntimeException("test throw");
+        }
+    }
+
+
+    private int test111(int a) {
+        System.out.println(a);
+        return 111;
+    }
+
+
+
     private void test(int a,int b) {
         System.out.println(a + b);
     }
