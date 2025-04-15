@@ -15,6 +15,11 @@ gradlePlugin {
     }
 }
 
+
+group = "plugin.asm.track"
+version = "3.0.0"
+
+
 publishing {
     publications {
         // 这里的 "helloAsm" 名字也可以随便起
