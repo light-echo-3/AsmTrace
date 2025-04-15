@@ -15,6 +15,38 @@ public class TestAsm {
         }
     }
 
+    private int testTryCatchThrow1() {
+        String str = null;
+        try {
+            int l = str.length();
+            return 1;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private int testTryCatchThrow3() {
+        String str = null;
+        try {
+            int l = str.length();
+            return 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 2;
+        }
+    }
+
+    private int testTryCatchThrow2() {
+        String str = null;
+        try {
+            int l = str.length();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            return 111;
+        }
+    }
+
 
     private int test111(int a) {
         System.out.println(a);
