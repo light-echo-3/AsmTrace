@@ -4,6 +4,7 @@ package com.wuzhu.libasmtrack
  * 异常处理
  * 发生uncaughtException时，清空AsmTraceStack
  */
+@Deprecated("改用try catch方案")
 @NotTrace
 class AsmTraceUncaughtExceptionHandler(private val previousHandler: Thread.UncaughtExceptionHandler?) :
         Thread.UncaughtExceptionHandler {

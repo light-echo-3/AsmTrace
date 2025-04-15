@@ -5,8 +5,6 @@ import android.app.Application;
 import android.os.Trace;
 import android.util.Log;
 
-import com.wuzhu.libasmtrack.AsmTraceInitializer;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +22,7 @@ public class MyApplication extends Application {
         if (isDebugBuild()) {
             Log.d("TAG", "onCreate: ");
         }
-        AsmTraceInitializer.init();
+//        AsmTraceInitializer.init();
         Trace.endSection();
     }
 

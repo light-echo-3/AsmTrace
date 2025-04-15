@@ -42,7 +42,7 @@ object InsertCodeUtils {
         methodVisitor.visitLdcInsn(traceName)
         methodVisitor.visitMethodInsn(
             INVOKESTATIC,
-            "com/wuzhu/libasmtrack/AsmTraceStack",
+            "com/wuzhu/libasmtrack/AsmTraceUtils",
             "beginTrace",
             "(Ljava/lang/String;)Ljava/lang/String;",
             false
@@ -56,7 +56,7 @@ object InsertCodeUtils {
         //读取新增的局部变量
         methodVisitor.visitVarInsn(ALOAD, localVarSlot)
         methodVisitor.visitMethodInsn(
-            INVOKESTATIC, "com/wuzhu/libasmtrack/AsmTraceStack", "endTrace", "(Ljava/lang/String;)V", false
+            INVOKESTATIC, "com/wuzhu/libasmtrack/AsmTraceUtils", "endTrace", "(Ljava/lang/String;)V", false
         )
     }
 

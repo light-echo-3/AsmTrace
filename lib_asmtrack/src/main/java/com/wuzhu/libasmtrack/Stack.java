@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import java.util.LinkedList;
 
+@Deprecated()//"改用try catch方案"
 @NotTrace
 public class Stack<T> {
 
