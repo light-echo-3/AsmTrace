@@ -309,6 +309,21 @@ AsmTrace插件是对“System Trace”的扩展。
 Debug.startMethodTracing 对应的是 “Java/Kotlin Methode Trace”。  
 Debug.startMethodTracingSampling 对应的是 “Java/Kotlin Methode Sample”。  
 
+# 使用
+## jitpack
+jitpack:https://jitpack.io/  
+```groovy
+buildscript {
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
+
+    dependencies {
+        classpath 'com.github.light-echo-3:AsmTrace:TAG'//改成对应版本TAG,例如：v3.0.1
+    }
+}
+```
+
 # TODO 
 发布到maven仓库。  
 
