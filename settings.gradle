@@ -1,4 +1,21 @@
+pluginManagement {
+    repositories {
+        maven { url "https://jitpack.io" } // 添加 JitPack 仓库
+        gradlePluginPortal()
+    }
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.namespace == "com.github.light-echo-3") {
+                useModule("com.github.light-echo-3:AsmTrace:${requested.version}")
+            }
+        }
+    }
+}
+
+
 include ':app'
 include ':lib_asmtrack'
 includeBuild 'AsmTrackPlugin'
 includeBuild 'AsmTrackPlugin80'
+
+
