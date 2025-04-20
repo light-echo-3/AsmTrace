@@ -9,7 +9,7 @@ plugins {
 gradlePlugin {
     plugins {
         create("TracePlugin") {
-            group = "plugin.asm.trace"
+            group = "io.github.light-echo-3"
             version = "3.0.0"
             id = "asm.track.id"
             implementationClass = "com.wuzhu.asmtrack.AsmTrackPlugin"
@@ -28,8 +28,8 @@ publishing {
     publications {
         // 这里的 "helloAsm" 名字也可以随便起
         create<MavenPublication>("helloAsm") {
-            groupId = "plugin.asm.trace"
-            artifactId = "asmtrack"
+            groupId = "io.github.light-echo-3"
+            artifactId = "asmtrace"
             version = "3.0.0"
             from(components["java"])
         }
@@ -45,6 +45,21 @@ publishing {
                 logger.warn("------username=$username,password=$password")
             }
         }
+
+        maven {
+            name = "centralManualTesting"
+            url = uri("https://central.sonatype.com/api/v1/publisher/deployments/download/")
+            credentials(HttpHeaderCredentials::class){
+                name = project.findProperty("centralManualTestingAuthHeaderName") as String
+                value = project.findProperty("centralManualTestingAuthHeaderValue") as String
+                logger.warn("------name=$name,password=$value")
+            }
+            authentication {
+                create<HttpHeaderAuthentication>("header")
+            }
+        }
+        mavenCentral()
+
 
         maven {
             name = "CurrenDirRepo"

@@ -19,7 +19,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:8.0.0'
-        classpath "plugin.asm.trace:AsmTrackPlugin80"
+        classpath "io.github.light-echo-3:AsmTrackPlugin80"
 //        classpath 'com.github.light-echo-3.AsmTraceDemo:AsmTrackPlugin:1.0.2'//'com.github.User.Repo:libModule:Tag'
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.10'
     }
