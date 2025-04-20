@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("java-gradle-plugin") //会自动引入java-library、gradleApi()
     id("maven-publish") //maven发布插件
@@ -7,7 +9,7 @@ plugins {
 gradlePlugin {
     plugins {
         create("TracePlugin") {
-            group = "plugin.asm.track"
+            group = "plugin.asm.trace"
             version = "3.0.0"
             id = "asm.track.id"
             implementationClass = "com.wuzhu.asmtrack.AsmTrackPlugin"
@@ -15,21 +17,40 @@ gradlePlugin {
     }
 }
 
+val localProperties = Properties().apply {
+    val file = rootProject.file("local.properties")
+    if (file.exists()) {
+        file.inputStream().use { load(it) }
+    }
+}
+
 publishing {
     publications {
         // 这里的 "helloAsm" 名字也可以随便起
         create<MavenPublication>("helloAsm") {
-            groupId = "plugin.asm.track"
+            groupId = "plugin.asm.trace"
             artifactId = "asmtrack"
             version = "3.0.0"
             from(components["java"])
         }
     }
     repositories {
+
+        maven {
+            name = "mavenCenter"
+            url = uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
+            credentials {
+                username = localProperties.getProperty("SONATYPE_USERNAME")
+                password = localProperties.getProperty("SONATYPE_PASSWORD")
+                logger.warn("------username=$username,password=$password")
+            }
+        }
+
         maven {
             name = "CurrenDirRepo"
             url = uri("../repo")
         }
+
     }
 }
 

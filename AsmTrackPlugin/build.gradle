@@ -5,7 +5,7 @@ plugins {
     id 'maven-publish'
 }
 
-group "plugin.asm.track"
+group "plugin.asm.trace"
 
 def localPropertiesFile = rootProject.file("local.properties")
 def localProperties = new Properties()
@@ -54,7 +54,7 @@ publishing {
         // 这里的 hello 可以任意命名
         helloAsm(MavenPublication) {
             // 插件的组ID，建议设置为插件的包名
-            groupId = 'plugin.asm.track'
+            groupId = 'plugin.asm.trace'
             // 翻译过来是 工件ID，我的理解是插件的名字
             artifactId = 'asmtrack'
             version = '2.0.0'
