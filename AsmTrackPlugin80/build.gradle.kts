@@ -1,3 +1,4 @@
+import org.jreleaser.model.Active
 import java.util.Properties
 
 plugins {
@@ -29,7 +30,7 @@ val localProperties = Properties().apply {
 //----------------------------------- publish begin -----------------------------------
 
 group = "io.github.light-echo-3"
-//version = '1.0.0-SNAPSHOT'
+//version = "1.0.0-SNAPSHOT"
 version = "3.0.6"
 
 java {
@@ -129,9 +130,19 @@ jreleaser {
 
     deploy {
         maven {
+            //尝试发布snapshot，失败
+            //bug:https://github.com/jreleaser/jreleaser/issues
+//            mavenCentral {
+//                create("sonatype") {
+//                    snapshotSupported = true
+//                    active = Active.ALWAYS
+//                    url = "https://central.sonatype.com/repository/maven-snapshots"
+//                    stagingRepository("${layout.buildDirectory.get()}/staging-deploy")
+//                }
+//            }
             mavenCentral {
                 create("sonatype") {
-                    active.set(org.jreleaser.model.Active.ALWAYS)
+                    active.set(Active.ALWAYS)
                     url.set("https://central.sonatype.com/api/v1/publisher")
                     stagingRepository("${layout.buildDirectory.get()}/staging-deploy")
                 }
