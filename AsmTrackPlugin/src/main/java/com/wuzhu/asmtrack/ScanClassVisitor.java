@@ -43,7 +43,6 @@ public class ScanClassVisitor extends ClassVisitor {
         if (isInterface || isAbstractMethod || isNativeMethod || isConstructor) {
             return mv;
         } else {
-//            return new MethodEnterAndExitAdapter(api, mv, className, name, descriptor, classNode);
             return new MethodEnterAndExitAdapter(api, mv, access, name, descriptor, className);
         }
     }
