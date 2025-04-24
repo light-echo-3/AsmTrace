@@ -13,7 +13,7 @@ plugins {
 gradlePlugin {
     plugins {
         create("TracePlugin") {
-            id = "asm.track.id"
+            id = "asm.trace.id"
             implementationClass = "com.wuzhu.asmtrack.AsmTrackPlugin"
         }
     }
@@ -31,7 +31,7 @@ val localProperties = Properties().apply {
 
 group = "io.github.light-echo-3"
 //version = "1.0.0-SNAPSHOT"
-version = "3.0.6"
+version = "3.0.7"
 
 java {
     withJavadocJar()
@@ -124,8 +124,8 @@ jreleaser {
         active.set(org.jreleaser.model.Active.ALWAYS)
         armored.set(true)
         mode.set(org.jreleaser.model.Signing.Mode.FILE)
-        publicKey.set("/Users/hudequan/shell/gpg/public.pgp")
-        secretKey.set("/Users/hudequan/shell/gpg/private.pgp")
+        publicKey.set("~/shell/gpg/public.pgp")
+        secretKey.set("~/shell/gpg/private.pgp")
     }
 
     deploy {

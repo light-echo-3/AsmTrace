@@ -278,9 +278,27 @@ LocalVariablesSorter参考文章：[Java ASM系列：（039）LocalVariablesSort
 此插件不建议release中使用。
 
 ## 2 插件使用
-### 2.2 初始化
-在application中调用 com.wuzhu.libasmtrack.AsmTraceInitializer.init 
-
+### 2.1 项目的根build.gradle中引入插件
+```groovy
+buildscript {
+   
+   repositories {
+      mavenCentral()
+   }
+   
+   dependencies {
+      classpath "io.github.light-echo-3:asmtrace:3.0.7"
+   }
+   
+}
+```
+### 2.2 app build.gradle 中使用插件
+```groovy
+plugins {
+   asm.trace.id
+}
+```
+然后，运行 ./gradlew clean，并重新run项目即可。
 
 ## 3 性能分析
 [Perfetto入门](https://www.jianshu.com/p/f4cf101cc64f)<br>
