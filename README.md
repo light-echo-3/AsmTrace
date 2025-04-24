@@ -295,7 +295,7 @@ buildscript {
 ### 2.2 app build.gradle 中使用插件
 ```groovy
 plugins {
-   asm.trace.id
+   id "asm.trace.id"
 }
 ```
 然后，运行 ./gradlew clean，并重新run项目即可。
