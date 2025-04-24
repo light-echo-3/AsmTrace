@@ -1,0 +1,94 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "io.github.light-echo-3",
+    "module": "asmtrace",
+    "version": "3.0.0",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.5"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "files": [
+        {
+          "name": "asmtrace-3.0.0.jar",
+          "url": "asmtrace-3.0.0.jar",
+          "size": 48038,
+          "sha512": "b60f28784fb90cd6125966388ae6883972ef2bf817959aa98dcbca8a0297b76e813d71816209c794a9a8d15ee47f06931cd385e1f0f9cec5777a91f46578f3bc",
+          "sha256": "3da478bf21f339be897d04b129367d117b38c2e1323dac3fc1e76a3f94d82616",
+          "sha1": "698f67d0c067b7fe18d7cc4bfa660fafa90cfab5",
+          "md5": "e412589486ee0310e4d8b865b28397eb"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "com.android.tools.build",
+          "module": "gradle",
+          "version": {
+            "requires": "8.0.0"
+          }
+        },
+        {
+          "group": "org.ow2.asm",
+          "module": "asm",
+          "version": {
+            "requires": "9.6"
+          }
+        },
+        {
+          "group": "org.ow2.asm",
+          "module": "asm-commons",
+          "version": {
+            "requires": "9.6"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-jdk8",
+          "version": {
+            "requires": "1.8.10"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "asmtrace-3.0.0.jar",
+          "url": "asmtrace-3.0.0.jar",
+          "size": 48038,
+          "sha512": "b60f28784fb90cd6125966388ae6883972ef2bf817959aa98dcbca8a0297b76e813d71816209c794a9a8d15ee47f06931cd385e1f0f9cec5777a91f46578f3bc",
+          "sha256": "3da478bf21f339be897d04b129367d117b38c2e1323dac3fc1e76a3f94d82616",
+          "sha1": "698f67d0c067b7fe18d7cc4bfa660fafa90cfab5",
+          "md5": "e412589486ee0310e4d8b865b28397eb"
+        }
+      ]
+    }
+  ]
+}
