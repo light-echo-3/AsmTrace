@@ -22,6 +22,7 @@ buildscript {
 //        classpath "io.github.light-echo-3:AsmTrackPlugin80"
         classpath 'com.android.tools.build:gradle:7.1.3'
         classpath "io.github.light-echo-3:AsmTrackPlugin"
+//        classpath "io.github.light-echo-3:asmtrace:2.0.2"//验证MavenCentral仓库是否发布成功
 //        classpath 'com.github.light-echo-3.AsmTraceDemo:AsmTrackPlugin:1.0.2'//'com.github.User.Repo:libModule:Tag' //jitpack的使用方式-验证未通过...
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.10'
     }
