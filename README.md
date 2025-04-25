@@ -279,7 +279,7 @@ LocalVariablesSorter参考文章：[Java ASM系列：（039）LocalVariablesSort
 
 ## 2 插件使用
 ### 2.1 项目的根build.gradle中引入插件
-1. >=gradle8.0 & >= java17
+
 ```groovy
 buildscript {
    
@@ -288,24 +288,14 @@ buildscript {
    }
    
    dependencies {
+      //>=gradle8.0 & >= java17 
       classpath "io.github.light-echo-3:asmtrace:3.0.7"
-   }
-   
-}
-```
-  
-1. >=gradle7.2 & >= java11
-buildscript {
-   
-   repositories {
-      mavenCentral()
-   }
-   
-   dependencies {
+      //>=gradle7.2 & >= java11
       classpath "io.github.light-echo-3:asmtrace:2.0.2"
    }
    
 }
+```
   
 ### 2.2 app build.gradle 中使用插件
 ```groovy
