@@ -7,7 +7,7 @@ object Logger {
 
     @JvmStatic
     fun make(project: Project) {
-        logger = project.getLogger()
+        logger = project.logger
     }
 
     @JvmStatic
@@ -24,7 +24,7 @@ object Logger {
     @JvmStatic
     @Suppress("unused")
     fun e(error: String) {
-        logger.error("AsmTrackPlugin:: e >>> ---------$error")
+        logger.error("AsmTrackPlugin:: e >>> --------- $error")
     }
 
 }
