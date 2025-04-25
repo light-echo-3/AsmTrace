@@ -31,7 +31,13 @@ dependencies {
     implementation gradleApi() //必须
     implementation localGroovy() //必须
     //如果要使用 android 的 API，需要引用这个，实现 Transform 的时候会用到
-    implementation 'com.android.tools.build:gradle:4.1.3'
+    implementation 'com.android.tools.build:gradle:7.1.2'
+    implementation 'commons-io:commons-io:2.11.0'
+    implementation 'commons-codec:commons-codec:1.15' // 或更高版本
+
+    implementation("org.ow2.asm:asm:9.1")
+    implementation("org.ow2.asm:asm-commons:9.1")
+//    implementation(kotlin("stdlib-jdk8"))
 }
 
 //需要添加这个，否则groovy找不到kotlin代码

@@ -3,7 +3,6 @@ package com.wuzhu.asmtrack.business
 import com.android.build.gradle.AppExtension
 import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.LibraryExtension
-import com.google.common.collect.ImmutableList
 import org.gradle.api.Project
 import java.io.File
 import java.net.MalformedURLException
@@ -17,7 +16,7 @@ object TraceClassLoader {
     @JvmStatic
     @Throws(MalformedURLException::class)
     fun getClassLoader(project: Project, inputFiles: Collection<File>): URLClassLoader {
-        val urls = ImmutableList.Builder<URL>()
+        val urls = mutableListOf<URL>()
         val androidJar = getAndroidJar(project)
         if (androidJar != null) {
             urls.add(androidJar.toURI().toURL())
@@ -25,21 +24,7 @@ object TraceClassLoader {
         for (inputFile in inputFiles) {
             urls.add(inputFile.toURI().toURL())
         }
-
-//        for (TransformInput inputs : Iterables.concat(invocation.getInputs(), invocation.getReferencedInputs())) {
-//            for (DirectoryInput directoryInput : inputs.getDirectoryInputs()) {
-//                if (directoryInput.getFile().isDirectory()) {
-//                    urls.add(directoryInput.getFile().toURI().toURL());
-//                }
-//            }
-//            for (JarInput jarInput : inputs.getJarInputs()) {
-//                if (jarInput.getFile().isFile()) {
-//                    urls.add(jarInput.getFile().toURI().toURL());
-//                }
-//            }
-//        }
-        val urlImmutableList = urls.build()
-        val classLoaderUrls = urlImmutableList.toTypedArray()
+        val classLoaderUrls = urls.toTypedArray()
         return URLClassLoader(classLoaderUrls)
     }
 

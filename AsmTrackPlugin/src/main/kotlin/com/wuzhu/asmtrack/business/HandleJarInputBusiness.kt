@@ -3,12 +3,12 @@ package com.wuzhu.asmtrack.business
 import com.android.build.api.transform.Format
 import com.android.build.api.transform.JarInput
 import com.android.build.api.transform.TransformOutputProvider
-import com.android.utils.FileUtils
 import com.wuzhu.asmtrack.Config
 import com.wuzhu.asmtrack.ScanClassVisitor
 import com.wuzhu.asmtrack.utils.NotTrackUtils
 import org.apache.commons.codec.digest.DigestUtils
-import org.apache.commons.compress.utils.IOUtils
+import org.apache.commons.io.FileUtils
+import org.apache.commons.io.IOUtils
 import org.objectweb.asm.ClassReader
 import org.objectweb.asm.ClassVisitor
 import org.objectweb.asm.ClassWriter
@@ -24,7 +24,7 @@ import java.util.jar.JarFile
 import java.util.jar.JarOutputStream
 import java.util.zip.ZipEntry
 
-@Deprecated("")
+@Deprecated("use:com.wuzhu.asmtrack.business.ClassHandler")
 object HandleJarInputBusiness {
 
     @JvmStatic

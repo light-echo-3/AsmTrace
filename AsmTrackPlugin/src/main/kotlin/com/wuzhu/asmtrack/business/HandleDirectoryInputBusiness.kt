@@ -3,17 +3,17 @@ package com.wuzhu.asmtrack.business
 import com.android.build.api.transform.DirectoryInput
 import com.android.build.api.transform.Format
 import com.android.build.api.transform.TransformOutputProvider
-import com.android.utils.FileUtils
 import com.wuzhu.asmtrack.Config
 import com.wuzhu.asmtrack.ScanClassVisitor
 import com.wuzhu.asmtrack.utils.NotTrackUtils
+import org.apache.commons.io.FileUtils
 import org.objectweb.asm.ClassReader
 import org.objectweb.asm.ClassWriter
 import org.objectweb.asm.Opcodes
 import org.objectweb.asm.tree.ClassNode
 import java.io.*
 
-@Deprecated("")
+@Deprecated("use:com.wuzhu.asmtrack.business.ClassHandler")
 object HandleDirectoryInputBusiness {
 
 
