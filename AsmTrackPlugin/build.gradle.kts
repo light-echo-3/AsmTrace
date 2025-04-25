@@ -6,7 +6,7 @@ plugins {
     kotlin("jvm") version "1.8.10"//支持kotlin编写插件
     //自动发布到maven中央仓库插件
     //https://jreleaser.org/guide/latest/examples/maven/maven-central.html#_gradle
-//    id ("org.jreleaser") version "1.17.0"
+    id ("org.jreleaser") version "1.17.0"
 }
 
 gradlePlugin {
@@ -134,49 +134,49 @@ kotlin {
 
 //----------------------------------- jreleaser begin -----------------------------------
 
-//// jreleaser配置文件：~/.jreleaser/config.toml
-///*
-//jreleaser:https://jreleaser.org/guide/latest/examples/maven/maven-central.html#_gradle
-//
-//JRELEASER_MAVENCENTRAL_USERNAME = "<your-publisher-portal-username>"
-//JRELEASER_MAVENCENTRAL_PASSWORD = "<your-publisher-portal-password>"
-//JRELEASER_NEXUS2_USERNAME = "<your-sonatype-account-username>"
-//JRELEASER_NEXUS2_PASSWORD = "<your-sonatype-account-password>"
-//JRELEASER_GPG_PASSPHRASE = "<your-pgp-passphrase>"
-//JRELEASER_GITHUB_TOKEN = "<your-github-token"
-// */
-//jreleaser {
-//    gitRootSearch.set(true)
-//    signing {
-//        active.set(org.jreleaser.model.Active.ALWAYS)
-//        armored.set(true)
-//        mode.set(org.jreleaser.model.Signing.Mode.FILE)
-//        publicKey.set("/Users/hudequan/shell/gpg/public.pgp")
-//        secretKey.set("/Users/hudequan/shell/gpg/private.pgp")
-//    }
-//
-//    deploy {
-//        maven {
-//            //尝试发布snapshot，失败
-//            //bug:https://github.com/jreleaser/jreleaser/issues
-////            mavenCentral {
-////                create("sonatype") {
-////                    snapshotSupported = true
-////                    active = org.jreleaser.model.Active.ALWAYS
-////                    url = "https://central.sonatype.com/repository/maven-snapshots"
-////                    stagingRepository("${layout.buildDirectory.get()}/staging-deploy")
-////                }
-////            }
+// jreleaser配置文件：~/.jreleaser/config.toml
+/*
+jreleaser:https://jreleaser.org/guide/latest/examples/maven/maven-central.html#_gradle
+
+JRELEASER_MAVENCENTRAL_USERNAME = "<your-publisher-portal-username>"
+JRELEASER_MAVENCENTRAL_PASSWORD = "<your-publisher-portal-password>"
+JRELEASER_NEXUS2_USERNAME = "<your-sonatype-account-username>"
+JRELEASER_NEXUS2_PASSWORD = "<your-sonatype-account-password>"
+JRELEASER_GPG_PASSPHRASE = "<your-pgp-passphrase>"
+JRELEASER_GITHUB_TOKEN = "<your-github-token"
+ */
+jreleaser {
+    gitRootSearch.set(true)
+    signing {
+        active.set(org.jreleaser.model.Active.ALWAYS)
+        armored.set(true)
+        mode.set(org.jreleaser.model.Signing.Mode.FILE)
+        publicKey.set("/Users/hudequan/shell/gpg/public.pgp")
+        secretKey.set("/Users/hudequan/shell/gpg/private.pgp")
+    }
+
+    deploy {
+        maven {
+            //尝试发布snapshot，失败
+            //bug:https://github.com/jreleaser/jreleaser/issues
 //            mavenCentral {
 //                create("sonatype") {
-//                    active.set(org.jreleaser.model.Active.ALWAYS)
-//                    url.set("https://central.sonatype.com/api/v1/publisher")
+//                    snapshotSupported = true
+//                    active = org.jreleaser.model.Active.ALWAYS
+//                    url = "https://central.sonatype.com/repository/maven-snapshots"
 //                    stagingRepository("${layout.buildDirectory.get()}/staging-deploy")
 //                }
 //            }
-//        }
-//    }
-//}
+            mavenCentral {
+                create("sonatype") {
+                    active.set(org.jreleaser.model.Active.ALWAYS)
+                    url.set("https://central.sonatype.com/api/v1/publisher")
+                    stagingRepository("${layout.buildDirectory.get()}/staging-deploy")
+                }
+            }
+        }
+    }
+}
 
 
 //----------------------------------- jreleaser end -----------------------------------
