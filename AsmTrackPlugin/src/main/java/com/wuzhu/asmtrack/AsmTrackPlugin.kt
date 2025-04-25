@@ -23,8 +23,8 @@ class AsmTrackPlugin : Plugin<Project> {
              * todo support gradle-7.2
              * registerTransform api 已经弃用
              */
-//            val transformImpl = ASMTransform(project)
-//            android.registerTransform(transformImpl)
+            val transformImpl = ASMTransform(project)
+            android.registerTransform(transformImpl)
             Logger.w("registerTransform")
         }
 
