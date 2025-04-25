@@ -128,7 +128,7 @@ repositories {
     gradlePluginPortal()
 }
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(11)
 }
 
 
