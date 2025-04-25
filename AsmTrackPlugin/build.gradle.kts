@@ -114,7 +114,7 @@ publishing {
 
 dependencies {
 //    implementation("com.android.tools.build:gradle:8.0.0")
-    implementation("com.android.tools.build:gradle:7.1.2")
+    implementation("com.android.tools.build:gradle:7.1.3")
     implementation("commons-io:commons-io:2.11.0")
     implementation("commons-codec:commons-codec:1.15") // 或更高版本
     implementation("org.ow2.asm:asm:9.6")
