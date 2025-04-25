@@ -30,7 +30,7 @@ val localProperties = Properties().apply {
 
 group = "io.github.light-echo-3"
 //version = "1.0.0-SNAPSHOT"
-version = "2.0.2"
+version = "3.0.8"
 
 java {
     withJavadocJar()
