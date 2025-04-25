@@ -50,7 +50,7 @@ dependencies {
 
 }
 
-//asmTrackPluginConfig {
-//    open false
-//    traceJar false
-//}
+asmTrackPluginConfig {
+    open false
+    traceJar false
+}
