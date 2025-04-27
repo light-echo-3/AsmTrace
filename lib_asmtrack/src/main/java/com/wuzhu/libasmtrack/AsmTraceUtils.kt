@@ -29,20 +29,15 @@ object AsmTraceUtils {
 
     private fun traceBeginSection(name: String){
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            Log.e(TAG, "beginTrace: sdk版本太低：$name")
+            Log.e(TAG, "beginTrace: sdk版本太低，暂不支持trace，最低支持Android 4.3：$name")
         } else {
-            val newName = if (name.length > 127) {
-                Log.e(TAG, "name length超长,name=$name")
-                val length = name.length
-                name.substring(length - 127,length)
-            } else name
-            Trace.beginSection(newName)
+            Trace.beginSection(name)
         }
     }
 
     private fun traceEndSection(){
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            Log.e(TAG, "beginTrace: sdk版本太低：")
+            Log.e(TAG, "beginTrace: sdk版本太低，暂不支持trace，最低支持Android 4.3")
         } else {
             Trace.endSection()
         }
