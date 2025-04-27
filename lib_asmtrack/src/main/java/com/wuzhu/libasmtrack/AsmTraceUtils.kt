@@ -8,9 +8,6 @@ import android.util.Log
 @NotTrace
 object AsmTraceUtils {
     private const val TAG = "AsmTraceStack"
-    private val logTags: List<String> = mutableListOf("Application#onCreate")
-
-    private var count = 0
 
     /**
      * 是否支持多线程，默认只支持主线程
@@ -22,14 +19,12 @@ object AsmTraceUtils {
         if (!isTrace) {
             return null
         }
-        if (name == null || name.trim().isEmpty()) {
+        if (name == null) {
             Log.e(TAG, "beginTrace: name是空：$name")
             return null
         }
-        val newName = "${name}_${genCount()}"
-        printLogByTags("beginTrace", newName)
-        traceBeginSection(newName)
-        return newName
+        traceBeginSection(name)
+        return name
     }
 
     private fun traceBeginSection(name: String){
@@ -58,11 +53,10 @@ object AsmTraceUtils {
         if (!isTrace) {
             return
         }
-        if (name == null || name.trim().isEmpty()) {
+        if (name == null) {
             Log.e(TAG, "endTrace:stack是空 或 name是空：$name")
             return
         }
-        printLogByTags("endTrace", name)
         traceEndSection()
     }
 
@@ -73,21 +67,5 @@ object AsmTraceUtils {
     private val isMainThread: Boolean
         get() = Looper.getMainLooper() == Looper.myLooper()
 
-    private fun printLogByTags(prefix: String, name: String) {
-        if (logTags.isEmpty()) return
-        for (tag in logTags) {
-            if (tag.trim().isNotEmpty() && name.contains(tag)) {
-                Log.e(TAG, "!!!!!!$prefix:$name")
-            }
-        }
-    }
-
-    private fun genCount():Int {
-        count ++
-        if (count > 999_999) {
-            count = 1//重新计数
-        }
-        return count
-    }
 
 }
