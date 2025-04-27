@@ -302,6 +302,11 @@ buildscript {
 plugins {
    id "asm.trace.id"
 }
+
+dependencies {
+    //引入依赖包
+    implementation "io.github.light-echo-3:asmtraceLib:3.0.0"
+}
 ```
 然后，运行 ./gradlew clean，并重新run项目即可。
 
