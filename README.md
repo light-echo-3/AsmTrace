@@ -147,9 +147,6 @@ public class MethodEnterAndExitAdapter extends AdviceAdapter {
 2.类名，不包含包名。<br>
 3.方法名。<br>
 4.遍历每个方法时，生成的num，可用于区分重载的函数。<br>
-5.运行时，进入函数时，生成的num，用于区分递归调用。<br>
-正常的递归调用，没有这一部分也能正常work；<br> 
-但是出现异常时，这部分能保证trace的正确性。<br>
 
 
 #### 2.3.2.插桩实现
@@ -225,7 +222,7 @@ LocalVariablesSorter参考文章：[Java ASM系列：（039）LocalVariablesSort
 
 
 ## 3.方法异常trace end处理
-### 3.1 问题
+### 3.1 处理throw
 一个java方法，只有一个入口，但是出口，可能有两个：
 1.正常return；2.抛出异常。  
 <br>
@@ -241,17 +238,12 @@ LocalVariablesSorter参考文章：[Java ASM系列：（039）LocalVariablesSort
         }
     }
 ```
-原本的方案是：  
+方案是：  
 在入口1处，插入Trace.beginSection。  
-在入口 2 & 3 出，分别插入Trace.endSection。  
-对于上面那种显示定义了"throw new Exception..."，可以保证begin，end成对调用；  
-但是，对于运行时抛出的异常，无法处理，最终会导致Trace.endSection调用次数 < Trace.beginSection,导致的后果就是：出现运行时异常时，很多函数没有正常end。
-<br>
+在出口 2 & 3 出，分别插入Trace.endSection。  
 
-### 3.2 解决方案
-每个函数生成一个唯一name标识（见2.3.1.trace名称生成规则），定义一个栈，进入函数时，将name入栈，函数结束时，去栈中找对应的name，找到后，栈中name及以上全部出栈。如此，即使中间函数出现异常，缺少调用Trace.endSection，但当有函数正常结束时，会多次调用Trace.endSection，从而保证Trace.beginSection & Trace.endSection一一对应。
-详细实现见：com.wuzhu.libasmtrack.AsmTraceStack
-<br>
+
+
 <br>
 <br>
 <br>
