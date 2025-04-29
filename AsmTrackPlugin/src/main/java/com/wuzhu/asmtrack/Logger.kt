@@ -1,9 +1,10 @@
 package com.wuzhu.asmtrack
 
 import org.gradle.api.Project
+import org.gradle.api.logging.Logger
 
 object Logger {
-    lateinit var logger: org.gradle.api.logging.Logger
+    lateinit var logger: Logger
 
     @JvmStatic
     fun make(project: Project) {
@@ -14,6 +15,11 @@ object Logger {
     @Suppress("unused")
     fun i(info: String) {
         logger.info("AsmTrackPlugin:: i >>> --- $info")
+    }
+
+    @JvmStatic
+    fun lifecycle(warning: String) {
+        logger.lifecycle("AsmTrackPlugin:: w >>> ------ $warning")
     }
 
     @JvmStatic

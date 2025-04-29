@@ -12,7 +12,10 @@ import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.OutputFile
+import org.gradle.api.tasks.PathSensitive
+import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
+import org.gradle.work.InputChanges
 import java.io.BufferedOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -21,18 +24,18 @@ import java.util.jar.JarFile
 import java.util.jar.JarOutputStream
 
 /**
- * Created by znh on 10/09/2023
- * <p>
- * Description: HuiRouterTask
+ * @author light echo
  */
 abstract class AsmTraceTask : DefaultTask() {
 
     //所有的jar文件输入信息
     @get:InputFiles
+    @get:PathSensitive(PathSensitivity.RELATIVE)
     abstract val allJars: ListProperty<RegularFile>
 
     //所有的class文件输入信息
     @get:InputFiles
+    @get:PathSensitive(PathSensitivity.RELATIVE)
     abstract val allDirectories: ListProperty<Directory>
 
     //经过插桩修改后的输出信息
@@ -46,7 +49,12 @@ abstract class AsmTraceTask : DefaultTask() {
     private var routerApiJarFile: File? = null
 
     @TaskAction
-    fun taskAction() {
+    fun taskAction(inputChanges: InputChanges) {
+        if (!inputChanges.isIncremental) {
+            Logger.lifecycle("[AsmTraceTask] 全量构建")
+        } else {
+            Logger.lifecycle("[AsmTraceTask] 增量构建")
+        }
 
         Logger.e("AsmTraceTask-taskAction")
 
