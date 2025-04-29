@@ -20,7 +20,7 @@ object ClassHandler {
     /***
      * [com.wuzhu.asmtrack.business.HandleDirectoryInputBusiness.scanClass]
      */
-    fun handleClassInDirectory(classLoader_:ClassLoader,inFile: File, traceConfig: Config) {
+    fun handleClassInDirectory(classLoader_:ClassLoader,inFile: File, traceConfig: Config): ByteArray {
         val inputStream: InputStream = FileInputStream(inFile)
         val classReader = ClassReader(inputStream)
         val classNode = ClassNode()
@@ -30,7 +30,7 @@ object ClassHandler {
             )
         ) {
             inputStream.close()
-            return
+            return inFile.readBytes()
         }
         val classWriter = object : ClassWriter(classReader, COMPUTE_FRAMES) {
             override fun getClassLoader(): ClassLoader {
@@ -40,15 +40,12 @@ object ClassHandler {
         try {
             val classVisitor = ScanClassVisitor(classNode, Opcodes.ASM7, classWriter)
             classReader.accept(classVisitor, ClassReader.EXPAND_FRAMES)
-            //覆盖原来的class文件
             val code = classWriter.toByteArray()
-            val fos =
-                FileOutputStream(inFile.parentFile.absolutePath + File.separator + inFile.name)
-            fos.write(code)
-            fos.close()
+            return code
         } catch (e: Throwable) {
             println("---error---插桩失败：inFile = $inFile")
             e.printStackTrace()
+            return inFile.readBytes()
         } finally {
             inputStream.close()
         }

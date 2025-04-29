@@ -62,14 +62,14 @@ abstract class AsmTraceTask : DefaultTask() {
         allDirectories.get().forEach { directory ->
             directory.asFile.walk().forEach { file ->
                 if (file.isFile) {
-                    if (file.absolutePath.endsWith(".class")) {
+                    val bytes = if (file.absolutePath.endsWith(".class")) {
                         ClassHandler.handleClassInDirectory(classLoader,file, config)
-                    }
+                    } else file.readBytes()
                     val relativePath = directory.asFile.toURI().relativize(file.toURI()).path
                     //1.putNextEntry
                     jarOutput.putNextEntry(JarEntry(relativePath.replace(File.separatorChar, '/')))
                     //2.写入字节
-                    jarOutput.write(file.inputStream().readBytes())
+                    jarOutput.write(bytes)
                     //3.关闭
                     jarOutput.closeEntry()
                 }
