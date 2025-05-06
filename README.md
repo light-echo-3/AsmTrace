@@ -281,7 +281,7 @@ buildscript {
    
    dependencies {
       //>=gradle8.0 & >= java17 
-      classpath "io.github.light-echo-3:asmtrace:3.0.8"
+      classpath "io.github.light-echo-3:asmtrace:3.0.9"
       //>=gradle7.2 & >= java11
       classpath "io.github.light-echo-3:asmtrace:2.0.2"
    }
